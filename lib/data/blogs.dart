@@ -33,15 +33,15 @@ class Blogs with ChangeNotifier {
         }));
     final responseData = jsonDecode(response.body);
     _blogs.add(Blog(responseData['name'], blogTitle, blogContent));
-
     notifyListeners();
   }
 
   Future<void> fetchBlogsFromFirebase([bool userBlogs = false]) async {
-    String urlSegment = userBlogs ? '&orderBy="authorId"&equalTo=$userId' : '';
+    String urlSegment = userBlogs ? 'orderBy="authorId"&equalTo="$userId"' : '';
 
     final url =
-        "https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken$urlSegment";
+        "https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment";
+    print(url);
     final response = await http.get(url);
     final blogsData = jsonDecode(response.body) as Map<String, dynamic>;
     List<Blog> fetchedBlogs = [];

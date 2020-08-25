@@ -1,5 +1,6 @@
 import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/screens/add_blog_screen.dart';
+import 'package:fireblogs/screens/user_blogs_screen.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blogs_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,11 +12,17 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
+            icon: Icon(Icons.account_circle),
+            onPressed: () {
+              Navigator.of(context).pushNamed(UserBlogsScreen.routeName);
+            },
+          ),
+          IconButton(
             icon: Icon(Icons.cancel),
             onPressed: () {
               Provider.of<Auth>(context, listen: false).logOut();
             },
-          )
+          ),
         ],
       ),
       body: BlogsList(),
