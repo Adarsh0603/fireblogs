@@ -6,3 +6,9 @@ const kTitleFieldInputDecoration = InputDecoration(
 const kContentFieldInputDecoration = InputDecoration(
   hintText: 'Blog Content',
 );
+const kEmailFieldInputDecoration = InputDecoration(
+  hintText: 'Email',
+);
+const kPasswordFieldInputDecoration = InputDecoration(
+  hintText: 'Password',
+);

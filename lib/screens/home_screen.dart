@@ -1,11 +1,23 @@
+import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/screens/add_blog_screen.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blogs_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.cancel),
+            onPressed: () {
+              Provider.of<Auth>(context, listen: false).logOut();
+            },
+          )
+        ],
+      ),
       body: BlogsList(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
