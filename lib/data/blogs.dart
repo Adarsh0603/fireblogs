@@ -5,19 +5,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class Blogs with ChangeNotifier {
+  String authToken;
+  String userId;
+
   List<Blog> _blogs = [];
 
   List<Blog> get blogs {
     return _blogs;
   }
 
+  void update(String token, String user) {
+    authToken = token;
+    userId = user;
+
+    notifyListeners();
+  }
+
   Future<void> addBlog(String blogTitle, String blogContent) async {
-    const url = "https://fireblogs-da7f6.firebaseio.com/blogs.json";
+    final url =
+        "https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken";
 
     final response = await http.post(url,
         body: jsonEncode({
           'blogTitle': blogTitle,
           'blogContent': blogContent,
+          'authorId': userId,
         }));
     final responseData = jsonDecode(response.body);
     _blogs.add(Blog(responseData['name'], blogTitle, blogContent));
@@ -25,8 +37,11 @@ class Blogs with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchBlogsFromFirebase() async {
-    const url = "https://fireblogs-da7f6.firebaseio.com/blogs.json";
+  Future<void> fetchBlogsFromFirebase([bool userBlogs = false]) async {
+    String urlSegment = userBlogs ? '&orderBy="authorId"&equalTo=$userId' : '';
+
+    final url =
+        "https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken$urlSegment";
     final response = await http.get(url);
     final blogsData = jsonDecode(response.body) as Map<String, dynamic>;
     List<Blog> fetchedBlogs = [];

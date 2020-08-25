@@ -18,8 +18,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (BuildContext context) => Auth(),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProxyProvider<Auth, Blogs>(
           create: (BuildContext context) => Blogs(),
+          update: (_, auth, blogs) => blogs..update(auth.token, auth.userId),
         ),
       ],
       child: Consumer<Auth>(
