@@ -1,4 +1,5 @@
 import 'package:fireblogs/data/blogs.dart';
+import 'package:fireblogs/models/blog.dart';
 import 'package:flutter/material.dart';
 import 'package:fireblogs/constants.dart';
 import 'package:provider/provider.dart';
@@ -14,13 +15,17 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
   bool isLoading = false;
   String blogTitle;
   String blogContent;
-  void onBlogSave() async {
+  void onBlogSave(bool forUpdate, Blog userBlog) async {
     _formKey.currentState.save();
     setState(() {
       isLoading = true;
     });
-    await Provider.of<Blogs>(context, listen: false)
-        .addBlog(blogTitle, blogContent);
+    if (forUpdate)
+      await Provider.of<Blogs>(context, listen: false)
+          .updateBlog(blogTitle, blogContent, userBlog.id);
+    else
+      await Provider.of<Blogs>(context, listen: false)
+          .addBlog(blogTitle, blogContent);
     setState(() {
       isLoading = false;
     });
@@ -29,6 +34,9 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool forUpdate = false;
+    final currentBlog = ModalRoute.of(context).settings.arguments as Blog;
+    if (currentBlog != null) forUpdate = true;
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -36,12 +44,15 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
           child: Column(
             children: [
               TextFormField(
+                initialValue: currentBlog != null ? currentBlog.blogTitle : '',
                 decoration: kTitleFieldInputDecoration,
                 onSaved: (value) {
                   blogTitle = value;
                 },
               ),
               TextFormField(
+                initialValue:
+                    currentBlog != null ? currentBlog.blogContent : '',
                 decoration: kContentFieldInputDecoration,
                 maxLines: 10,
                 onSaved: (value) {
@@ -49,7 +60,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                 },
               ),
               FlatButton(
-                onPressed: onBlogSave,
+                onPressed: () => onBlogSave(forUpdate, currentBlog),
                 child: Text(isLoading ? 'Publishing...' : 'Publish Blog'),
               )
             ],

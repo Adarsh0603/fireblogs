@@ -5,10 +5,4 @@ class Blog {
   final String authorName;
 
   Blog(this.id, this.blogTitle, this.blogContent, this.authorName);
-  Map<String, dynamic> toMap() {
-    return {
-      'blogTitle': blogTitle,
-      'blogContent': blogContent,
-    };
-  }
 }

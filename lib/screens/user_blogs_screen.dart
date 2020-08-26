@@ -1,4 +1,5 @@
 import 'package:fireblogs/data/blogs.dart';
+import 'package:fireblogs/widgets/user_blog_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +28,7 @@ class UserBlogsList extends StatelessWidget {
           return Consumer<Blogs>(
             builder: (BuildContext context, blogs, _) => ListView.builder(
               itemCount: blogs.userBlogs.length,
-              itemBuilder: (ctx, i) => Text(blogs.userBlogs[i].blogTitle),
+              itemBuilder: (ctx, i) => UserBlogItem(blogs.userBlogs[i]),
             ),
           );
         } else

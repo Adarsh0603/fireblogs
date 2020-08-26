@@ -49,6 +49,41 @@ class Blogs with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateBlog(
+      String blogTitle, String blogContent, String blogId) async {
+    final url =
+        "https://fireblogs-da7f6.firebaseio.com/blogs/$blogId.json?auth=$authToken";
+
+    final index = _blogs.indexWhere((element) => element.id == blogId);
+    final userBlogsIndex =
+        _userBlogs.indexWhere((element) => element.id == blogId);
+    _blogs[index] = Blog(
+      blogId,
+      blogTitle,
+      blogContent,
+      _username,
+    );
+
+    _userBlogs[userBlogsIndex] = Blog(
+      blogId,
+      blogTitle,
+      blogContent,
+      _username,
+    );
+
+    notifyListeners();
+
+    final response = await http.put(url,
+        body: jsonEncode({
+          'blogTitle': blogTitle,
+          'blogContent': blogContent,
+          'authorId': userId,
+          'authorName': _username,
+        }));
+    final responseData = jsonDecode(response.body);
+    print(responseData);
+  }
+
   Future<void> fetchBlogsFromFirebase([bool filter = false]) async {
     String urlSegment = filter ? 'orderBy="authorId"&equalTo="$userId"' : '';
 

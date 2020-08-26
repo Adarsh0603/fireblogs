@@ -15,7 +15,7 @@ class BlogCard extends StatelessWidget {
         children: [
           Text(blog.blogTitle),
           Text(blog.blogContent),
-          Text(blog.authorName)
+          Text(blog.authorName ?? 'Random')
         ],
       ),
     );
