@@ -30,13 +30,14 @@ class Blogs with ChangeNotifier {
   Future<void> addBlog(String blogTitle, String blogContent) async {
     final url =
         "https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken";
-
+    final String blogDate = DateTime.now().toIso8601String();
     final response = await http.post(url,
         body: jsonEncode({
           'blogTitle': blogTitle,
           'blogContent': blogContent,
           'authorId': userId,
           'authorName': _username,
+          'blogDate': blogDate,
         }));
     final responseData = jsonDecode(response.body);
     _blogs.add(Blog(
@@ -44,6 +45,7 @@ class Blogs with ChangeNotifier {
       blogTitle,
       blogContent,
       _username,
+      blogDate,
     ));
     notifyListeners();
   }
@@ -52,7 +54,7 @@ class Blogs with ChangeNotifier {
       String blogTitle, String blogContent, String blogId) async {
     final url =
         "https://fireblogs-da7f6.firebaseio.com/blogs/$blogId.json?auth=$authToken";
-
+    final String blogDate = DateTime.now().toIso8601String();
     final index = _blogs.indexWhere((element) => element.id == blogId);
     final userBlogsIndex =
         _userBlogs.indexWhere((element) => element.id == blogId);
@@ -61,6 +63,7 @@ class Blogs with ChangeNotifier {
       blogTitle,
       blogContent,
       _username,
+      blogDate,
     );
 
     _userBlogs[userBlogsIndex] = Blog(
@@ -68,6 +71,7 @@ class Blogs with ChangeNotifier {
       blogTitle,
       blogContent,
       _username,
+      blogDate,
     );
 
     notifyListeners();
@@ -77,6 +81,7 @@ class Blogs with ChangeNotifier {
           'blogContent': blogContent,
           'authorId': userId,
           'authorName': _username,
+          'blogDate': blogDate
         }));
   }
 
@@ -84,18 +89,18 @@ class Blogs with ChangeNotifier {
     String urlSegment = filter ? 'orderBy="authorId"&equalTo="$userId"' : '';
 
     final url =
-        "https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment";
+        'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
     final response = await http.get(url);
     final blogsData = jsonDecode(response.body) as Map<String, dynamic>;
     List<Blog> fetchedBlogs = [];
     blogsData.forEach((id, blog) {
-      fetchedBlogs.add(
-          Blog(id, blog['blogTitle'], blog['blogContent'], blog['authorName']));
+      fetchedBlogs.add(Blog(id, blog['blogTitle'], blog['blogContent'],
+          blog['authorName'], blog['blogDate']));
     });
     if (filter)
-      _userBlogs = fetchedBlogs.reversed.toList();
+      _userBlogs = fetchedBlogs;
     else
-      _blogs = fetchedBlogs.reversed.toList();
+      _blogs = fetchedBlogs;
 
     notifyListeners();
   }

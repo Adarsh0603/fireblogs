@@ -18,6 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
   bool isLoading = false;
   final _passwordController = TextEditingController();
   bool isLogin = true;
+
   void submit(BuildContext context) async {
     if (!_formKey.currentState.validate()) return;
     _formKey.currentState.save();
@@ -33,6 +34,7 @@ class _AuthScreenState extends State<AuthScreen> {
         await Provider.of<Auth>(context, listen: false)
             .signUp(email.trim(), password.trim(), username.trim());
     } on HttpException catch (e) {
+      Scaffold.of(context).hideCurrentSnackBar();
       Scaffold.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
         duration: Duration(seconds: 2),

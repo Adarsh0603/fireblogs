@@ -3,6 +3,8 @@ class Blog {
   final String blogTitle;
   final String blogContent;
   final String authorName;
+  final String blogDate;
 
-  Blog(this.id, this.blogTitle, this.blogContent, this.authorName);
+  Blog(this.id, this.blogTitle, this.blogContent, this.authorName,
+      this.blogDate);
 }
