@@ -87,7 +87,6 @@ class Auth with ChangeNotifier {
       'expiryDate': _expiryDate.toIso8601String()
     });
     prefs.setString('userData', userDataToSave);
-    fetchUserDetails();
   }
 
   Future<void> signUp(String email, String password, String username) async {
@@ -98,10 +97,12 @@ class Auth with ChangeNotifier {
         body: json.encode({
           "username": username,
         }));
+    fetchUserDetails();
   }
 
   Future<void> signIn(String email, String password) async {
-    _authenticate(email, password, 'signInWithPassword');
+    await _authenticate(email, password, 'signInWithPassword');
+    fetchUserDetails();
   }
 
   Future<void> logOut() async {
