@@ -12,11 +12,16 @@ class _AuthScreenState extends State<AuthScreen> {
   final _formKey = GlobalKey<FormState>();
   String email;
   String password;
-
+  String username;
+  bool isLogin = true;
   void submit() async {
     _formKey.currentState.save();
-    await Provider.of<Auth>(context, listen: false)
-        .signIn(email.trim(), password.trim());
+    if (isLogin)
+      await Provider.of<Auth>(context, listen: false)
+          .signIn(email.trim(), password.trim());
+    else
+      await Provider.of<Auth>(context, listen: false)
+          .signUp(email.trim(), password.trim(), username.trim());
   }
 
   @override
@@ -29,6 +34,13 @@ class _AuthScreenState extends State<AuthScreen> {
             key: _formKey,
             child: Column(
               children: [
+                if (!isLogin)
+                  TextFormField(
+                    decoration: kUsernameFieldInputDecoration,
+                    onSaved: (value) {
+                      username = value;
+                    },
+                  ),
                 TextFormField(
                   decoration: kEmailFieldInputDecoration,
                   onSaved: (value) {
@@ -44,6 +56,14 @@ class _AuthScreenState extends State<AuthScreen> {
                 FlatButton(
                   child: Text('signIn'),
                   onPressed: submit,
+                ),
+                FlatButton(
+                  child: Text(!isLogin ? 'Sign In' : 'Create an Account'),
+                  onPressed: () {
+                    setState(() {
+                      isLogin = !isLogin;
+                    });
+                  },
                 )
               ],
             ),

@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 class Blogs with ChangeNotifier {
   String authToken;
   String userId;
+  String _username;
 
   List<Blog> _blogs = [];
   List<Blog> _userBlogs = [];
@@ -19,9 +20,10 @@ class Blogs with ChangeNotifier {
     return _userBlogs;
   }
 
-  void update(String token, String user) {
+  void update(String token, String user, String username) {
     authToken = token;
     userId = user;
+    _username = username;
 
     notifyListeners();
   }
@@ -35,9 +37,15 @@ class Blogs with ChangeNotifier {
           'blogTitle': blogTitle,
           'blogContent': blogContent,
           'authorId': userId,
+          'authorName': _username,
         }));
     final responseData = jsonDecode(response.body);
-    _blogs.add(Blog(responseData['name'], blogTitle, blogContent));
+    _blogs.add(Blog(
+      responseData['name'],
+      blogTitle,
+      blogContent,
+      _username,
+    ));
     notifyListeners();
   }
 
@@ -50,7 +58,8 @@ class Blogs with ChangeNotifier {
     final blogsData = jsonDecode(response.body) as Map<String, dynamic>;
     List<Blog> fetchedBlogs = [];
     blogsData.forEach((id, blog) {
-      fetchedBlogs.add(Blog(id, blog['blogTitle'], blog['blogContent']));
+      fetchedBlogs.add(
+          Blog(id, blog['blogTitle'], blog['blogContent'], blog['authorName']));
     });
     if (filter)
       _userBlogs = fetchedBlogs;
