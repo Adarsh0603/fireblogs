@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<Auth>(
         builder: (BuildContext context, auth, _) => MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'FireBlogs',
           home: auth.isAuth
               ? HomeScreen()

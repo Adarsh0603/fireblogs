@@ -5,6 +5,7 @@ import 'package:fireblogs/data/apikeys.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fireblogs/models/http_exception.dart';
 
 class Auth with ChangeNotifier {
   String _token;
@@ -68,43 +69,67 @@ class Auth with ChangeNotifier {
       String email, String password, String method) async {
     var url =
         "https://identitytoolkit.googleapis.com/v1/accounts:$method?key=$apiKey";
-    final response = await http.post(url,
-        body: jsonEncode({
-          'email': email,
-          'password': password,
-          'returnSecureToken': true,
-        }));
-    final userData = jsonDecode(response.body);
-    _token = userData['idToken'];
-    _userId = userData['localId'];
-    _expiryDate =
-        DateTime.now().add(Duration(seconds: int.parse(userData['expiresIn'])));
-    _autoLogout();
+    try {
+      final response = await http.post(url,
+          body: jsonEncode({
+            'email': email,
+            'password': password,
+            'returnSecureToken': true,
+          }));
+      final responseData = jsonDecode(response.body) as Map<String, dynamic>;
+      if (responseData.containsKey('error')) _errorHandling(responseData);
+      if (response.statusCode == 200) {
+        final userData = jsonDecode(response.body);
+        _token = userData['idToken'];
+        _userId = userData['localId'];
+        _expiryDate = DateTime.now()
+            .add(Duration(seconds: int.parse(userData['expiresIn'])));
+        _autoLogout();
 
-    notifyListeners();
-    final prefs = await SharedPreferences.getInstance();
-    final userDataToSave = jsonEncode({
-      'token': _token,
-      'userId': _userId,
-      'expiryDate': _expiryDate.toIso8601String()
-    });
-    prefs.setString('userData', userDataToSave);
+        notifyListeners();
+        final prefs = await SharedPreferences.getInstance();
+        final userDataToSave = jsonEncode({
+          'token': _token,
+          'userId': _userId,
+          'expiryDate': _expiryDate.toIso8601String()
+        });
+        prefs.setString('userData', userDataToSave);
+      } else {
+        throw 'Cant Login';
+      }
+    } on HttpException {
+      rethrow;
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> signUp(String email, String password, String username) async {
-    await _authenticate(email, password, 'signUp');
-    final url =
-        "https://fireblogs-da7f6.firebaseio.com/users/$_userId.json?auth=$_token";
-    await http.put(url,
-        body: json.encode({
-          "username": username,
-        }));
-    fetchUserDetails();
+    try {
+      await _authenticate(email, password, 'signUp');
+      final url =
+          "https://fireblogs-da7f6.firebaseio.com/users/$_userId.json?auth=$_token";
+      await http.put(url,
+          body: json.encode({
+            "username": username,
+          }));
+      fetchUserDetails();
+    } on HttpException {
+      rethrow;
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> signIn(String email, String password) async {
-    await _authenticate(email, password, 'signInWithPassword');
-    fetchUserDetails();
+    try {
+      await _authenticate(email, password, 'signInWithPassword');
+      fetchUserDetails();
+    } on HttpException {
+      rethrow;
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> logOut() async {
@@ -126,5 +151,31 @@ class Auth with ChangeNotifier {
     }
     final timeToExpiry = _expiryDate.difference(DateTime.now()).inSeconds;
     Timer(Duration(seconds: timeToExpiry), logOut);
+  }
+
+  void _errorHandling(Map errorMap) {
+    String exceptionMessage = '';
+    final message = errorMap['error']['message'];
+    switch (message) {
+      case 'INVALID_EMAIL':
+        exceptionMessage = 'The email is invalid';
+        break;
+      case 'EMAIL_NOT_FOUND':
+        exceptionMessage = "This email does not exist.";
+        break;
+      case 'EMAIL_EXISTS':
+        exceptionMessage = 'The email already exists';
+        break;
+      case 'INVALID_PASSWORD':
+        exceptionMessage = 'The password is invalid.Try again';
+        break;
+      case 'WEAK_PASSWORD':
+        exceptionMessage = 'The password must be 6 characters long or more.';
+        break;
+      default:
+        exceptionMessage =
+            'Could not authenticate you. Please try again later.';
+    }
+    throw HttpException(exceptionMessage);
   }
 }

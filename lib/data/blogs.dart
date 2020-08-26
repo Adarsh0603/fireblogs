@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/models/blog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -72,15 +71,13 @@ class Blogs with ChangeNotifier {
     );
 
     notifyListeners();
-
-    final response = await http.put(url,
+    await http.put(url,
         body: jsonEncode({
           'blogTitle': blogTitle,
           'blogContent': blogContent,
           'authorId': userId,
           'authorName': _username,
         }));
-    final responseData = jsonDecode(response.body);
   }
 
   Future<void> fetchBlogsFromFirebase([bool filter = false]) async {
@@ -96,9 +93,9 @@ class Blogs with ChangeNotifier {
           Blog(id, blog['blogTitle'], blog['blogContent'], blog['authorName']));
     });
     if (filter)
-      _userBlogs = fetchedBlogs;
+      _userBlogs = fetchedBlogs.reversed.toList();
     else
-      _blogs = fetchedBlogs;
+      _blogs = fetchedBlogs.reversed.toList();
 
     notifyListeners();
   }
