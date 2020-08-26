@@ -1,3 +1,4 @@
+import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blog_card.dart';
 import 'package:flutter/material.dart';

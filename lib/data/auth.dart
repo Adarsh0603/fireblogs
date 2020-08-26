@@ -39,8 +39,9 @@ class Auth with ChangeNotifier {
     if (!prefs.containsKey('userData')) {
       return false;
     }
+
     final extractedData =
-        jsonDecode(prefs.getString('userData')) as Map<String, dynamic>;
+        await jsonDecode(prefs.getString('userData')) as Map<String, dynamic>;
     final expiryDate = DateTime.parse(extractedData['expiryDate']);
     if (expiryDate.isBefore(DateTime.now())) {
       return false;
@@ -49,6 +50,7 @@ class Auth with ChangeNotifier {
     _userId = extractedData['userId'];
     _expiryDate = expiryDate;
     notifyListeners();
+    await fetchUserDetails();
     _autoLogout();
     return true;
   }

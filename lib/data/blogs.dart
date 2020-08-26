@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/models/blog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -24,7 +25,6 @@ class Blogs with ChangeNotifier {
     authToken = token;
     userId = user;
     _username = username;
-
     notifyListeners();
   }
 
@@ -81,7 +81,6 @@ class Blogs with ChangeNotifier {
           'authorName': _username,
         }));
     final responseData = jsonDecode(response.body);
-    print(responseData);
   }
 
   Future<void> fetchBlogsFromFirebase([bool filter = false]) async {
