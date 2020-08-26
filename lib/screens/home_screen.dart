@@ -10,6 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Hi ${Provider.of<Auth>(context, listen: false).username}'),
         actions: [
           IconButton(
             icon: Icon(Icons.account_circle),
@@ -19,8 +20,8 @@ class HomeScreen extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.cancel),
-            onPressed: () {
-              Provider.of<Auth>(context, listen: false).logOut();
+            onPressed: () async {
+              await Provider.of<Auth>(context, listen: false).logOut();
               Navigator.of(context).pushReplacementNamed('/');
             },
           ),

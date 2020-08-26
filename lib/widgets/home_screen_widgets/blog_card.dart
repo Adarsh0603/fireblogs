@@ -1,4 +1,5 @@
 import 'package:fireblogs/data/blogs.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,12 +12,27 @@ class BlogCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final blog = Provider.of<Blogs>(context).findBlogById(blogId);
     return Card(
-      child: Column(
-        children: [
-          Text(blog.blogTitle),
-          Text(blog.blogContent),
-          Text(blog.authorName ?? 'Random')
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              blog.blogTitle,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            Divider(),
+            Text(blog.blogContent),
+            SizedBox(height: 10),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                '-${blog.authorName}',
+                style: TextStyle(color: Colors.grey, fontSize: 12),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

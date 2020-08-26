@@ -3,6 +3,7 @@ import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/screens/add_blog_screen.dart';
 import 'package:fireblogs/screens/auth_screen.dart';
 import 'package:fireblogs/screens/home_screen.dart';
+import 'package:fireblogs/screens/splash_screen.dart';
 import 'package:fireblogs/screens/user_blogs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,13 +37,14 @@ class MyApp extends StatelessWidget {
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     return snapshot.connectionState == ConnectionState.waiting
-                        ? Center(child: CircularProgressIndicator())
+                        ? SplashScreen()
                         : AuthScreen();
                   },
                 ),
           routes: {
             AddBlogScreen.routeName: (ctx) => AddBlogScreen(),
             UserBlogsScreen.routeName: (ctx) => UserBlogsScreen(),
+            AuthScreen.routeName: (ctx) => AuthScreen(),
           },
         ),
       ),

@@ -17,6 +17,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
   String blogContent;
   void onBlogSave(bool forUpdate, Blog userBlog) async {
     _formKey.currentState.save();
+    FocusScope.of(context).unfocus();
     setState(() {
       isLoading = true;
     });

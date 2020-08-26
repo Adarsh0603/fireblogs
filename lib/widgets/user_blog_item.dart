@@ -17,11 +17,19 @@ class UserBlogItem extends StatelessWidget {
               .pushNamed(AddBlogScreen.routeName, arguments: userBlog);
         },
         child: Card(
-          child: Column(
-            children: [
-              Text(userBlog.blogTitle),
-              Text(userBlog.blogContent),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  userBlog.blogTitle,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Divider(),
+                Text(userBlog.blogContent),
+              ],
+            ),
           ),
         ),
       ),
