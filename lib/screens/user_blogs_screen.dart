@@ -26,8 +26,8 @@ class UserBlogsList extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return Consumer<Blogs>(
             builder: (BuildContext context, blogs, _) => ListView.builder(
-              itemCount: blogs.blogs.length,
-              itemBuilder: (ctx, i) => Text(blogs.blogs[i].blogTitle),
+              itemCount: blogs.userBlogs.length,
+              itemBuilder: (ctx, i) => Text(blogs.userBlogs[i].blogTitle),
             ),
           );
         } else

@@ -27,7 +27,17 @@ class MyApp extends StatelessWidget {
       child: Consumer<Auth>(
         builder: (BuildContext context, auth, _) => MaterialApp(
           title: 'FireBlogs',
-          home: auth.isAuth ? HomeScreen() : AuthScreen(),
+          home: auth.isAuth
+              ? HomeScreen()
+              : FutureBuilder(
+                  future: auth.tryAutoLogin(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    return snapshot.connectionState == ConnectionState.waiting
+                        ? Center(child: CircularProgressIndicator())
+                        : AuthScreen();
+                  },
+                ),
           routes: {
             AddBlogScreen.routeName: (ctx) => AddBlogScreen(),
             UserBlogsScreen.routeName: (ctx) => UserBlogsScreen(),

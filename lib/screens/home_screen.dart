@@ -21,6 +21,7 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.cancel),
             onPressed: () {
               Provider.of<Auth>(context, listen: false).logOut();
+              Navigator.of(context).pushReplacementNamed('/');
             },
           ),
         ],
