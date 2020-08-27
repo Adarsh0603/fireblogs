@@ -19,6 +19,7 @@ class BlogCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             FeatureImage(blog.imageUrl, blog.fitImage),
+            SizedBox(height: 20),
             Text(
               blog.blogTitle,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

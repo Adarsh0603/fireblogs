@@ -1,4 +1,6 @@
+import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/blogs.dart';
+import 'package:fireblogs/screens/add_blog_screen.dart';
 import 'package:fireblogs/widgets/user_blog_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,9 +12,24 @@ class UserBlogsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Blogs'),
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          'Your Blogs',
+          style: kAppBarTextStyle,
+        ),
+        backgroundColor: Colors.white,
       ),
       body: UserBlogsList(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: () {
+          Navigator.of(context).pushNamed(AddBlogScreen.routeName);
+        },
+        child: Icon(
+          Icons.create,
+          color: Colors.black,
+        ),
+      ),
     );
   }
 }

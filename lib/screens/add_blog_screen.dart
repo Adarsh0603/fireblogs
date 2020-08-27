@@ -24,7 +24,6 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
   String imageUrl = '';
   bool fitImage = false;
   bool forUpdate = false;
-
   bool isInit = true;
 
   void onBlogSave(bool forUpdate, Blog userBlog) async {
@@ -93,11 +92,13 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
             child: Column(
               children: [
                 if (imageUrl == '') FeatureImagePlaceHolder(),
-                if (currentBlog != null && imageUrl != '')
+                if (imageUrl != '')
                   AspectRatio(
                     aspectRatio: 16 / 9,
                     child: Stack(children: [
-                      FeatureImage(imageUrl, fitImage),
+                      Hero(
+                          tag: currentBlog != null ? currentBlog.id : '',
+                          child: FeatureImage(imageUrl, fitImage)),
                       FitImage(
                         fitImage: fitImage,
                         onPressed: () {
@@ -133,6 +134,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                           },
                         ),
                         TextFormField(
+                          textInputAction: TextInputAction.done,
                           validator: (value) {
                             if (value.isEmpty) return 'Blog Title is required';
                             return null;

@@ -29,16 +29,6 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: BlogsList(),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
-        onPressed: () {
-          Navigator.of(context).pushNamed(AddBlogScreen.routeName);
-        },
-        child: Icon(
-          Icons.create,
-          color: Colors.black,
-        ),
-      ),
     );
   }
 }
