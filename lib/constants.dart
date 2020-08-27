@@ -5,8 +5,10 @@ const kTitleFieldInputDecoration = InputDecoration(
 );
 const kContentFieldInputDecoration = InputDecoration(
   hintText: 'Blog Content',
+  border: InputBorder.none,
 );
 const kImageUrlFieldInputDecoration = InputDecoration(
+//  isCollapsed: true,
   hintText: 'Feature Image Link',
 );
 const kAuthInputFieldDecoration = InputDecoration(
@@ -33,3 +35,5 @@ const kGreetingTextStyle = TextStyle(color: Colors.black, fontSize: 32);
 const kGreetingNameStyle =
     TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 32);
 const kGreetingContentStyle = TextStyle(color: Colors.grey, fontSize: 18);
+
+const kAppBarTextStyle = TextStyle(color: Colors.black);

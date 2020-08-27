@@ -11,7 +11,7 @@ class FeatureImage extends StatelessWidget {
       aspectRatio: 16 / 9,
       child: Container(
         width: double.infinity,
-        color: Colors.black,
+        color: Colors.grey[200],
         child: Image.network(
           imageUrl,
           fit: fitImage ? BoxFit.contain : BoxFit.cover,

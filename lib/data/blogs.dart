@@ -13,11 +13,11 @@ class Blogs with ChangeNotifier {
   List<Blog> _userBlogs = [];
 
   List<Blog> get blogs {
-    return _blogs;
+    return _blogs.reversed.toList();
   }
 
   List<Blog> get userBlogs {
-    return _userBlogs;
+    return _userBlogs.reversed.toList();
   }
 
   void update(String token, String user, String username) {
@@ -27,8 +27,8 @@ class Blogs with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addBlog(
-      String blogTitle, String blogContent, String imageUrl) async {
+  Future<void> addBlog(String blogTitle, String blogContent, String imageUrl,
+      bool fitImage) async {
     final url =
         "https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken";
     final String blogDate = DateTime.now().toIso8601String();
@@ -40,6 +40,7 @@ class Blogs with ChangeNotifier {
           'authorName': _username,
           'blogDate': blogDate,
           'imageUrl': imageUrl,
+          'fitImage': fitImage,
         }));
     final responseData = jsonDecode(response.body);
     _blogs.add(Blog(
@@ -49,12 +50,25 @@ class Blogs with ChangeNotifier {
       _username,
       blogDate,
       imageUrl,
+      fitImage,
     ));
     notifyListeners();
   }
 
+  Future<void> deleteBlog(String blogId) async {
+    final url =
+        "https://fireblogs-da7f6.firebaseio.com/blogs/$blogId.json?auth=$authToken";
+    await http.delete(url);
+    final index = _blogs.indexWhere((element) => element.id == blogId);
+
+    _userBlogs.removeWhere((element) => element.id == blogId);
+    _blogs.removeAt(index);
+
+    notifyListeners();
+  }
+
   Future<void> updateBlog(String blogTitle, String blogContent, String blogId,
-      String imageUrl) async {
+      String imageUrl, bool fitImage) async {
     final url =
         "https://fireblogs-da7f6.firebaseio.com/blogs/$blogId.json?auth=$authToken";
     final String blogDate = DateTime.now().toIso8601String();
@@ -68,16 +82,11 @@ class Blogs with ChangeNotifier {
       _username,
       blogDate,
       imageUrl,
+      fitImage,
     );
 
-    _userBlogs[userBlogsIndex] = Blog(
-      blogId,
-      blogTitle,
-      blogContent,
-      _username,
-      blogDate,
-      imageUrl,
-    );
+    _userBlogs[userBlogsIndex] = Blog(blogId, blogTitle, blogContent, _username,
+        blogDate, imageUrl, fitImage);
 
     notifyListeners();
     await http.put(url,
@@ -88,6 +97,7 @@ class Blogs with ChangeNotifier {
           'authorName': _username,
           'blogDate': blogDate,
           'imageUrl': imageUrl,
+          'fitImage': fitImage
         }));
   }
 
@@ -100,8 +110,14 @@ class Blogs with ChangeNotifier {
     final blogsData = jsonDecode(response.body) as Map<String, dynamic>;
     List<Blog> fetchedBlogs = [];
     blogsData.forEach((id, blog) {
-      fetchedBlogs.add(Blog(id, blog['blogTitle'], blog['blogContent'],
-          blog['authorName'], blog['blogDate'], blog['imageUrl']));
+      fetchedBlogs.add(Blog(
+          id,
+          blog['blogTitle'],
+          blog['blogContent'],
+          blog['authorName'],
+          blog['blogDate'],
+          blog['imageUrl'],
+          blog['fitImage']));
     });
     if (filter)
       _userBlogs = fetchedBlogs;
