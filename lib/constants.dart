@@ -6,7 +6,9 @@ const kTitleFieldInputDecoration = InputDecoration(
 const kContentFieldInputDecoration = InputDecoration(
   hintText: 'Blog Content',
 );
-
+const kImageUrlFieldInputDecoration = InputDecoration(
+  hintText: 'Feature Image Link',
+);
 const kAuthInputFieldDecoration = InputDecoration(
   labelText: '',
 );

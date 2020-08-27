@@ -4,7 +4,8 @@ class Blog {
   final String blogContent;
   final String authorName;
   final String blogDate;
+  final String imageUrl;
 
   Blog(this.id, this.blogTitle, this.blogContent, this.authorName,
-      this.blogDate);
+      this.blogDate, this.imageUrl);
 }

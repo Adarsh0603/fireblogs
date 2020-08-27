@@ -10,7 +10,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hi ${Provider.of<Auth>(context, listen: false).username}'),
+        title: Text(
+            'Hi ${Provider.of<Auth>(context, listen: false).username ?? ''}'),
         actions: [
           IconButton(
             icon: Icon(Icons.account_circle),

@@ -27,7 +27,8 @@ class Blogs with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addBlog(String blogTitle, String blogContent) async {
+  Future<void> addBlog(
+      String blogTitle, String blogContent, String imageUrl) async {
     final url =
         "https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken";
     final String blogDate = DateTime.now().toIso8601String();
@@ -38,6 +39,7 @@ class Blogs with ChangeNotifier {
           'authorId': userId,
           'authorName': _username,
           'blogDate': blogDate,
+          'imageUrl': imageUrl,
         }));
     final responseData = jsonDecode(response.body);
     _blogs.add(Blog(
@@ -46,12 +48,13 @@ class Blogs with ChangeNotifier {
       blogContent,
       _username,
       blogDate,
+      imageUrl,
     ));
     notifyListeners();
   }
 
-  Future<void> updateBlog(
-      String blogTitle, String blogContent, String blogId) async {
+  Future<void> updateBlog(String blogTitle, String blogContent, String blogId,
+      String imageUrl) async {
     final url =
         "https://fireblogs-da7f6.firebaseio.com/blogs/$blogId.json?auth=$authToken";
     final String blogDate = DateTime.now().toIso8601String();
@@ -64,6 +67,7 @@ class Blogs with ChangeNotifier {
       blogContent,
       _username,
       blogDate,
+      imageUrl,
     );
 
     _userBlogs[userBlogsIndex] = Blog(
@@ -72,6 +76,7 @@ class Blogs with ChangeNotifier {
       blogContent,
       _username,
       blogDate,
+      imageUrl,
     );
 
     notifyListeners();
@@ -81,7 +86,8 @@ class Blogs with ChangeNotifier {
           'blogContent': blogContent,
           'authorId': userId,
           'authorName': _username,
-          'blogDate': blogDate
+          'blogDate': blogDate,
+          'imageUrl': imageUrl,
         }));
   }
 
@@ -95,7 +101,7 @@ class Blogs with ChangeNotifier {
     List<Blog> fetchedBlogs = [];
     blogsData.forEach((id, blog) {
       fetchedBlogs.add(Blog(id, blog['blogTitle'], blog['blogContent'],
-          blog['authorName'], blog['blogDate']));
+          blog['authorName'], blog['blogDate'], blog['imageUrl']));
     });
     if (filter)
       _userBlogs = fetchedBlogs;
