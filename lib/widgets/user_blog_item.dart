@@ -23,7 +23,10 @@ class UserBlogItem extends StatelessWidget {
             children: [
               Hero(
                   tag: userBlog.id,
-                  child: FeatureImage(userBlog.imageUrl, userBlog.fitImage)),
+                  child: FeatureImage(
+                    userBlog.imageUrl,
+                    userBlog.fitImage,
+                  )),
               Positioned(
                 bottom: 0,
                 child: Container(

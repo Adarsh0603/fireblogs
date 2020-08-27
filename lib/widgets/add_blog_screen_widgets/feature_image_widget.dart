@@ -3,17 +3,20 @@ import 'package:flutter/material.dart';
 class FeatureImage extends StatelessWidget {
   final String imageUrl;
   final bool fitImage;
-  FeatureImage(this.imageUrl, this.fitImage);
+  final double aspectRatio;
+  FeatureImage(this.imageUrl, this.fitImage, [this.aspectRatio = 16 / 9]);
 
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 16 / 9,
+      aspectRatio: aspectRatio,
       child: Container(
         width: double.infinity,
         color: Colors.grey[200],
-        child: Image.network(
-          imageUrl,
+        child: FadeInImage(
+          image: NetworkImage(imageUrl),
+          placeholder: NetworkImage(
+              'https://ak.picdn.net/shutterstock/videos/1030928504/thumb/9.jpg?ip=x480'),
           fit: fitImage ? BoxFit.contain : BoxFit.cover,
         ),
       ),

@@ -10,8 +10,12 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         title: Text(
-            'Hi ${Provider.of<Auth>(context, listen: false).username ?? ''}'),
+          'Hi ${Provider.of<Auth>(context, listen: false).username ?? ''}',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             icon: Icon(Icons.account_circle),
