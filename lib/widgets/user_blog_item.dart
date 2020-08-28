@@ -1,7 +1,11 @@
+import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/models/blog.dart';
 import 'package:fireblogs/screens/add_blog_screen.dart';
+import 'package:fireblogs/utils.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/feature_image_widget.dart';
+import 'package:fireblogs/widgets/home_screen_widgets/random_blog_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class UserBlogItem extends StatelessWidget {
   final Blog userBlog;
@@ -10,6 +14,8 @@ class UserBlogItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width * 0.3;
+
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
       child: GestureDetector(
@@ -18,32 +24,46 @@ class UserBlogItem extends StatelessWidget {
               .pushNamed(AddBlogScreen.routeName, arguments: userBlog);
         },
         child: Card(
-          elevation: 18,
-          child: Stack(
-            children: [
-              Hero(
-                  tag: userBlog.id,
-                  child: FeatureImage(
-                    userBlog.imageUrl,
-                    userBlog.fitImage,
-                  )),
-              Positioned(
-                bottom: 0,
-                child: Container(
-                  height: 40,
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.black54,
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    userBlog.blogTitle,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+          elevation: 10,
+          child: Container(
+            margin: EdgeInsets.all(16),
+            width: double.infinity,
+            color: Colors.white,
+            child: Row(
+              children: [
+                RandomBlogImage(width: width, blogImage: userBlog.imageUrl),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Container(
+                    height: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 10),
+                        Text(
+                          Utils.trimString(userBlog.blogTitle, 40),
+                          style: kRandomBlogTitleTextStyle,
+                        ),
+                        Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Published On - ${DateFormat('dd MMM yyyy').format(DateTime.parse(userBlog.blogDate))}',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:fireblogs/data/blogs.dart';
+import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blog_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,7 @@ class _BlogsListState extends State<BlogsList> {
                     itemCount: blogs.blogs.length,
                   ));
         } else
-          return Center(child: CircularProgressIndicator());
+          return CustomLoader();
       },
     );
   }

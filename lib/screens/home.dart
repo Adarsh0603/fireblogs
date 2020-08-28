@@ -29,21 +29,25 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        elevation: 0,
+//        showSelectedLabels: false,
+//        showUnselectedLabels: false,
+        selectedFontSize: 12,
+        unselectedItemColor: Colors.black,
+        selectedItemColor: Colors.orange,
+        backgroundColor: Colors.white,
+//        elevation: 2,
         onTap: onTabTapped, // new
 
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Home'),
+            title: Text('HOME'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.contacts),
-            title: Text('Your Blogs'),
+            icon: Icon(Icons.dashboard),
+            title: Text('YOUR BLOGS'),
           ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), title: Text('Profile'))
         ],
       ),
     );

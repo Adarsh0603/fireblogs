@@ -40,7 +40,7 @@ const kBlogTopicTextStyle =
     TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold);
 
 const kRandomBlogTitleTextStyle = TextStyle(
-  fontSize: 8,
+  fontSize: 18,
   fontWeight: FontWeight.w500,
 );
 const kRandomBlogContentTextStyle = TextStyle(

@@ -12,7 +12,7 @@ class FitImage extends StatelessWidget {
       alignment: Alignment.bottomRight,
       child: IconButton(
         icon: Icon(
-          !fitImage ? Icons.center_focus_strong : Icons.center_focus_weak,
+          !fitImage ? Icons.center_focus_strong : Icons.settings_overscan,
           color: !fitImage ? Colors.white60 : Colors.black,
         ),
         onPressed: onPressed,

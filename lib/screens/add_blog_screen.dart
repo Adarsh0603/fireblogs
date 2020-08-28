@@ -8,6 +8,7 @@ import 'package:fireblogs/widgets/add_blog_screen_widgets/publish_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fireblogs/constants.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AddBlogScreen extends StatefulWidget {
   static const routeName = '/add-blog';
@@ -20,7 +21,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
   bool isLoading = false;
   bool isDeleting = false;
   String blogTitle;
-  String blogTopic;
+  String blogTopic = '';
   String blogContent;
   String imageUrl = '';
   bool fitImage = false;
@@ -69,7 +70,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
           style: kAppBarTextStyle,
         ),
         backgroundColor: Colors.white,
-        elevation: 0,
+        elevation: 2,
         actions: [
           if (currentBlog != null)
             isDeleting
@@ -115,24 +116,56 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        TextFormField(
-                          style: TextStyle(fontSize: 14),
-                          validator: (value) {
-                            if (value.isEmpty) return 'Image Url is required';
-                            return null;
-                          },
-                          initialValue:
-                              currentBlog != null ? currentBlog.imageUrl : '',
-                          textInputAction: TextInputAction.done,
-                          decoration: kImageUrlFieldInputDecoration,
-                          onSaved: (value) {
-                            imageUrl = value;
-                          },
-                          onFieldSubmitted: (value) {
-                            setState(() {
-                              imageUrl = value;
-                            });
-                          },
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                style: TextStyle(fontSize: 14),
+                                validator: (value) {
+                                  if (value.isEmpty)
+                                    return 'Image Url is required';
+                                  return null;
+                                },
+                                initialValue: currentBlog != null
+                                    ? currentBlog.imageUrl
+                                    : '',
+                                textInputAction: TextInputAction.done,
+                                decoration: kImageUrlFieldInputDecoration,
+                                onSaved: (value) {
+                                  imageUrl = value;
+                                },
+                                onFieldSubmitted: (value) {
+                                  setState(() {
+                                    imageUrl = value;
+                                  });
+                                },
+                              ),
+                            ),
+                            Builder(
+                              builder: (ctx) => IconButton(
+                                  icon: Icon(
+                                    Icons.photo_size_select_actual,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: () async {
+                                    if (blogTopic == '')
+                                      Scaffold.of(ctx).showSnackBar(SnackBar(
+                                        content: Text(
+                                            'Fill in blog topic to search related images'),
+                                        duration: Duration(seconds: 2),
+                                      ));
+                                    else {
+                                      var url =
+                                          'https://unsplash.com/s/photos/$blogTopic';
+                                      if (await canLaunch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    }
+                                  }),
+                            )
+                          ],
                         ),
                         TextFormField(
                           textInputAction: TextInputAction.done,
@@ -159,6 +192,9 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                               currentBlog != null ? currentBlog.blogTopic : '',
                           decoration: kTopicFieldInputDecoration,
                           onSaved: (value) {
+                            blogTopic = value;
+                          },
+                          onChanged: (value) {
                             blogTopic = value;
                           },
                         ),

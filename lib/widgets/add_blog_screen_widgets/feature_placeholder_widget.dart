@@ -9,7 +9,8 @@ class FeatureImagePlaceHolder extends StatelessWidget {
         color: Colors.grey[200],
         child: Center(
           child: Text(
-            'Image with Aspect Ratio 16:9 is recommended.',
+            'Image with Aspect Ratio 16:9 \nis recommended.',
+            textAlign: TextAlign.center,
             style: TextStyle(color: Colors.grey, fontSize: 18),
           ),
         ),
