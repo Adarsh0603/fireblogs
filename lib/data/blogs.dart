@@ -68,15 +68,6 @@ class Blogs with ChangeNotifier {
     final url =
         "https://fireblogs-da7f6.firebaseio.com/blogs/$blogId.json?auth=$authToken";
     final String blogDate = DateTime.now().toIso8601String();
-    final index = _blogs.indexWhere((element) => element.id == blogId);
-    final userBlogsIndex =
-        _userBlogs.indexWhere((element) => element.id == blogId);
-    final blog = Blog(blogId, blogTitle, blogContent, _username, blogTopic,
-        blogDate, imageUrl, fitImage);
-    _blogs[index] = blog;
-    _userBlogs[userBlogsIndex] = blog;
-
-    notifyListeners();
     await http.put(url,
         body: jsonEncode({
           'blogTitle': blogTitle,
@@ -88,6 +79,16 @@ class Blogs with ChangeNotifier {
           'imageUrl': imageUrl,
           'fitImage': fitImage
         }));
+
+    final index = _blogs.indexWhere((element) => element.id == blogId);
+    final userBlogsIndex =
+        _userBlogs.indexWhere((element) => element.id == blogId);
+    final blog = Blog(blogId, blogTitle, blogContent, _username, blogTopic,
+        blogDate, imageUrl, fitImage);
+    _blogs[index] = blog;
+    _userBlogs[userBlogsIndex] = blog;
+
+    notifyListeners();
   }
 
   Future<void> fetchBlogsFromFirebase([bool filter = false]) async {

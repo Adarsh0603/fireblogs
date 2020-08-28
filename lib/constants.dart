@@ -17,12 +17,6 @@ const kImageUrlFieldInputDecoration = InputDecoration(
 const kAuthInputFieldDecoration = InputDecoration(
   labelText: '',
 );
-//const kEmailFieldInputDecoration = InputDecoration(
-//  hintText: 'Email',
-//);
-//const kPasswordFieldInputDecoration = InputDecoration(
-//  hintText: 'Password',
-//);
 
 const kAuthButtonTextStyle = TextStyle(
   fontSize: 18,
@@ -40,3 +34,16 @@ const kGreetingNameStyle =
 const kGreetingContentStyle = TextStyle(color: Colors.grey, fontSize: 18);
 
 const kAppBarTextStyle = TextStyle(color: Colors.black);
+
+const kBlogTopicTextStyle =
+    TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold);
+
+//Blog Screen constants
+
+const kBlogScreenTitleTextStyle =
+    TextStyle(fontSize: 22, fontWeight: FontWeight.w500);
+const kBlogScreenMetaDataTextStyle =
+    TextStyle(fontSize: 12, color: Colors.grey);
+const kBlogScreenContentTextStyle = TextStyle(
+  fontSize: 16,
+);
