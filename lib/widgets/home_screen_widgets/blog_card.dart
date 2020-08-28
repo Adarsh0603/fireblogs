@@ -51,9 +51,9 @@ class BlogCard extends StatelessWidget {
                             blog.blogTitle,
                             style: TextStyle(fontSize: 20),
                           ),
-                          Text(
-                            blog.blogContent.substring(0, 50),
-                          ),
+//                          Text(
+//                            blog.blogContent.substring(0, 50),
+//                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
