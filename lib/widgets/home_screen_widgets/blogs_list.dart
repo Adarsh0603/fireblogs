@@ -18,6 +18,7 @@ class _BlogsListState extends State<BlogsList> {
         if (snapshot.connectionState == ConnectionState.done) {
           return Consumer<Blogs>(
               builder: (BuildContext context, blogs, _) => ListView.builder(
+                    scrollDirection: Axis.horizontal,
                     itemBuilder: (ctx, i) => BlogCard(blogs.blogs[i].id),
                     itemCount: blogs.blogs.length,
                   ));

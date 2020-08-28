@@ -12,29 +12,36 @@ class BlogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blog = Provider.of<Blogs>(context).findBlogById(blogId);
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FeatureImage(blog.imageUrl, blog.fitImage),
-            SizedBox(height: 20),
-            Text(
-              blog.blogTitle,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Divider(),
-            Text(blog.blogContent),
-            SizedBox(height: 10),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Text(
-                '-${blog.authorName}',
-                style: TextStyle(color: Colors.grey, fontSize: 12),
-              ),
-            )
-          ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
+      child: Material(
+        elevation: 20,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          child: Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Stack(children: [
+                Positioned(
+                  child: Container(
+                    height: double.infinity,
+                    child: Image.network(
+                      blog.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 20,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    color: Colors.white,
+                    child: Text('Tere'),
+                  ),
+                ),
+              ])),
         ),
       ),
     );

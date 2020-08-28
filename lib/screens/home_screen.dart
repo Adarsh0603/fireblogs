@@ -32,7 +32,12 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: BlogsList(),
+      body: Column(
+        children: [
+          Container(height: MediaQuery.of(context).size.height * 0.1),
+          Expanded(child: BlogsList()),
+        ],
+      ),
     );
   }
 }
