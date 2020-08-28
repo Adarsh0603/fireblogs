@@ -1,7 +1,7 @@
 import 'package:fireblogs/data/blogs.dart';
-import 'package:fireblogs/widgets/add_blog_screen_widgets/feature_image_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class BlogCard extends StatelessWidget {
@@ -33,12 +33,42 @@ class BlogCard extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: 20,
+                  bottom: 5,
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    margin: EdgeInsets.all(8),
+                    width: MediaQuery.of(context).size.width * 0.75,
                     height: MediaQuery.of(context).size.height * 0.2,
-                    color: Colors.white,
-                    child: Text('Tere'),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            blog.blogTitle,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Text(
+                            blog.blogContent.substring(0, 50),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                blog.blogTopic.toUpperCase(),
+                              ),
+                              Text(
+                                DateFormat('MMMM dd, yyyy')
+                                    .format(DateTime.parse(blog.blogDate)),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ])),

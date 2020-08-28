@@ -3,9 +3,11 @@ class Blog {
   final String blogTitle;
   final String blogContent;
   final String authorName;
+  final String blogTopic;
   final String blogDate;
   final String imageUrl;
   final bool fitImage;
+
   Blog(this.id, this.blogTitle, this.blogContent, this.authorName,
-      this.blogDate, this.imageUrl, this.fitImage);
+      this.blogTopic, this.blogDate, this.imageUrl, this.fitImage);
 }

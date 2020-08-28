@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 const kTitleFieldInputDecoration = InputDecoration(
   hintText: 'Blog Title',
 );
+const kTopicFieldInputDecoration = InputDecoration(
+  hintText: 'Blog Topic',
+);
 const kContentFieldInputDecoration = InputDecoration(
   hintText: 'Blog Content',
   border: InputBorder.none,

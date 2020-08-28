@@ -20,6 +20,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
   bool isLoading = false;
   bool isDeleting = false;
   String blogTitle;
+  String blogTopic;
   String blogContent;
   String imageUrl = '';
   bool fitImage = false;
@@ -34,11 +35,11 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
       isLoading = true;
     });
     if (forUpdate)
-      await Provider.of<Blogs>(context, listen: false)
-          .updateBlog(blogTitle, blogContent, userBlog.id, imageUrl, fitImage);
+      await Provider.of<Blogs>(context, listen: false).updateBlog(
+          blogTitle, blogContent, blogTopic, userBlog.id, imageUrl, fitImage);
     else
       await Provider.of<Blogs>(context, listen: false)
-          .addBlog(blogTitle, blogContent, imageUrl, fitImage);
+          .addBlog(blogTitle, blogContent, blogTopic, imageUrl, fitImage);
 
     Navigator.of(context).pop();
   }
@@ -145,6 +146,20 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                           decoration: kTitleFieldInputDecoration,
                           onSaved: (value) {
                             blogTitle = value;
+                          },
+                        ),
+                        TextFormField(
+                          textInputAction: TextInputAction.done,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Blog Topic is required';
+                            return null;
+                          },
+                          textCapitalization: TextCapitalization.sentences,
+                          initialValue:
+                              currentBlog != null ? currentBlog.blogTopic : '',
+                          decoration: kTopicFieldInputDecoration,
+                          onSaved: (value) {
+                            blogTopic = value;
                           },
                         ),
                         Expanded(
