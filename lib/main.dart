@@ -2,6 +2,7 @@ import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/screens/add_blog_screen.dart';
 import 'package:fireblogs/screens/auth_screen.dart';
+import 'package:fireblogs/screens/home.dart';
 import 'package:fireblogs/screens/home_screen.dart';
 import 'package:fireblogs/screens/splash_screen.dart';
 import 'package:fireblogs/screens/user_blogs_screen.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'FireBlogs',
           home: auth.isAuth
-              ? HomeScreen()
+              ? Home()
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
                   builder:
