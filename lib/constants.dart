@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+const kRoundedRadius = Radius.circular(8);
 const kTitleFieldInputDecoration = InputDecoration(
   hintText: 'Blog Title',
 );
@@ -37,6 +38,14 @@ const kAppBarTextStyle = TextStyle(color: Colors.black);
 
 const kBlogTopicTextStyle =
     TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold);
+
+const kRandomBlogTitleTextStyle = TextStyle(
+  fontSize: 8,
+  fontWeight: FontWeight.w500,
+);
+const kRandomBlogContentTextStyle = TextStyle(
+  fontWeight: FontWeight.w500,
+);
 
 //Blog Screen constants
 

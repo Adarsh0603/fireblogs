@@ -1,3 +1,4 @@
+import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blog_card_content.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,9 +19,9 @@ class BlogCard extends StatelessWidget {
         elevation: 14,
         shadowColor: Colors.white,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            borderRadius: BorderRadius.all(kRoundedRadius)),
         child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: BorderRadius.all(kRoundedRadius),
           child: Container(
               width: MediaQuery.of(context).size.width * 0.7,
               child: Stack(children: [

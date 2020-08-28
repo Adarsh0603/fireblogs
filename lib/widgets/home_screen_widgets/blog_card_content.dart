@@ -22,10 +22,9 @@ class BlogCardContent extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(20))),
+              borderRadius: BorderRadius.all(kRoundedRadius)),
           margin: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
           width: MediaQuery.of(context).size.width * 0.62,
-          height: MediaQuery.of(context).size.height * 0.2,
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -36,9 +35,7 @@ class BlogCardContent extends StatelessWidget {
                   blog.blogTitle,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
-//                          Text(
-//                            blog.blogContent.substring(0, 50),
-//                          ),
+                SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

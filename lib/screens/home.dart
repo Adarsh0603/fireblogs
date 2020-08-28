@@ -29,16 +29,18 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
         onTap: onTabTapped, // new
+
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: new Icon(Icons.home),
-            title: new Text('Home'),
+            icon: Icon(Icons.home),
+            title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.mail),
-            title: new Text('Messages'),
+            icon: Icon(Icons.contacts),
+            title: Text('Your Blogs'),
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.person), title: Text('Profile'))
