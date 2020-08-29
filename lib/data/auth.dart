@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:fireblogs/data/apikeys.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fireblogs/models/http_exception.dart';
 

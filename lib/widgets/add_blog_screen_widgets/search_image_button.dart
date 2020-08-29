@@ -5,12 +5,10 @@ import 'package:url_launcher/url_launcher.dart';
 class SearchImageButton extends StatelessWidget {
   const SearchImageButton({
     Key key,
-    @required this.blogTopic,
-    @required this.currentBlog,
+    @required this.searchTerm,
   }) : super(key: key);
 
-  final String blogTopic;
-  final Blog currentBlog;
+  final String searchTerm;
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +19,14 @@ class SearchImageButton extends StatelessWidget {
             color: Colors.grey,
           ),
           onPressed: () async {
-            if (blogTopic == '' && currentBlog == null)
+            if (searchTerm == '')
               Scaffold.of(ctx).showSnackBar(SnackBar(
                 content: Text('Fill in blog topic to search related images'),
                 duration: Duration(seconds: 2),
               ));
             else {
-              var url =
-                  'https://unsplash.com/s/photos/${currentBlog != null ? currentBlog.blogTopic : blogTopic}';
+              FocusScope.of(context).unfocus();
+              var url = 'https://unsplash.com/s/photos/$searchTerm';
               if (await canLaunch(url)) {
                 await launch(url);
               } else {

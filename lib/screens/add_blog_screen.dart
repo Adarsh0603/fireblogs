@@ -24,6 +24,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
   String blogTopic = '';
   String blogContent;
   String imageUrl = '';
+  String searchTerm = '';
   bool fitImage = false;
   bool forUpdate = false;
   bool isInit = true;
@@ -65,6 +66,8 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
     if (currentBlog != null && isInit) {
       forUpdate = true;
       imageUrl = currentBlog.imageUrl;
+      searchTerm = currentBlog.blogTopic;
+      print(searchTerm);
       fitImage = currentBlog.fitImage;
       isInit = false;
     }
@@ -140,11 +143,6 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                                 onSaved: (value) {
                                   imageUrl = value;
                                 },
-                                onChanged: (value) {
-                                  setState(() {
-                                    imageUrl = value;
-                                  });
-                                },
                                 onFieldSubmitted: (value) {
                                   setState(() {
                                     imageUrl = value;
@@ -152,8 +150,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                                 },
                               ),
                             ),
-                            SearchImageButton(
-                                blogTopic: blogTopic, currentBlog: currentBlog)
+                            SearchImageButton(searchTerm: searchTerm)
                           ],
                         ),
                         TextFormField(
@@ -186,6 +183,9 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                           },
                           onChanged: (value) {
                             blogTopic = value;
+                            setState(() {
+                              searchTerm = value;
+                            });
                           },
                         ),
                         Expanded(
