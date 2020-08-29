@@ -17,7 +17,7 @@ class UserBlogItem extends StatelessWidget {
     final width = MediaQuery.of(context).size.width * 0.3;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
+      padding: const EdgeInsets.only(top: 1.0, left: 0, right: 0),
       child: GestureDetector(
         onTap: () {
           if (sameUser)
@@ -30,9 +30,9 @@ class UserBlogItem extends StatelessWidget {
                     builder: (BuildContext context) => BlogScreen(userBlog)));
           }
         },
-        child: Card(
-          elevation: 2,
-//          shadowColor: Colors.white,
+        child: Material(
+          elevation: 1,
+          color: Colors.white,
           child: Container(
             margin: EdgeInsets.all(16),
             width: double.infinity,
@@ -48,11 +48,15 @@ class UserBlogItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 10),
-                        Text(
-                          Utils.trimString(userBlog.blogTitle, 40),
-                          style: kRandomBlogTitleTextStyle,
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Text(
+                              userBlog.blogTitle,
+                              style: kRandomBlogTitleTextStyle,
+                            ),
+                          ),
                         ),
-                        Spacer(),
+                        SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

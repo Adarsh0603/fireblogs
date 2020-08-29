@@ -67,7 +67,6 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
       forUpdate = true;
       imageUrl = currentBlog.imageUrl;
       searchTerm = currentBlog.blogTopic;
-      print(searchTerm);
       fitImage = currentBlog.fitImage;
       isInit = false;
     }
