@@ -63,11 +63,16 @@ class Blogs with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateBlog(String blogTitle, String blogContent,
-      String blogTopic, String blogId, String imageUrl, bool fitImage) async {
+  Future<void> updateBlog(
+      String blogTitle,
+      String blogContent,
+      String blogTopic,
+      String blogId,
+      String imageUrl,
+      bool fitImage,
+      String blogDate) async {
     final url =
         "https://fireblogs-da7f6.firebaseio.com/blogs/$blogId.json?auth=$authToken";
-    final String blogDate = DateTime.now().toIso8601String();
     await http.put(url,
         body: jsonEncode({
           'blogTitle': blogTitle,
@@ -116,6 +121,23 @@ class Blogs with ChangeNotifier {
       _blogs = fetchedBlogs;
 
     notifyListeners();
+  }
+
+  void patchBlogsByUser() async {
+    String urlSegment = 'orderBy="authorId"&equalTo="$userId"';
+
+    final url =
+        'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
+    var response = await http.get(url);
+    var allUserBlogs = jsonDecode(response.body) as Map<String, dynamic>;
+    allUserBlogs.forEach((key, value) async {
+      final url =
+          "https://fireblogs-da7f6.firebaseio.com/blogs/$key.json?auth=$authToken";
+      await http.patch(url,
+          body: jsonEncode({
+            'authorName': _username,
+          }));
+    });
   }
 
   Blog findBlogById(String id) {

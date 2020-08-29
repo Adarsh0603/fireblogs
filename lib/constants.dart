@@ -13,8 +13,8 @@ const kContentFieldInputDecoration = InputDecoration(
 );
 const kImageUrlFieldInputDecoration = InputDecoration(
 //  isCollapsed: true,
-  hintText: 'Feature Image Link',
-);
+    hintText: 'Feature Image Link',
+    border: InputBorder.none);
 const kAuthInputFieldDecoration = InputDecoration(
   labelText: '',
 );

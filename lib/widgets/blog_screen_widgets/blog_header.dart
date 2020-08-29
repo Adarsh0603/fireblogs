@@ -10,6 +10,7 @@ class BlogHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final blogDate = DateTime.parse(blog.blogDate);
     return Container(
       padding: EdgeInsets.all(16),
       child: Column(
@@ -33,8 +34,7 @@ class BlogHeader extends StatelessWidget {
                 style: kBlogScreenMetaDataTextStyle,
               ),
               Text(
-                DateFormat('dd MMM, yyyy')
-                    .format(DateTime.parse(blog.blogDate)),
+                '${DateFormat.jm().format(blogDate)} - ${DateFormat('dd MMM, yyyy').format(blogDate)}',
                 style: kBlogScreenMetaDataTextStyle,
               )
             ],

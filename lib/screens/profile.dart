@@ -1,6 +1,6 @@
 import 'package:fireblogs/data/auth.dart';
+import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/data/userProfile.dart';
-import 'package:fireblogs/widgets/add_blog_screen_widgets/submit_button.dart';
 import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,19 +18,17 @@ class _ProfileState extends State<Profile> {
 
   final _formKey = GlobalKey<FormState>();
 
-  bool isLoading = false;
-
   void onProfileSave() async {
     _formKey.currentState.save();
-    setState(() {
-      isLoading = true;
-    });
     await Provider.of<UserProfile>(context, listen: false)
         .updateProfile(username, userDetails);
     Provider.of<Auth>(context, listen: false).updateUsername(username);
-    setState(() {
-      isLoading = false;
-    });
+    Provider.of<Blogs>(context, listen: false).patchBlogsByUser();
+
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text('Updated Successfully'),
+      duration: Duration(seconds: 1),
+    ));
   }
 
   @override
@@ -40,10 +38,17 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.blue),
         title: Text(
           'Manage Your Profile',
           style: kAppBarTextStyle,
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.done),
+            onPressed: onProfileSave,
+          )
+        ],
       ),
       body: Form(
         key: _formKey,
@@ -76,11 +81,6 @@ class _ProfileState extends State<Profile> {
                             },
                           ),
                         ),
-                      ),
-                      SubmitButton(
-                        isLoading: isLoading,
-                        onPressed: onProfileSave,
-                        btnText: 'SAVE',
                       ),
                     ],
                   );
