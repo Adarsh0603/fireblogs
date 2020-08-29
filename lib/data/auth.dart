@@ -50,6 +50,7 @@ class Auth with ChangeNotifier {
     var extractedData =
         await jsonDecode(prefs.getString('userData')) as Map<String, dynamic>;
     var expiryDate = DateTime.parse(extractedData['expiryDate']);
+    _refreshToken = extractedData['refreshToken'];
 
     if (expiryDate.isBefore(DateTime.now())) {
       await _getNewToken();
@@ -97,13 +98,11 @@ class Auth with ChangeNotifier {
         _refreshToken = userData['refreshToken'];
         _expiryDate = DateTime.now().add(
           Duration(
-            seconds: int.parse(userData['expiresIn']) - 3560,
+            seconds: int.parse(userData['expiresIn']),
           ),
         );
-
         _autoRefreshToken();
         notifyListeners();
-
         final prefs = await SharedPreferences.getInstance();
         final userDataToSave = jsonEncode({
           'token': _token,
