@@ -12,11 +12,17 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
+        elevation: 1,
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text(
-          'fireblogs',
-          style: TextStyle(color: Colors.black, fontSize: 24),
+        title: Row(
+          children: [
+            Container(
+                height: 48, width: 48, child: Image.asset('images/5.gif')),
+            Text(
+              'Fireblogs',
+              style: TextStyle(color: Colors.black, fontSize: 24),
+            ),
+          ],
         ),
         backgroundColor: Colors.white,
         actions: [
@@ -40,9 +46,7 @@ class HomeScreen extends StatelessWidget {
                   (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>
                       snapshot.connectionState == ConnectionState.done
                           ? RandomBlog()
-                          : CustomLoader(
-                              size: 24,
-                            ),
+                          : Container(),
             ),
           ),
           Expanded(child: BlogsList()),

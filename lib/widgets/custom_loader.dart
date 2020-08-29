@@ -8,12 +8,10 @@ class CustomLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: size,
-        height: size,
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-        ),
-      ),
+          width: size, height: size, child: Image.asset('images/1.gif')),
     );
   }
 }
+//CircularProgressIndicator(
+//          valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+//        ),
