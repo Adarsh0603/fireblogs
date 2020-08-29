@@ -1,6 +1,7 @@
 import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/models/blog.dart';
 import 'package:fireblogs/screens/blog_screen.dart';
+import 'package:fireblogs/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -32,19 +33,21 @@ class BlogCardContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  blog.blogTitle,
+                  Utils.trimString(blog.blogTitle, 150),
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      blog.blogTopic.toUpperCase(),
-                      style: kBlogTopicTextStyle,
+                    Expanded(
+                      child: Text(
+                        blog.blogTopic.toUpperCase(),
+                        style: kBlogTopicTextStyle,
+                      ),
                     ),
                     Text(
-                      DateFormat('MMMM dd, yyyy')
+                      DateFormat('MMM dd')
                           .format(DateTime.parse(blog.blogDate)),
                       style: TextStyle(
                         color: Colors.grey,

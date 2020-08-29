@@ -51,9 +51,11 @@ class RandomBlog extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        blog.blogTopic.toUpperCase(),
-                        style: kBlogTopicTextStyle,
+                      Expanded(
+                        child: Text(
+                          blog.blogTopic.toUpperCase(),
+                          style: kBlogTopicTextStyle,
+                        ),
                       ),
                       Text(
                         DateFormat('MMM dd, yyyy')
