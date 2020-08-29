@@ -1,5 +1,6 @@
 import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/data/blogs.dart';
+import 'package:fireblogs/data/userProfile.dart';
 import 'package:fireblogs/screens/add_blog_screen.dart';
 import 'package:fireblogs/screens/auth_screen.dart';
 import 'package:fireblogs/screens/home.dart';
@@ -25,6 +26,11 @@ class MyApp extends StatelessWidget {
           update: (_, auth, blogs) =>
               blogs..update(auth.token, auth.userId, auth.username),
         ),
+        ChangeNotifierProxyProvider<Auth, UserProfile>(
+          create: (BuildContext context) => UserProfile(),
+          update: (_, auth, userProfile) =>
+              userProfile..update(auth.token, auth.userId, auth.username),
+        )
       ],
       child: Consumer<Auth>(
         builder: (BuildContext context, auth, _) => MaterialApp(

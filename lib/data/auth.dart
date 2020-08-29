@@ -31,6 +31,11 @@ class Auth with ChangeNotifier {
     return _username;
   }
 
+  void updateUsername(String newUsername) {
+    _username = newUsername;
+    notifyListeners();
+  }
+
   String get userId {
     return _userId;
   }
