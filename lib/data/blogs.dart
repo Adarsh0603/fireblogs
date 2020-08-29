@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 class Blogs with ChangeNotifier {
   String authToken;
   String userId;
+  String _previousUsername; //to check whether username is changed or not
   String _username;
 
   List<Blog> _blogs = [];
@@ -21,6 +22,7 @@ class Blogs with ChangeNotifier {
   }
 
   void update(String token, String user, String username) {
+    _previousUsername = _username;
     authToken = token;
     userId = user;
     _username = username;
@@ -124,11 +126,16 @@ class Blogs with ChangeNotifier {
   }
 
   void patchBlogsByUser() async {
-    String urlSegment = 'orderBy="authorId"&equalTo="$userId"';
-
-    final url =
-        'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
+    var url =
+        "https://fireblogs-da7f6.firebaseio.com/users/$userId.json?auth=$authToken";
     var response = await http.get(url);
+    var savedDataResponse = jsonDecode(response.body);
+    var fetchedUsername = savedDataResponse['username'];
+    if (_previousUsername == fetchedUsername) return;
+    String urlSegment = 'orderBy="authorId"&equalTo="$userId"';
+    url =
+        'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
+    response = await http.get(url);
     var allUserBlogs = jsonDecode(response.body) as Map<String, dynamic>;
     allUserBlogs.forEach((key, value) async {
       final url =

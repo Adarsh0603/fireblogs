@@ -19,7 +19,9 @@ class UserProfile with ChangeNotifier {
   String get username => _username;
   String get userDetails => _userDetails;
 
-  Future<void> savedData() async {
+
+
+  Future<void> fetchSavedUserData() async {
     final url =
         "https://fireblogs-da7f6.firebaseio.com/users/$_userId.json?auth=$_authToken";
     var response = await http.get(url);
@@ -28,6 +30,8 @@ class UserProfile with ChangeNotifier {
     _userDetails = savedDataResponse['userDetails'];
     notifyListeners();
   }
+
+
 
   Future<void> updateProfile(String userName, String userDetails) async {
     try {

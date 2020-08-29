@@ -53,7 +53,7 @@ class _ProfileState extends State<Profile> {
       body: Form(
         key: _formKey,
         child: FutureBuilder(
-          future: profile.savedData(),
+          future: profile.fetchSavedUserData(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             return snapshot.connectionState == ConnectionState.waiting
                 ? CustomLoader()
