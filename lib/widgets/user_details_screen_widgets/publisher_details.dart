@@ -9,27 +9,34 @@ class PublisherDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.4,
-      padding: EdgeInsets.all(16),
-      color: Colors.grey[100],
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            username,
-            style: kPublisherUsernameTextStyle,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Material(
+        elevation: 1,
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.3,
+          padding: EdgeInsets.all(16),
+//      color: Colors.grey[100],
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                username,
+                style: kPublisherUsernameTextStyle,
+              ),
+              SizedBox(height: 10),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Text(
+                    userDetails,
+                    style: kPublisherDetailsTextStyle,
+                  ),
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 10),
-          Expanded(
-            child: SingleChildScrollView(
-                child: Text(
-              userDetails,
-              style: kPublisherDetailsTextStyle,
-            )),
-          ),
-        ],
+        ),
       ),
     );
   }

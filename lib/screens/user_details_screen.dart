@@ -65,6 +65,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                     children: [
                       BlogActionsRow(),
                       PublisherDetails(username, userDetails),
+                      SizedBox(height: 10),
                       Expanded(
                           child: ListView.builder(
                               itemCount: userBlogsList.length,
