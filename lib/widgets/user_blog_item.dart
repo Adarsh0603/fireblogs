@@ -1,6 +1,7 @@
 import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/models/blog.dart';
 import 'package:fireblogs/screens/add_blog_screen.dart';
+import 'package:fireblogs/screens/blog_screen.dart';
 import 'package:fireblogs/utils.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/random_blog_image.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,8 @@ import 'package:intl/intl.dart';
 
 class UserBlogItem extends StatelessWidget {
   final Blog userBlog;
-
-  UserBlogItem(this.userBlog);
+  final bool sameUser;
+  UserBlogItem(this.userBlog, this.sameUser);
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +20,15 @@ class UserBlogItem extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context)
-              .pushNamed(AddBlogScreen.routeName, arguments: userBlog);
+          if (sameUser)
+            Navigator.of(context)
+                .pushNamed(AddBlogScreen.routeName, arguments: userBlog);
+          else {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => BlogScreen(userBlog)));
+          }
         },
         child: Card(
           elevation: 10,

@@ -54,7 +54,7 @@ class UserBlogsList extends StatelessWidget {
                     : ListView.builder(
                         itemCount: blogs.userBlogs.length,
                         itemBuilder: (ctx, i) =>
-                            UserBlogItem(blogs.userBlogs[i]),
+                            UserBlogItem(blogs.userBlogs[i], true),
                       ),
           );
         } else

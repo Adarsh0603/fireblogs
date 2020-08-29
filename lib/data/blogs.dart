@@ -46,8 +46,8 @@ class Blogs with ChangeNotifier {
           'fitImage': fitImage
         }));
     final responseData = jsonDecode(response.body);
-    final blog = Blog(responseData['name'], blogTitle, blogContent, _username,
-        blogTopic, blogDate, imageUrl, fitImage);
+    final blog = Blog(responseData['name'], userId, blogTitle, blogContent,
+        _username, blogTopic, blogDate, imageUrl, fitImage);
     _blogs.add(blog);
     _userBlogs.add(blog);
     notifyListeners();
@@ -90,8 +90,8 @@ class Blogs with ChangeNotifier {
     final index = _blogs.indexWhere((element) => element.id == blogId);
     final userBlogsIndex =
         _userBlogs.indexWhere((element) => element.id == blogId);
-    final blog = Blog(blogId, blogTitle, blogContent, _username, blogTopic,
-        blogDate, imageUrl, fitImage);
+    final blog = Blog(blogId, userId, blogTitle, blogContent, _username,
+        blogTopic, blogDate, imageUrl, fitImage);
     _blogs[index] = blog;
     _userBlogs[userBlogsIndex] = blog;
 
@@ -109,6 +109,7 @@ class Blogs with ChangeNotifier {
     blogsData.forEach((id, blog) {
       fetchedBlogs.add(Blog(
           id,
+          blog['authorId'],
           blog['blogTitle'],
           blog['blogContent'],
           blog['authorName'],

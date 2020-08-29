@@ -1,5 +1,6 @@
 import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/models/blog.dart';
+import 'package:fireblogs/screens/user_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -29,9 +30,18 @@ class BlogHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Publihsed by ${blog.authorName}',
-                style: kBlogScreenMetaDataTextStyle,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              UserDetailsScreen(blog.authorId)));
+                },
+                child: Text(
+                  'Publihsed by ${blog.authorName}',
+                  style: kBlogScreenMetaDataTextStyle,
+                ),
               ),
               Text(
                 '${DateFormat.jm().format(blogDate)} - ${DateFormat('dd MMM, yyyy').format(blogDate)}',
