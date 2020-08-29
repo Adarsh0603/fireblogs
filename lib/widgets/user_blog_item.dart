@@ -31,7 +31,8 @@ class UserBlogItem extends StatelessWidget {
           }
         },
         child: Card(
-          elevation: 10,
+          elevation: 2,
+//          shadowColor: Colors.white,
           child: Container(
             margin: EdgeInsets.all(16),
             width: double.infinity,

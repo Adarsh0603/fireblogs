@@ -13,9 +13,14 @@ class BlogContent extends StatelessWidget {
         child: Padding(
           padding:
               const EdgeInsets.only(left: 16.0, top: 20, right: 16, bottom: 16),
-          child: Text(
-            blogContent,
-            style: kBlogScreenContentTextStyle,
+          child: RichText(
+            text: TextSpan(style: kBlogScreenContentTextStyle, children: [
+              TextSpan(
+                  text: blogContent[0],
+                  style: kBlogScreenContentTextStyle.copyWith(
+                      fontSize: 24, fontWeight: FontWeight.bold)),
+              TextSpan(text: blogContent.substring(1)),
+            ]),
           ),
         ),
       ),

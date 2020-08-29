@@ -1,19 +1,28 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 const kRoundedRadius = Radius.circular(8);
-const kTitleFieldInputDecoration = InputDecoration(
-  hintText: 'Blog Title',
-);
-const kTopicFieldInputDecoration = InputDecoration(
-  hintText: 'Blog Topic',
-);
+const kBlogFieldInputDecoration = InputDecoration(
+    isCollapsed: true,
+    hintText: 'Blog Title',
+    hintStyle: TextStyle(fontSize: 14),
+    border: InputBorder.none,
+    focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.black12, width: 2)),
+    enabledBorder:
+        UnderlineInputBorder(borderSide: BorderSide(color: Colors.black12)),
+    contentPadding: EdgeInsets.only(top: 16, bottom: 8, left: 8, right: 8));
+
 const kContentFieldInputDecoration = InputDecoration(
-  hintText: 'Blog Content',
-  border: InputBorder.none,
-);
+    hintText: 'Blog Content',
+    border: InputBorder.none,
+    hintStyle: TextStyle(fontSize: 14),
+    contentPadding: EdgeInsets.only(top: 16, bottom: 8, left: 8, right: 8));
+
 const kImageUrlFieldInputDecoration = InputDecoration(
 //  isCollapsed: true,
     hintText: 'Feature Image Link',
+    contentPadding: EdgeInsets.only(top: 8, bottom: 8, left: 8, right: 8),
     border: InputBorder.none);
 const kAuthInputFieldDecoration = InputDecoration(
   labelText: '',
@@ -54,6 +63,7 @@ const kBlogScreenTitleTextStyle =
 const kBlogScreenMetaDataTextStyle =
     TextStyle(fontSize: 12, color: Colors.grey);
 const kBlogScreenContentTextStyle = TextStyle(
+  color: Colors.black,
   fontSize: 16,
 );
 

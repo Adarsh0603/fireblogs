@@ -122,6 +122,40 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                style: TextStyle(fontSize: 14),
+                                validator: (value) {
+                                  if (value.isEmpty)
+                                    return 'Image Url is required';
+                                  return null;
+                                },
+                                initialValue: currentBlog != null
+                                    ? currentBlog.imageUrl
+                                    : '',
+                                textInputAction: TextInputAction.done,
+                                decoration: kImageUrlFieldInputDecoration,
+                                onSaved: (value) {
+                                  imageUrl = value;
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    imageUrl = value;
+                                  });
+                                },
+                                onFieldSubmitted: (value) {
+                                  setState(() {
+                                    imageUrl = value;
+                                  });
+                                },
+                              ),
+                            ),
+                            SearchImageButton(
+                                blogTopic: blogTopic, currentBlog: currentBlog)
+                          ],
+                        ),
                         TextFormField(
                           textInputAction: TextInputAction.done,
                           validator: (value) {
@@ -131,7 +165,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                           textCapitalization: TextCapitalization.sentences,
                           initialValue:
                               currentBlog != null ? currentBlog.blogTitle : '',
-                          decoration: kTitleFieldInputDecoration,
+                          decoration: kBlogFieldInputDecoration,
                           onSaved: (value) {
                             blogTitle = value;
                           },
@@ -145,7 +179,8 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                           textCapitalization: TextCapitalization.sentences,
                           initialValue:
                               currentBlog != null ? currentBlog.blogTopic : '',
-                          decoration: kTopicFieldInputDecoration,
+                          decoration: kBlogFieldInputDecoration.copyWith(
+                              hintText: 'Blog Topic'),
                           onSaved: (value) {
                             blogTopic = value;
                           },
@@ -174,33 +209,6 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                       ],
                     ),
                   ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        style: TextStyle(fontSize: 14),
-                        validator: (value) {
-                          if (value.isEmpty) return 'Image Url is required';
-                          return null;
-                        },
-                        initialValue:
-                            currentBlog != null ? currentBlog.imageUrl : '',
-                        textInputAction: TextInputAction.done,
-                        decoration: kImageUrlFieldInputDecoration,
-                        onSaved: (value) {
-                          imageUrl = value;
-                        },
-                        onFieldSubmitted: (value) {
-                          setState(() {
-                            imageUrl = value;
-                          });
-                        },
-                      ),
-                    ),
-                    SearchImageButton(
-                        blogTopic: blogTopic, currentBlog: currentBlog)
-                  ],
                 ),
                 SubmitButton(
                   onPressed: () => onBlogSave(forUpdate, currentBlog),

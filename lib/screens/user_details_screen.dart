@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:fireblogs/data/auth.dart';
-import 'package:fireblogs/data/blogs.dart';
-import 'package:fireblogs/data/userProfile.dart';
 import 'package:fireblogs/models/blog.dart';
 import 'package:fireblogs/widgets/blog_screen_widgets/blog_actions_row.dart';
 import 'package:fireblogs/widgets/custom_loader.dart';

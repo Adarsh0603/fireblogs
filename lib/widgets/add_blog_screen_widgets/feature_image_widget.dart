@@ -16,10 +16,12 @@ class FeatureImage extends StatelessWidget {
         color: Colors.grey[200],
         child: FadeInImage.memoryNetwork(
           image: imageUrl,
-//          placeholder: NetworkImage(
-//              'https://ak.picdn.net/shutterstock/videos/1030928504/thumb/9.jpg?ip=x480'),
           fit: fitImage ? BoxFit.contain : BoxFit.cover,
           placeholder: kTransparentImage,
+          imageErrorBuilder:
+              (BuildContext context, Object exception, StackTrace stackTrace) {
+            return Center(child: Text('Cant get the image'));
+          },
         ),
       ),
     );

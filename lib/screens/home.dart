@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            title: Text('Profile'),
+            title: Text('PROFILE'),
           ),
         ],
       ),
