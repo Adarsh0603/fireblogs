@@ -64,10 +64,22 @@ const kUsernameFieldInputDecoration =
 
 const kUserDetailsFieldInputDecoration = InputDecoration(
   hintText: 'Add about you',
-  enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.black12),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(width: 2, color: Colors.black12),
-  ),
+  border: InputBorder.none,
+//  enabledBorder: OutlineInputBorder(
+//    borderSide: BorderSide(color: Colors.black12),
+//  ),
+//  focusedBorder: OutlineInputBorder(
+//    borderSide: BorderSide(width: 2, color: Colors.black12),
+//  ),
+);
+
+//User Details Screen Constants
+
+const kPublisherUsernameTextStyle = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.w600,
+);
+const kPublisherDetailsTextStyle = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w400,
 );

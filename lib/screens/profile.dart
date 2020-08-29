@@ -57,21 +57,18 @@ class _ProfileState extends State<Profile> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             return snapshot.connectionState == ConnectionState.waiting
                 ? CustomLoader()
-                : Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
+                : Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        TextFormField(
                           initialValue: profile.username,
                           decoration: kUsernameFieldInputDecoration,
                           onSaved: (value) {
                             username = value;
                           },
                         ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        Expanded(
                           child: TextFormField(
                             initialValue: profile.userDetails,
                             maxLines: 99,
@@ -81,8 +78,8 @@ class _ProfileState extends State<Profile> {
                             },
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
           },
         ),

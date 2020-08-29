@@ -4,8 +4,10 @@ import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/data/userProfile.dart';
 import 'package:fireblogs/models/blog.dart';
+import 'package:fireblogs/widgets/blog_screen_widgets/blog_actions_row.dart';
 import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:fireblogs/widgets/user_blog_item.dart';
+import 'package:fireblogs/widgets/user_details_screen_widgets/publisher_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -54,23 +56,26 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: getUserData(),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          return snapshot.connectionState == ConnectionState.waiting
-              ? CustomLoader()
-              : Column(
-                  children: [
-                    Text(username),
-                    Text(userDetails),
-                    Expanded(
-                        child: ListView.builder(
-                            itemCount: userBlogsList.length,
-                            itemBuilder: (ctx, i) =>
-                                UserBlogItem(userBlogsList[i], false)))
-                  ],
-                );
-        },
+      body: SafeArea(
+        child: FutureBuilder(
+          future: getUserData(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            return snapshot.connectionState == ConnectionState.waiting
+                ? CustomLoader()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BlogActionsRow(),
+                      PublisherDetails(username, userDetails),
+                      Expanded(
+                          child: ListView.builder(
+                              itemCount: userBlogsList.length,
+                              itemBuilder: (ctx, i) =>
+                                  UserBlogItem(userBlogsList[i], false)))
+                    ],
+                  );
+          },
+        ),
       ),
     );
   }
