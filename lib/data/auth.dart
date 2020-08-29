@@ -4,12 +4,14 @@ import 'dart:convert';
 import 'package:fireblogs/data/apikeys.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fireblogs/models/http_exception.dart';
 
 class Auth with ChangeNotifier {
   String _token;
   String _userId;
+  String _refreshToken;
   DateTime _expiryDate;
   Timer _authTimer;
   String _username;
@@ -45,20 +47,24 @@ class Auth with ChangeNotifier {
     if (!prefs.containsKey('userData')) {
       return false;
     }
-
-    final extractedData =
+    var extractedData =
         await jsonDecode(prefs.getString('userData')) as Map<String, dynamic>;
-    final expiryDate = DateTime.parse(extractedData['expiryDate']);
+    var expiryDate = DateTime.parse(extractedData['expiryDate']);
+
     if (expiryDate.isBefore(DateTime.now())) {
-      return false;
+      await _getNewToken();
+      extractedData =
+          await jsonDecode(prefs.getString('userData')) as Map<String, dynamic>;
+      expiryDate = DateTime.parse(extractedData['expiryDate']);
     }
     _token = extractedData['token'];
     _userId = extractedData['userId'];
+    _refreshToken = extractedData['refreshToken'];
     _expiryDate = expiryDate;
+    await _getNewToken();
     await fetchUserDetails();
-
     notifyListeners();
-    _autoLogout();
+    _autoRefreshToken();
     return true;
   }
 
@@ -88,15 +94,21 @@ class Auth with ChangeNotifier {
         final userData = jsonDecode(response.body);
         _token = userData['idToken'];
         _userId = userData['localId'];
-        _expiryDate = DateTime.now()
-            .add(Duration(seconds: int.parse(userData['expiresIn'])));
-        _autoLogout();
+        _refreshToken = userData['refreshToken'];
+        _expiryDate = DateTime.now().add(
+          Duration(
+            seconds: int.parse(userData['expiresIn']) - 3560,
+          ),
+        );
 
+        _autoRefreshToken();
         notifyListeners();
+
         final prefs = await SharedPreferences.getInstance();
         final userDataToSave = jsonEncode({
           'token': _token,
           'userId': _userId,
+          'refreshToken': _refreshToken,
           'expiryDate': _expiryDate.toIso8601String()
         });
         prefs.setString('userData', userDataToSave);
@@ -130,6 +142,7 @@ class Auth with ChangeNotifier {
   Future<void> signIn(String email, String password) async {
     try {
       await _authenticate(email, password, 'signInWithPassword');
+
       fetchUserDetails();
     } on HttpException {
       rethrow;
@@ -141,6 +154,7 @@ class Auth with ChangeNotifier {
   Future<void> logOut() async {
     _token = null;
     _expiryDate = null;
+    _refreshToken = null;
     _userId = null;
     if (_authTimer != null) {
       _authTimer.cancel();
@@ -151,12 +165,38 @@ class Auth with ChangeNotifier {
     prefs.clear();
   }
 
-  void _autoLogout() {
+  void _autoRefreshToken() {
     if (_authTimer != null) {
       _authTimer.cancel();
     }
     final timeToExpiry = _expiryDate.difference(DateTime.now()).inSeconds;
-    Timer(Duration(seconds: timeToExpiry), logOut);
+    Timer(Duration(seconds: timeToExpiry - 10), _getNewToken);
+  }
+
+  Future<void> _getNewToken() async {
+    final url = 'https://securetoken.googleapis.com/v1/token?key=$apiKey';
+    var response = await http.post(url,
+        body: jsonEncode(
+            {'grant_type': 'refresh_token', 'refresh_token': _refreshToken}));
+    var responseData = jsonDecode(response.body);
+    _token = responseData['access_token'];
+    _refreshToken = responseData['refresh_token'];
+    _userId = responseData['user_id'];
+    _expiryDate = DateTime.now().add(
+      Duration(
+        seconds: int.parse(responseData['expires_in']),
+      ),
+    );
+    notifyListeners();
+    _autoRefreshToken();
+    final prefs = await SharedPreferences.getInstance();
+    final userDataToSave = jsonEncode({
+      'token': _token,
+      'userId': _userId,
+      'refreshToken': _refreshToken,
+      'expiryDate': _expiryDate.toIso8601String()
+    });
+    prefs.setString('userData', userDataToSave);
   }
 
   void _errorHandling(Map errorMap) {
