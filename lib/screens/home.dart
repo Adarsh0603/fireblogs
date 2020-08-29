@@ -1,5 +1,6 @@
 import 'package:fireblogs/screens/add_blog_screen.dart';
 import 'package:fireblogs/screens/home_screen.dart';
+import 'package:fireblogs/screens/profile.dart';
 import 'package:fireblogs/screens/user_blogs_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +12,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   final List<Widget> _children = [
-    HomeScreen(),
     UserBlogsScreen(),
-    AddBlogScreen(),
+    HomeScreen(),
+    Profile(),
   ];
 
   void onTabTapped(int index) {
@@ -41,12 +42,16 @@ class _HomeState extends State<Home> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard),
+            title: Text('YOUR BLOGS'),
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text('HOME'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            title: Text('YOUR BLOGS'),
+            icon: Icon(Icons.person),
+            title: Text('Profile'),
           ),
         ],
       ),

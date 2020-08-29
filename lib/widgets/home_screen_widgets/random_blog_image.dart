@@ -1,5 +1,4 @@
 import 'package:fireblogs/constants.dart';
-import 'package:fireblogs/models/blog.dart';
 import 'package:flutter/material.dart';
 
 class RandomBlogImage extends StatelessWidget {

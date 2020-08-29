@@ -4,7 +4,7 @@ import 'package:fireblogs/widgets/add_blog_screen_widgets/delete_loader.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/feature_image_widget.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/feature_placeholder_widget.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/fit_image_widget.dart';
-import 'package:fireblogs/widgets/add_blog_screen_widgets/publish_button.dart';
+import 'package:fireblogs/widgets/add_blog_screen_widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fireblogs/constants.dart';
 import 'package:provider/provider.dart';
@@ -70,7 +70,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
           style: kAppBarTextStyle,
         ),
         backgroundColor: Colors.white,
-        elevation: 2,
+        elevation: 0,
         actions: [
           if (currentBlog != null)
             isDeleting
@@ -148,7 +148,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                                     color: Colors.grey,
                                   ),
                                   onPressed: () async {
-                                    if (blogTopic == '')
+                                    if (blogTopic == '' && currentBlog == null)
                                       Scaffold.of(ctx).showSnackBar(SnackBar(
                                         content: Text(
                                             'Fill in blog topic to search related images'),
@@ -156,7 +156,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                                       ));
                                     else {
                                       var url =
-                                          'https://unsplash.com/s/photos/$blogTopic';
+                                          'https://unsplash.com/s/photos/${currentBlog != null ? currentBlog.blogTopic : blogTopic}';
                                       if (await canLaunch(url)) {
                                         await launch(url);
                                       } else {
@@ -220,9 +220,10 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                     ),
                   ),
                 ),
-                PublishButton(
+                SubmitButton(
                   onPressed: () => onBlogSave(forUpdate, currentBlog),
                   isLoading: isLoading,
+                  btnText: 'PUBLISH',
                 )
               ],
             ),

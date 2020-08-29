@@ -56,3 +56,18 @@ const kBlogScreenMetaDataTextStyle =
 const kBlogScreenContentTextStyle = TextStyle(
   fontSize: 16,
 );
+
+//Profile Screen Constants
+
+const kUsernameFieldInputDecoration =
+    InputDecoration(hintText: 'Name', border: InputBorder.none);
+
+const kUserDetailsFieldInputDecoration = InputDecoration(
+  hintText: 'Add about you',
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.black12),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(width: 2, color: Colors.black12),
+  ),
+);

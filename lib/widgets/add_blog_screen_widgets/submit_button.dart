@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class PublishButton extends StatelessWidget {
+class SubmitButton extends StatelessWidget {
   final Function() onPressed;
   final bool isLoading;
-
-  PublishButton({this.onPressed, this.isLoading});
+  final String btnText;
+  SubmitButton({this.onPressed, this.isLoading, this.btnText});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class PublishButton extends StatelessWidget {
                     ),
                   )
                 : Text(
-                    'PUBLISH',
+                    btnText,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )),
       ),

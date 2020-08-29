@@ -2,7 +2,6 @@ import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/screens/add_blog_screen.dart';
 import 'package:fireblogs/widgets/custom_loader.dart';
-import 'package:fireblogs/widgets/home_screen_widgets/random_blog.dart';
 import 'package:fireblogs/widgets/no_blogs_widget.dart';
 import 'package:fireblogs/widgets/user_blog_item.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,7 @@ class UserBlogsScreen extends StatelessWidget {
             },
           )
         ],
-        elevation: 2,
+        elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
         title: Text(
           'Your Blogs',

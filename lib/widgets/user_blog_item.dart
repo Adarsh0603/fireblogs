@@ -2,7 +2,6 @@ import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/models/blog.dart';
 import 'package:fireblogs/screens/add_blog_screen.dart';
 import 'package:fireblogs/utils.dart';
-import 'package:fireblogs/widgets/add_blog_screen_widgets/feature_image_widget.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/random_blog_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
