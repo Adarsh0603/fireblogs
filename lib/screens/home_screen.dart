@@ -1,10 +1,7 @@
 import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/data/userProfile.dart';
-import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
-import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blogs_list.dart';
-import 'package:fireblogs/widgets/home_screen_widgets/paginator.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/random_blog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
         onRefresh: () => onRefresh(context),
         child: Column(
           children: [
-            Expanded(child: BlogsList()),
             Container(
               height: MediaQuery.of(context).size.height * 0.2,
               child: blogs.reFetch
@@ -69,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   : RandomBlog(),
             ),
+            Expanded(child: BlogsList()),
           ],
         ),
       ),

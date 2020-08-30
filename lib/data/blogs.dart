@@ -17,6 +17,8 @@ class Blogs with ChangeNotifier {
   List<Blog> _blogs = [];
   List<Blog> _userBlogs = [];
   var selectedDate = DateTime.now();
+  Map<String, dynamic> weeklyData;
+
   List<Blog> get blogs {
     return _blogs.reversed.toList();
   }
@@ -42,8 +44,8 @@ class Blogs with ChangeNotifier {
     reFetchUserBlogs = false;
   }
 
-  DateTime get getSelectedDate {
-    return selectedDate;
+  Map<String, dynamic> get getWeekData {
+    return weeklyData;
   }
 
   void update(String token, String user, String username) {
@@ -130,25 +132,28 @@ class Blogs with ChangeNotifier {
   }
 
   Map<String, String> selectWeek(DateType dateType) {
-    String startDate;
-    String endDate;
+    DateTime startDate;
+    DateTime endDate;
     if (dateType == DateType.today) {
-      endDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+      endDate = selectedDate;
       selectedDate = selectedDate.subtract(Duration(days: 7));
-      startDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+      startDate = selectedDate;
     }
     if (dateType == DateType.older) {
-      endDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+      endDate = selectedDate;
       selectedDate = selectedDate.subtract(Duration(days: 7));
-      startDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+      startDate = selectedDate;
     }
     if (dateType == DateType.newer) {
       selectedDate = selectedDate.add(Duration(days: 7));
-      startDate = DateFormat('yyyy-MM-dd').format(selectedDate);
-      endDate =
-          DateFormat('yyyy-MM-dd').format(selectedDate.add(Duration(days: 7)));
+      startDate = selectedDate;
+      endDate = selectedDate.add(Duration(days: 7));
     }
-    return {'startDate': startDate, 'endDate': endDate};
+    weeklyData = {'startDate': startDate, 'endDate': endDate};
+    return {
+      'startDate': DateFormat('yyyy-MM-dd').format(startDate),
+      'endDate': DateFormat('yyyy-MM-dd').format(endDate),
+    };
   }
 
   Future<void> fetchBlogsFromFirebase(
@@ -161,7 +166,6 @@ class Blogs with ChangeNotifier {
     String urlSegment = filter
         ? 'orderBy="authorId"&equalTo="$userId"'
         : 'orderBy="blogDateFMT"&startAt="${weekMap['startDate']}"&endAt="${weekMap['endDate']}"';
-    print(urlSegment);
     final url =
         'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
     final response = await http.get(url);

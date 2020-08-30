@@ -42,20 +42,21 @@ class _PaginatorState extends State<Paginator> {
                     size: 18,
                   )
                 : Text(
-                    DateFormat('dd MMMM').format(blogs.getSelectedDate),
+                    '${DateFormat('dd MMM').format(blogs.getWeekData['startDate'])}' +
+                        ' - ${DateFormat('dd MMM').format(blogs.getWeekData['endDate'])}',
                     style: kPaginatorTextStyle,
                   ),
             Spacer(),
             IconButton(
               icon: Icon(Icons.chevron_left),
-              onPressed: !blogs.selectedDate.isAfter(DateTime.utc(2020, 08, 01))
+              onPressed: !blogs.selectedDate.isAfter(DateTime.utc(2020, 07, 27))
                   ? null
                   : () => onClick(DateType.older),
             ),
             IconButton(
                 icon: Icon(Icons.chevron_right),
                 onPressed: !blogs.selectedDate
-                        .isBefore(DateTime.now().subtract(Duration(days: 1)))
+                        .isBefore(DateTime.now().subtract(Duration(days: 8)))
                     ? null
                     : () => onClick(DateType.newer)),
           ],
