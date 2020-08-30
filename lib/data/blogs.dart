@@ -15,7 +15,10 @@ class Blogs with ChangeNotifier {
   String _username;
   List<Blog> _blogs = [];
   List<Blog> _userBlogs = [];
-  var currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  var currentDate = DateTime.now();
+  int newDayIndex = 0;
+  int oldDayIndex = 0;
+  var selectedDate = DateTime.now();
   List<Blog> get blogs {
     return _blogs.reversed.toList();
   }
@@ -31,6 +34,10 @@ class Blogs with ChangeNotifier {
 
   void setReFetchUserBlogs() {
     reFetchUserBlogs = false;
+  }
+
+  String get selectedDateFMT {
+    return DateFormat('MMM-dd').format(selectedDate);
   }
 
   void update(String token, String user, String username) {
@@ -116,20 +123,25 @@ class Blogs with ChangeNotifier {
     reFetch = true;
   }
 
+  String dateManager(int load) {
+    if (load == 0) {
+      selectedDate = selectedDate.subtract(Duration(days: 1));
+    }
+    if (load == 1) {
+      selectedDate = selectedDate.add(Duration(days: 1));
+    }
+    return DateFormat('yyyy-MM-dd').format(selectedDate);
+  }
+
   Future<void> fetchBlogsFromFirebase(
-      [bool filter = false, bool loadOlder = false]) async {
+      [bool filter = false, int load = 2]) async {
     if (reFetchUserBlogs == false && reFetch == false) return;
     reFetch = false;
+    final String dateString = dateManager(load);
 
-    if (loadOlder) {
-      currentDate = DateFormat('yyyy-MM-dd')
-          .format(DateTime.now().subtract(Duration(days: 1)));
-    }
-
-    print(currentDate);
     String urlSegment = filter
         ? 'orderBy="authorId"&equalTo="$userId"'
-        : 'orderBy="blogDateFMT"&equalTo="$currentDate"';
+        : 'orderBy="blogDateFMT"&equalTo="$dateString"';
     final url =
         'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
     final response = await http.get(url);

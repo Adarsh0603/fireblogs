@@ -1,6 +1,6 @@
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/models/blog.dart';
-import 'package:fireblogs/widgets/add_blog_screen_widgets/delete_loader.dart';
+import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/feature_image_widget.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/feature_placeholder_widget.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/fit_image_widget.dart';
@@ -83,7 +83,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
         actions: [
           if (currentBlog != null)
             isDeleting
-                ? DeleteLoader()
+                ? NormalLoader()
                 : IconButton(
                     icon: Icon(
                       Icons.delete,

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
-class DeleteLoader extends StatelessWidget {
+class NormalLoader extends StatelessWidget {
+  final double size;
+
+  NormalLoader({this.size = 18});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
         child: Container(
-            width: 18,
-            height: 18,
+            width: size,
+            height: size,
             child: CircularProgressIndicator(
               backgroundColor: Colors.white,
               valueColor: AlwaysStoppedAnimation<Color>(Colors.black),

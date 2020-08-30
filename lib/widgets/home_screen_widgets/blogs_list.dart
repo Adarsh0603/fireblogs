@@ -28,17 +28,25 @@ class _BlogsListState extends State<BlogsList> {
 }
 
 class BlogListWidget extends StatelessWidget {
-  const BlogListWidget({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return Consumer<Blogs>(
-        builder: (BuildContext context, blogs, _) => ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (ctx, i) => BlogCard(blogs.blogs[i].id),
-              itemCount: blogs.blogs.length,
-            ));
+    return Column(
+      children: [
+        Expanded(
+          child: Consumer<Blogs>(
+              child: Center(
+                child: Text('No blogs here'),
+              ),
+              builder: (BuildContext context, blogs, child) =>
+                  blogs.blogs.length == 0
+                      ? child
+                      : ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (ctx, i) => BlogCard(blogs.blogs[i].id),
+                          itemCount: blogs.blogs.length,
+                        )),
+        ),
+      ],
+    );
   }
 }
