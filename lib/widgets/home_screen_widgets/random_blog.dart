@@ -36,21 +36,18 @@ class RandomBlog extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10),
-                  Text(
-                    blog.blogTitle,
-                    style: kRandomBlogTitleTextStyle,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  SizedBox(height: 5),
+//                  Text(
+//                    blog.blogTitle,
+//                    style: kRandomBlogTitleTextStyle,
+//                    overflow: TextOverflow.ellipsis,
+//                  ),
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: Text(
-                          Utils.trimString(blog.blogContent, 300),
-                          style: kRandomBlogContentTextStyle,
-                        ),
-                      ),
+                    child: Text(
+                      blog.blogContent,
+                      style: kRandomBlogContentTextStyle,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
                     ),
                   ),
                   SizedBox(height: 10),
@@ -60,6 +57,7 @@ class RandomBlog extends StatelessWidget {
                       Expanded(
                         child: Text(
                           blog.blogTopic.toUpperCase(),
+                          overflow: TextOverflow.ellipsis,
                           style: kBlogTopicTextStyle,
                         ),
                       ),

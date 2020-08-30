@@ -25,6 +25,7 @@ class Blogs with ChangeNotifier {
 
   void resetFetchingBooleans() {
     reFetch = true;
+    reFetchUserBlogs = true;
   }
 
   void setReFetchUserBlogs() {

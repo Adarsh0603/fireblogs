@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/data/blogs.dart';
+import 'package:fireblogs/data/userProfile.dart';
 import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blogs_list.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/random_blog.dart';
@@ -20,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final blogs = Provider.of<Blogs>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -38,6 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
           FlatButton(
             child: Text('LOGOUT'),
             onPressed: () async {
+              Provider.of<Blogs>(context, listen: false)
+                  .resetFetchingBooleans();
+              Provider.of<UserProfile>(context, listen: false)
+                  .resetFetchingBooleans();
               await Provider.of<Auth>(context, listen: false).logOut();
               Navigator.of(context).pushReplacementNamed('/');
             },
@@ -49,19 +57,17 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(width: 1, color: Colors.grey[200]))),
               height: MediaQuery.of(context).size.height * 0.2,
-              child: FutureBuilder(
-                future: Provider.of<Blogs>(context, listen: false)
-                    .checkBlogsState(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>
-                        snapshot.connectionState == ConnectionState.done
-                            ? RandomBlog()
-                            : CustomLoader(size: 180),
-              ),
+              child: blogs.reFetch
+                  ? FutureBuilder(
+                      future: blogs.checkBlogsState(),
+                      builder: (BuildContext context,
+                              AsyncSnapshot<dynamic> snapshot) =>
+                          snapshot.connectionState == ConnectionState.done
+                              ? RandomBlog()
+                              : Container(),
+                    )
+                  : RandomBlog(),
             ),
             Expanded(child: BlogsList()),
           ],

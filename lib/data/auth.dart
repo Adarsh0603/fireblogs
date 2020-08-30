@@ -153,6 +153,9 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> logOut() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+
     _token = null;
     _expiryDate = null;
     _refreshToken = null;
@@ -162,8 +165,6 @@ class Auth with ChangeNotifier {
       _authTimer = null;
     }
     notifyListeners();
-    final prefs = await SharedPreferences.getInstance();
-    prefs.clear();
   }
 
   void _autoRefreshToken() {

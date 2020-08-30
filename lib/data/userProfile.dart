@@ -18,6 +18,10 @@ class UserProfile with ChangeNotifier {
     _userId = user;
   }
 
+  void resetFetchingBooleans() {
+    reFetchUserProfile = true;
+  }
+
   String get username => _username;
   String get userDetails => _userDetails;
 
