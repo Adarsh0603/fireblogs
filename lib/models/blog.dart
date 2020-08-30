@@ -6,6 +6,7 @@ class Blog {
   final String authorName;
   final String blogTopic;
   final String blogDate;
+  final String blogDateFMT;
   final String imageUrl;
   final bool fitImage;
 
@@ -17,6 +18,7 @@ class Blog {
       this.authorName,
       this.blogTopic,
       this.blogDate,
+      this.blogDateFMT,
       this.imageUrl,
       this.fitImage);
 }

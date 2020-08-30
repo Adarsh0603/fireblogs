@@ -45,6 +45,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
           blog['authorName'],
           blog['blogTopic'],
           blog['blogDate'],
+          blog['blogDateFMT'],
           blog['imageUrl'],
           blog['fitImage']));
     });

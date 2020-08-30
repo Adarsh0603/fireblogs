@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:fireblogs/models/blog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class Blogs with ChangeNotifier {
   String authToken;
@@ -14,7 +15,7 @@ class Blogs with ChangeNotifier {
   String _username;
   List<Blog> _blogs = [];
   List<Blog> _userBlogs = [];
-
+  var currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
   List<Blog> get blogs {
     return _blogs.reversed.toList();
   }
@@ -45,6 +46,7 @@ class Blogs with ChangeNotifier {
     final url =
         "https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken";
     final String blogDate = DateTime.now().toIso8601String();
+    final String blogDateFMT = DateFormat('yyyy-MM-dd').format(DateTime.now());
     final response = await http.post(url,
         body: jsonEncode({
           'blogTitle': blogTitle,
@@ -53,12 +55,13 @@ class Blogs with ChangeNotifier {
           'authorName': _username,
           'blogTopic': blogTopic,
           'blogDate': blogDate,
+          'blogDateFMT': blogDateFMT,
           'imageUrl': imageUrl,
           'fitImage': fitImage
         }));
     final responseData = jsonDecode(response.body);
     final blog = Blog(responseData['name'], userId, blogTitle, blogContent,
-        _username, blogTopic, blogDate, imageUrl, fitImage);
+        _username, blogTopic, blogDate, blogDateFMT, imageUrl, fitImage);
     _blogs.add(blog);
     _userBlogs.add(blog);
     notifyListeners();
@@ -84,7 +87,8 @@ class Blogs with ChangeNotifier {
       String blogId,
       String imageUrl,
       bool fitImage,
-      String blogDate) async {
+      String blogDate,
+      String blogDateFMT) async {
     final url =
         "https://fireblogs-da7f6.firebaseio.com/blogs/$blogId.json?auth=$authToken";
     await http.put(url,
@@ -95,6 +99,7 @@ class Blogs with ChangeNotifier {
           'authorName': _username,
           'blogTopic': blogTopic,
           'blogDate': blogDate,
+          'blogDateFMT': blogDateFMT,
           'imageUrl': imageUrl,
           'fitImage': fitImage
         }));
@@ -103,7 +108,7 @@ class Blogs with ChangeNotifier {
     final userBlogsIndex =
         _userBlogs.indexWhere((element) => element.id == blogId);
     final blog = Blog(blogId, userId, blogTitle, blogContent, _username,
-        blogTopic, blogDate, imageUrl, fitImage);
+        blogTopic, blogDate, blogDateFMT, imageUrl, fitImage);
     _blogs[index] = blog;
     _userBlogs[userBlogsIndex] = blog;
 
@@ -111,12 +116,20 @@ class Blogs with ChangeNotifier {
     reFetch = true;
   }
 
-  Future<void> fetchBlogsFromFirebase([bool filter = false]) async {
+  Future<void> fetchBlogsFromFirebase(
+      [bool filter = false, bool loadOlder = false]) async {
     if (reFetchUserBlogs == false && reFetch == false) return;
     reFetch = false;
+
+    if (loadOlder) {
+      currentDate = DateFormat('yyyy-MM-dd')
+          .format(DateTime.now().subtract(Duration(days: 1)));
+    }
+
+    print(currentDate);
     String urlSegment = filter
         ? 'orderBy="authorId"&equalTo="$userId"'
-        : 'orderBy="blogDate"&limitToLast=3';
+        : 'orderBy="blogDateFMT"&equalTo="$currentDate"';
     final url =
         'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
     final response = await http.get(url);
@@ -132,6 +145,7 @@ class Blogs with ChangeNotifier {
           blog['authorName'],
           blog['blogTopic'],
           blog['blogDate'],
+          blog['blogDateFMT'],
           blog['imageUrl'],
           blog['fitImage']));
     });
@@ -175,5 +189,6 @@ class Blogs with ChangeNotifier {
       else
         return true;
     });
+    return false;
   }
 }

@@ -44,7 +44,8 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
           userBlog.id,
           imageUrl,
           fitImage,
-          userBlog.blogDate);
+          userBlog.blogDate,
+          userBlog.blogDateFMT);
     else
       await Provider.of<Blogs>(context, listen: false)
           .addBlog(blogTitle, blogContent, blogTopic, imageUrl, fitImage);

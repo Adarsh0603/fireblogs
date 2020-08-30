@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/data/userProfile.dart';
-import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blogs_list.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/random_blog.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +36,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: Colors.white,
         actions: [
+          FlatButton(
+            child: Text('Load More'),
+            onPressed: () async {
+              Provider.of<Blogs>(context, listen: false)
+                  .resetFetchingBooleans();
+              await Provider.of<Blogs>(context, listen: false)
+                  .fetchBlogsFromFirebase(false, true);
+            },
+          ),
           FlatButton(
             child: Text('LOGOUT'),
             onPressed: () async {

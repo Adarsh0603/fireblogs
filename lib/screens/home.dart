@@ -1,5 +1,4 @@
 import 'package:fireblogs/screens/home_screen.dart';
-import 'package:fireblogs/screens/profile.dart';
 import 'package:fireblogs/screens/profile_screen.dart';
 import 'package:fireblogs/screens/user_blogs_screen.dart';
 import 'package:flutter/material.dart';

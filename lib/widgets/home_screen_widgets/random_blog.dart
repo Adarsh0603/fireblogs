@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/screens/blog_screen.dart';
-import 'package:fireblogs/utils.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/random_blog_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
