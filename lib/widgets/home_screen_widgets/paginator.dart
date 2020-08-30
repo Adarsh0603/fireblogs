@@ -1,3 +1,4 @@
+import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
 import 'package:flutter/material.dart';
@@ -31,27 +32,34 @@ class _PaginatorState extends State<Paginator> {
   @override
   Widget build(BuildContext context) {
     return Consumer<Blogs>(
-      builder: (ctx, blogs, _) => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(
-            icon: Icon(Icons.chevron_left),
-            onPressed: !blogs.selectedDate.isAfter(DateTime.utc(2020, 08, 30))
-                ? null
-                : () => onClick(DateType.older),
-          ),
-          isLoading
-              ? NormalLoader(
-                  size: 18,
-                )
-              : Text(DateFormat('MMM-dd').format(blogs.getSelectedDate)),
-          IconButton(
-              icon: Icon(Icons.chevron_right),
-              onPressed: !blogs.selectedDate
-                      .isBefore(DateTime.now().subtract(Duration(days: 1)))
+      builder: (ctx, blogs, _) => Padding(
+        padding: EdgeInsets.only(left: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            isLoading
+                ? NormalLoader(
+                    size: 18,
+                  )
+                : Text(
+                    DateFormat('dd MMMM').format(blogs.getSelectedDate),
+                    style: kPaginatorTextStyle,
+                  ),
+            Spacer(),
+            IconButton(
+              icon: Icon(Icons.chevron_left),
+              onPressed: !blogs.selectedDate.isAfter(DateTime.utc(2020, 08, 01))
                   ? null
-                  : () => onClick(DateType.newer)),
-        ],
+                  : () => onClick(DateType.older),
+            ),
+            IconButton(
+                icon: Icon(Icons.chevron_right),
+                onPressed: !blogs.selectedDate
+                        .isBefore(DateTime.now().subtract(Duration(days: 1)))
+                    ? null
+                    : () => onClick(DateType.newer)),
+          ],
+        ),
       ),
     );
   }

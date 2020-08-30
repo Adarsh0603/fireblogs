@@ -55,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onRefresh: () => onRefresh(context),
         child: Column(
           children: [
+            Expanded(child: BlogsList()),
             Container(
               height: MediaQuery.of(context).size.height * 0.2,
               child: blogs.reFetch
@@ -68,7 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   : RandomBlog(),
             ),
-            Expanded(child: BlogsList()),
           ],
         ),
       ),

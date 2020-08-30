@@ -129,25 +129,39 @@ class Blogs with ChangeNotifier {
     reFetch = true;
   }
 
-  String dateManager(DateType dateType) {
+  Map<String, String> selectWeek(DateType dateType) {
+    String startDate;
+    String endDate;
+    if (dateType == DateType.today) {
+      endDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+      selectedDate = selectedDate.subtract(Duration(days: 7));
+      startDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+    }
     if (dateType == DateType.older) {
-      selectedDate = selectedDate.subtract(Duration(days: 1));
+      endDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+      selectedDate = selectedDate.subtract(Duration(days: 7));
+      startDate = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
     if (dateType == DateType.newer) {
-      selectedDate = selectedDate.add(Duration(days: 1));
+      selectedDate = selectedDate.add(Duration(days: 7));
+      startDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+      endDate =
+          DateFormat('yyyy-MM-dd').format(selectedDate.add(Duration(days: 7)));
     }
-    return DateFormat('yyyy-MM-dd').format(selectedDate);
+    return {'startDate': startDate, 'endDate': endDate};
   }
 
   Future<void> fetchBlogsFromFirebase(
       [bool filter = false, DateType dateType = DateType.today]) async {
     if (reFetchUserBlogs == false && reFetch == false) return;
     reFetch = false;
-    final String dateString = dateManager(dateType);
+
+    Map<String, String> weekMap = selectWeek(dateType);
 
     String urlSegment = filter
         ? 'orderBy="authorId"&equalTo="$userId"'
-        : 'orderBy="blogDateFMT"&equalTo="$dateString"';
+        : 'orderBy="blogDateFMT"&startAt="${weekMap['startDate']}"&endAt="${weekMap['endDate']}"';
+    print(urlSegment);
     final url =
         'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
     final response = await http.get(url);

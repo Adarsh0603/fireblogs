@@ -95,3 +95,6 @@ const kPublisherDetailsTextStyle = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w400,
 );
+
+const kPaginatorTextStyle =
+    TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.grey);
