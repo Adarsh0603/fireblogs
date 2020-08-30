@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:fireblogs/date_enum.dart';
 import 'package:fireblogs/models/blog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -24,8 +25,10 @@ class Blogs with ChangeNotifier {
     return _userBlogs.reversed.toList();
   }
 
-  void resetFetchingBooleans() {
-    reFetch = true;
+  void resetFetchingBooleans(
+      [bool value = true, bool calledByPaginator = false]) {
+    reFetch = value;
+    if (calledByPaginator) return;
     reFetchUserBlogs = true;
   }
 
@@ -126,21 +129,21 @@ class Blogs with ChangeNotifier {
     reFetch = true;
   }
 
-  String dateManager(int load) {
-    if (load == 0) {
+  String dateManager(DateType dateType) {
+    if (dateType == DateType.older) {
       selectedDate = selectedDate.subtract(Duration(days: 1));
     }
-    if (load == 1) {
+    if (dateType == DateType.newer) {
       selectedDate = selectedDate.add(Duration(days: 1));
     }
     return DateFormat('yyyy-MM-dd').format(selectedDate);
   }
 
   Future<void> fetchBlogsFromFirebase(
-      [bool filter = false, int load = 2]) async {
+      [bool filter = false, DateType dateType = DateType.today]) async {
     if (reFetchUserBlogs == false && reFetch == false) return;
     reFetch = false;
-    final String dateString = dateManager(load);
+    final String dateString = dateManager(dateType);
 
     String urlSegment = filter
         ? 'orderBy="authorId"&equalTo="$userId"'

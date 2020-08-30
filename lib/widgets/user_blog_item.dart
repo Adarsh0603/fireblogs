@@ -36,7 +36,6 @@ class UserBlogItem extends StatelessWidget {
                 Border(bottom: BorderSide(width: 1, color: Colors.grey[100])),
             color: Colors.white,
           ),
-//          margin: EdgeInsets.all(16),
           width: double.infinity,
           child: Row(
             children: [
