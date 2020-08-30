@@ -114,7 +114,9 @@ class Blogs with ChangeNotifier {
   Future<void> fetchBlogsFromFirebase([bool filter = false]) async {
     if (reFetchUserBlogs == false && reFetch == false) return;
     reFetch = false;
-    String urlSegment = filter ? 'orderBy="authorId"&equalTo="$userId"' : '';
+    String urlSegment = filter
+        ? 'orderBy="authorId"&equalTo="$userId"'
+        : 'orderBy="blogDate"&limitToLast=3';
     final url =
         'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
     final response = await http.get(url);

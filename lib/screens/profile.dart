@@ -35,6 +35,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     final profile = Provider.of<UserProfile>(context, listen: false);
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
