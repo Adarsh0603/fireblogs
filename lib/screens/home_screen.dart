@@ -49,6 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Container(
+              decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(width: 1, color: Colors.grey[200]))),
               height: MediaQuery.of(context).size.height * 0.2,
               child: FutureBuilder(
                 future: Provider.of<Blogs>(context, listen: false)

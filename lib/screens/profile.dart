@@ -52,36 +52,29 @@ class _ProfileState extends State<Profile> {
       ),
       body: Form(
         key: _formKey,
-        child: FutureBuilder(
-          future: profile.fetchSavedUserData(),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            return snapshot.connectionState == ConnectionState.waiting
-                ? CustomLoader()
-                : Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          initialValue: profile.username,
-                          decoration: kUsernameFieldInputDecoration,
-                          onSaved: (value) {
-                            username = value;
-                          },
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                            initialValue: profile.userDetails,
-                            maxLines: 99,
-                            decoration: kUserDetailsFieldInputDecoration,
-                            onSaved: (value) {
-                              userDetails = value;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-          },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              TextFormField(
+                initialValue: profile.username,
+                decoration: kUsernameFieldInputDecoration,
+                onSaved: (value) {
+                  username = value;
+                },
+              ),
+              Expanded(
+                child: TextFormField(
+                  initialValue: profile.userDetails,
+                  maxLines: 99,
+                  decoration: kUserDetailsFieldInputDecoration,
+                  onSaved: (value) {
+                    userDetails = value;
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

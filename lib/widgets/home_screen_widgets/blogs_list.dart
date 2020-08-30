@@ -12,12 +12,11 @@ class BlogsList extends StatefulWidget {
 class _BlogsListState extends State<BlogsList> {
   @override
   Widget build(BuildContext context) {
-    return Provider.of<Blogs>(context, listen: false).blogs.length == 0
+    return Provider.of<Blogs>(context, listen: false).reFetch == true
         ? FutureBuilder(
             future: Provider.of<Blogs>(context, listen: false)
                 .fetchBlogsFromFirebase(false),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              print('built again');
               if (snapshot.connectionState == ConnectionState.done) {
                 return BlogListWidget();
               } else

@@ -11,6 +11,8 @@ class UserProfile with ChangeNotifier {
   String _username;
   String _userDetails;
 
+  bool reFetchUserProfile = true;
+
   void update(String token, String user, String userName) {
     _authToken = token;
     _userId = user;
@@ -20,6 +22,8 @@ class UserProfile with ChangeNotifier {
   String get userDetails => _userDetails;
 
   Future<void> fetchSavedUserData() async {
+    if (reFetchUserProfile == false) return;
+    reFetchUserProfile = false;
     final url =
         "https://fireblogs-da7f6.firebaseio.com/users/$_userId.json?auth=$_authToken";
     var response = await http.get(url);

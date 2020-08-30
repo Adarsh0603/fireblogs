@@ -1,5 +1,6 @@
 import 'package:fireblogs/screens/home_screen.dart';
 import 'package:fireblogs/screens/profile.dart';
+import 'package:fireblogs/screens/profile_screen.dart';
 import 'package:fireblogs/screens/user_blogs_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class _HomeState extends State<Home> {
   final List<Widget> _children = [
     UserBlogsScreen(),
     HomeScreen(),
-    Profile(),
+    ProfileScreen(),
   ];
 
   void onTabTapped(int index) {

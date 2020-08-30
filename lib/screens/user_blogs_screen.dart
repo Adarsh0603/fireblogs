@@ -41,26 +41,38 @@ class UserBlogsScreen extends StatelessWidget {
 class UserBlogsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Provider.of<Blogs>(context, listen: false)
-          .fetchBlogsFromFirebase(true),
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          Provider.of<Blogs>(context, listen: false).setReFetchUserBlogs();
-          return Consumer<Blogs>(
-            child: NoBlogsWidget(),
-            builder: (BuildContext context, blogs, ch) =>
-                blogs.userBlogs.length == 0
-                    ? ch
-                    : ListView.builder(
-                        itemCount: blogs.userBlogs.length,
-                        itemBuilder: (ctx, i) =>
-                            UserBlogItem(blogs.userBlogs[i], true),
-                      ),
-          );
-        } else
-          return CustomLoader();
-      },
+    return Provider.of<Blogs>(context, listen: false).reFetchUserBlogs == true
+        ? FutureBuilder(
+            future: Provider.of<Blogs>(context, listen: false)
+                .fetchBlogsFromFirebase(true),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                Provider.of<Blogs>(context, listen: false)
+                    .setReFetchUserBlogs();
+                return UserBlogsListWidget();
+              } else
+                return CustomLoader();
+            },
+          )
+        : UserBlogsListWidget();
+  }
+}
+
+class UserBlogsListWidget extends StatelessWidget {
+  const UserBlogsListWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<Blogs>(
+      child: NoBlogsWidget(),
+      builder: (BuildContext context, blogs, ch) => blogs.userBlogs.length == 0
+          ? ch
+          : ListView.builder(
+              itemCount: blogs.userBlogs.length,
+              itemBuilder: (ctx, i) => UserBlogItem(blogs.userBlogs[i], true),
+            ),
     );
   }
 }
