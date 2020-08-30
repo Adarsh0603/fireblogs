@@ -12,20 +12,34 @@ class BlogsList extends StatefulWidget {
 class _BlogsListState extends State<BlogsList> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Provider.of<Blogs>(context, listen: false)
-          .fetchBlogsFromFirebase(false),
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return Consumer<Blogs>(
-              builder: (BuildContext context, blogs, _) => ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (ctx, i) => BlogCard(blogs.blogs[i].id),
-                    itemCount: blogs.blogs.length,
-                  ));
-        } else
-          return CustomLoader();
-      },
-    );
+    return Provider.of<Blogs>(context, listen: false).blogs.length == 0
+        ? FutureBuilder(
+            future: Provider.of<Blogs>(context, listen: false)
+                .fetchBlogsFromFirebase(false),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              print('built again');
+              if (snapshot.connectionState == ConnectionState.done) {
+                return BlogListWidget();
+              } else
+                return CustomLoader();
+            },
+          )
+        : BlogListWidget();
+  }
+}
+
+class BlogListWidget extends StatelessWidget {
+  const BlogListWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<Blogs>(
+        builder: (BuildContext context, blogs, _) => ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (ctx, i) => BlogCard(blogs.blogs[i].id),
+              itemCount: blogs.blogs.length,
+            ));
   }
 }

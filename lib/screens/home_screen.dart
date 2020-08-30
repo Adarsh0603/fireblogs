@@ -16,8 +16,8 @@ class HomeScreen extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.black),
         title: Row(
           children: [
-            Container(
-                height: 48, width: 48, child: Image.asset('images/5.gif')),
+//            Container(
+//                height: 48, width: 48, child: Image.asset('images/5.gif')),
             Text(
               'Fireblogs',
               style: TextStyle(color: Colors.black, fontSize: 24),
@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                   (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>
                       snapshot.connectionState == ConnectionState.done
                           ? RandomBlog()
-                          : CustomLoader(),
+                          : CustomLoader(size: 64),
             ),
           ),
           Expanded(child: BlogsList()),

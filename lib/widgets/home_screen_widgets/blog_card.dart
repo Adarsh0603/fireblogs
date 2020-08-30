@@ -4,6 +4,7 @@ import 'package:fireblogs/widgets/home_screen_widgets/blog_card_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class BlogCard extends StatelessWidget {
   final String blogId;
@@ -28,9 +29,10 @@ class BlogCard extends StatelessWidget {
                 Positioned(
                   child: Container(
                     height: double.infinity,
-                    child: Image.network(
-                      blog.imageUrl,
+                    child: FadeInImage.memoryNetwork(
+                      image: blog.imageUrl,
                       fit: BoxFit.cover,
+                      placeholder: kTransparentImage,
                     ),
                   ),
                 ),

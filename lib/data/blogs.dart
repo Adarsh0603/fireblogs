@@ -101,10 +101,10 @@ class Blogs with ChangeNotifier {
   Future<void> fetchBlogsFromFirebase([bool filter = false]) async {
     if (_blogs.length != 0) return;
     String urlSegment = filter ? 'orderBy="authorId"&equalTo="$userId"' : '';
-    print('ran');
     final url =
         'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
     final response = await http.get(url);
+    print('[fetchBlogsFromFirebase]-API CALL');
     final blogsData = jsonDecode(response.body) as Map<String, dynamic>;
     List<Blog> fetchedBlogs = [];
     blogsData.forEach((id, blog) {

@@ -1,5 +1,6 @@
 import 'package:fireblogs/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class RandomBlogImage extends StatelessWidget {
   final double width;
@@ -18,9 +19,10 @@ class RandomBlogImage extends StatelessWidget {
         child: Container(
           width: width,
           height: width,
-          child: Image.network(
-            blogImage,
+          child: FadeInImage.memoryNetwork(
+            image: blogImage,
             fit: BoxFit.cover,
+            placeholder: kTransparentImage,
           ),
         ),
       ),
