@@ -51,10 +51,14 @@ class Auth with ChangeNotifier {
     _refreshToken = extractedData['refreshToken'];
 
     if (expiryDate.isBefore(DateTime.now())) {
-      await _getNewToken();
-      extractedData =
-          await jsonDecode(prefs.getString('userData')) as Map<String, dynamic>;
-      expiryDate = DateTime.parse(extractedData['expiryDate']);
+      try {
+        await _getNewToken();
+        extractedData = await jsonDecode(prefs.getString('userData'))
+            as Map<String, dynamic>;
+        expiryDate = DateTime.parse(extractedData['expiryDate']);
+      } catch (e) {
+        logOut();
+      }
     }
     _token = extractedData['token'];
     _userId = extractedData['userId'];

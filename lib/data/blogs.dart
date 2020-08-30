@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 class Blogs with ChangeNotifier {
   String authToken;
   String userId;
+  bool reFetch = true;
+  bool reFetchUserBlogs = true;
   String _previousUsername; //to check whether username is changed or not
   String _username;
   List<Blog> _blogs = [];
@@ -19,6 +21,14 @@ class Blogs with ChangeNotifier {
 
   List<Blog> get userBlogs {
     return _userBlogs.reversed.toList();
+  }
+
+  void resetFetchingBooleans() {
+    reFetch = true;
+  }
+
+  void setReFetchUserBlogs() {
+    reFetchUserBlogs = false;
   }
 
   void update(String token, String user, String username) {
@@ -51,6 +61,7 @@ class Blogs with ChangeNotifier {
     _blogs.add(blog);
     _userBlogs.add(blog);
     notifyListeners();
+    reFetch = true;
   }
 
   Future<void> deleteBlog(String blogId) async {
@@ -96,10 +107,12 @@ class Blogs with ChangeNotifier {
     _userBlogs[userBlogsIndex] = blog;
 
     notifyListeners();
+    reFetch = true;
   }
 
   Future<void> fetchBlogsFromFirebase([bool filter = false]) async {
-    if (_blogs.length != 0) return;
+    if (reFetchUserBlogs == false && reFetch == false) return;
+    reFetch = false;
     String urlSegment = filter ? 'orderBy="authorId"&equalTo="$userId"' : '';
     final url =
         'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';

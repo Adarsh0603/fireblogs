@@ -46,6 +46,7 @@ class UserBlogsList extends StatelessWidget {
           .fetchBlogsFromFirebase(true),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
+          Provider.of<Blogs>(context, listen: false).setReFetchUserBlogs();
           return Consumer<Blogs>(
             child: NoBlogsWidget(),
             builder: (BuildContext context, blogs, ch) =>

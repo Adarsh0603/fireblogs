@@ -25,7 +25,7 @@ class BlogCardContent extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.all(kRoundedRadius)),
           margin: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-          width: MediaQuery.of(context).size.width * 0.62,
+          width: MediaQuery.of(context).size.width * 0.66,
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(

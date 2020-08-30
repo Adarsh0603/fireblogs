@@ -31,23 +31,29 @@ class RandomBlog extends StatelessWidget {
         child: Row(
           children: [
             RandomBlogImage(width: width, blogImage: blog.imageUrl),
-            SizedBox(width: 10),
+            SizedBox(width: 20),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 10),
-//                Text(
-//                  Utils.trimString(blog.blogTitle, 20),
-//                  style: kRandomBlogTitleTextStyle,
-//                ),
-                  SingleChildScrollView(
-                    child: Text(
-                      Utils.trimString(blog.blogContent, 80),
-                      style: kRandomBlogContentTextStyle,
+                  Text(
+                    blog.blogTitle,
+                    style: kRandomBlogTitleTextStyle,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          Utils.trimString(blog.blogContent, 300),
+                          style: kRandomBlogContentTextStyle,
+                        ),
+                      ),
                     ),
                   ),
-                  Spacer(),
+                  SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
