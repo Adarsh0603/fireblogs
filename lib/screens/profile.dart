@@ -23,7 +23,6 @@ class _ProfileState extends State<Profile> {
         .updateProfile(username, userDetails);
     Provider.of<Auth>(context, listen: false).updateUsername(username);
     Provider.of<Blogs>(context, listen: false).patchBlogsByUser();
-
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text('Updated Successfully'),
       duration: Duration(seconds: 1),

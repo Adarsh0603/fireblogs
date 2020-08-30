@@ -29,52 +29,53 @@ class UserBlogItem extends StatelessWidget {
                     builder: (BuildContext context) => BlogScreen(userBlog)));
           }
         },
-        child: Material(
-          elevation: 1,
-          color: Colors.white,
-          child: Container(
-            margin: EdgeInsets.all(16),
-            width: double.infinity,
+        child: Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            border:
+                Border(bottom: BorderSide(width: 1, color: Colors.grey[100])),
             color: Colors.white,
-            child: Row(
-              children: [
-                RandomBlogImage(width: width, blogImage: userBlog.imageUrl),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Container(
-                    height: width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 10),
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: Text(
-                              userBlog.blogTitle,
-                              style: kRandomBlogTitleTextStyle,
-                            ),
+          ),
+//          margin: EdgeInsets.all(16),
+          width: double.infinity,
+          child: Row(
+            children: [
+              RandomBlogImage(width: width, blogImage: userBlog.imageUrl),
+              SizedBox(width: 10),
+              Expanded(
+                child: Container(
+                  height: width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 10),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Text(
+                            userBlog.blogTitle,
+                            style: kRandomBlogTitleTextStyle,
                           ),
                         ),
-                        SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Published On - ${DateFormat('dd MMM yyyy').format(DateTime.parse(userBlog.blogDate))}',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Published On - ${DateFormat('dd MMM yyyy').format(DateTime.parse(userBlog.blogDate))}',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

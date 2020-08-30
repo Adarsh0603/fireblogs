@@ -60,6 +60,7 @@ class RandomBlog extends StatelessWidget {
                           style: kBlogTopicTextStyle,
                         ),
                       ),
+                      SizedBox(width: 10),
                       Text(
                         DateFormat('MMM dd, yyyy')
                             .format(DateTime.parse(blog.blogDate)),

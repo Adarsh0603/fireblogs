@@ -54,7 +54,7 @@ const kRandomBlogTitleTextStyle = TextStyle(
 );
 const kRandomBlogContentTextStyle = TextStyle(
   fontSize: 16,
-  fontWeight: FontWeight.w400,
+  fontWeight: FontWeight.w500,
   height: 1.1,
 );
 

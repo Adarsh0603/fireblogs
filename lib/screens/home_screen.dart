@@ -4,6 +4,7 @@ import 'package:fireblogs/data/userProfile.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
 import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blogs_list.dart';
+import 'package:fireblogs/widgets/home_screen_widgets/paginator.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/random_blog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,8 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           FlatButton(
             child: Text('LOGOUT'),
             onPressed: () async {
-              Provider.of<Blogs>(context, listen: false)
-                  .resetFetchingBooleans();
+              Provider.of<Blogs>(context, listen: false).resetDataOnLogout();
               Provider.of<UserProfile>(context, listen: false)
                   .resetFetchingBooleans();
               await Provider.of<Auth>(context, listen: false).logOut();
@@ -69,62 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   : RandomBlog(),
             ),
             Expanded(child: BlogsList()),
-            Paginator()
           ],
         ),
       ),
-    );
-  }
-}
-
-class Paginator extends StatefulWidget {
-  @override
-  _PaginatorState createState() => _PaginatorState();
-}
-
-class _PaginatorState extends State<Paginator> {
-  bool isLoading = false;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          icon: Icon(Icons.chevron_left),
-          onPressed: () async {
-            Provider.of<Blogs>(context, listen: false).resetFetchingBooleans();
-            setState(() {
-              isLoading = true;
-            });
-            await Provider.of<Blogs>(context, listen: false)
-                .fetchBlogsFromFirebase(false, 0);
-            setState(() {
-              isLoading = false;
-            });
-          },
-        ),
-        isLoading
-            ? NormalLoader(
-                size: 18,
-              )
-            : Consumer<Blogs>(
-                builder: (ctx, blogs, _) => Text(blogs.selectedDateFMT),
-              ),
-        IconButton(
-          icon: Icon(Icons.chevron_right),
-          onPressed: () async {
-            Provider.of<Blogs>(context, listen: false).resetFetchingBooleans();
-            setState(() {
-              isLoading = true;
-            });
-            await Provider.of<Blogs>(context, listen: false)
-                .fetchBlogsFromFirebase(false, 1);
-            setState(() {
-              isLoading = false;
-            });
-          },
-        ),
-      ],
     );
   }
 }

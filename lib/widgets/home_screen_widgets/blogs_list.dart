@@ -1,6 +1,7 @@
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blog_card.dart';
+import 'package:fireblogs/widgets/home_screen_widgets/paginator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,7 @@ class BlogListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Paginator(),
         Expanded(
           child: Consumer<Blogs>(
               child: Center(

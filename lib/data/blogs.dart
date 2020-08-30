@@ -15,9 +15,6 @@ class Blogs with ChangeNotifier {
   String _username;
   List<Blog> _blogs = [];
   List<Blog> _userBlogs = [];
-  var currentDate = DateTime.now();
-  int newDayIndex = 0;
-  int oldDayIndex = 0;
   var selectedDate = DateTime.now();
   List<Blog> get blogs {
     return _blogs.reversed.toList();
@@ -32,12 +29,18 @@ class Blogs with ChangeNotifier {
     reFetchUserBlogs = true;
   }
 
+  void resetDataOnLogout() {
+    reFetch = true;
+    reFetchUserBlogs = true;
+    selectedDate = DateTime.now();
+  }
+
   void setReFetchUserBlogs() {
     reFetchUserBlogs = false;
   }
 
-  String get selectedDateFMT {
-    return DateFormat('MMM-dd').format(selectedDate);
+  DateTime get getSelectedDate {
+    return selectedDate;
   }
 
   void update(String token, String user, String username) {

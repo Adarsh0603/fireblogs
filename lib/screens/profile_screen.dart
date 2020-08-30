@@ -8,14 +8,17 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profile = Provider.of<UserProfile>(context, listen: false);
-    return profile.reFetchUserProfile
-        ? FutureBuilder(
-            future: profile.fetchSavedUserData(),
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              return snapshot.connectionState == ConnectionState.waiting
-                  ? CustomLoader()
-                  : Profile();
-            })
-        : Profile();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: profile.reFetchUserProfile
+          ? FutureBuilder(
+              future: profile.fetchSavedUserData(),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                return snapshot.connectionState == ConnectionState.waiting
+                    ? CustomLoader()
+                    : Profile();
+              })
+          : Profile(),
+    );
   }
 }

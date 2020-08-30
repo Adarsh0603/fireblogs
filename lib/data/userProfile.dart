@@ -44,6 +44,7 @@ class UserProfile with ChangeNotifier {
       await http.put(url,
           body:
               json.encode({"username": userName, "userDetails": userDetails}));
+      reFetchUserProfile = true;
     } on HttpException {
       rethrow;
     } catch (e) {

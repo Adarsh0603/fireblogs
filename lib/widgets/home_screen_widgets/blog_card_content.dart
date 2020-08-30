@@ -47,9 +47,11 @@ class BlogCardContent extends StatelessWidget {
                   Expanded(
                     child: Text(
                       blog.blogTopic.toUpperCase(),
+                      overflow: TextOverflow.ellipsis,
                       style: kBlogTopicTextStyle,
                     ),
                   ),
+                  SizedBox(width: 10),
                   Text(
                     DateFormat('MMM dd').format(DateTime.parse(blog.blogDate)),
                     style: TextStyle(
