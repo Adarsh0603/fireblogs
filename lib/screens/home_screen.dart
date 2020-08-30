@@ -40,13 +40,13 @@ class HomeScreen extends StatelessWidget {
           Container(
             height: MediaQuery.of(context).size.height * 0.2,
             child: FutureBuilder(
-              future: Provider.of<Blogs>(context, listen: false)
-                  .fetchBlogsFromFirebase(false),
+              future:
+                  Provider.of<Blogs>(context, listen: false).checkBlogsState(),
               builder:
                   (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>
                       snapshot.connectionState == ConnectionState.done
                           ? RandomBlog()
-                          : Container(),
+                          : CustomLoader(),
             ),
           ),
           Expanded(child: BlogsList()),

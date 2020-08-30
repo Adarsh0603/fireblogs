@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:fireblogs/models/blog.dart';
@@ -9,7 +10,6 @@ class Blogs with ChangeNotifier {
   String userId;
   String _previousUsername; //to check whether username is changed or not
   String _username;
-
   List<Blog> _blogs = [];
   List<Blog> _userBlogs = [];
 
@@ -99,8 +99,9 @@ class Blogs with ChangeNotifier {
   }
 
   Future<void> fetchBlogsFromFirebase([bool filter = false]) async {
+    if (_blogs.length != 0) return;
     String urlSegment = filter ? 'orderBy="authorId"&equalTo="$userId"' : '';
-
+    print('ran');
     final url =
         'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
     final response = await http.get(url);
@@ -122,7 +123,6 @@ class Blogs with ChangeNotifier {
       _userBlogs = fetchedBlogs;
     else
       _blogs = fetchedBlogs;
-
     notifyListeners();
   }
 
@@ -150,5 +150,14 @@ class Blogs with ChangeNotifier {
 
   Blog findBlogById(String id) {
     return _blogs.firstWhere((element) => element.id == id);
+  }
+
+  Future<bool> checkBlogsState() async {
+    await Future.delayed(Duration(seconds: 1)).then((_) async {
+      if (_blogs.length == 0)
+        await checkBlogsState();
+      else
+        return true;
+    });
   }
 }
