@@ -160,8 +160,8 @@ class Blogs with ChangeNotifier {
       [bool filter = false, DateType dateType = DateType.today]) async {
     if (reFetchUserBlogs == false && reFetch == false) return;
     reFetch = false;
-
-    Map<String, String> weekMap = selectWeek(dateType);
+    Map<String, String> weekMap;
+    if (filter == false) weekMap = selectWeek(dateType);
 
     String urlSegment = filter
         ? 'orderBy="authorId"&equalTo="$userId"'

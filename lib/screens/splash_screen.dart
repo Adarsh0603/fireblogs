@@ -6,7 +6,14 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Image.asset('images/5.gif'),
+        child: Hero(
+          tag: 'title',
+          child: Text(
+            'fireblogs',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 28, color: Colors.black),
+          ),
+        ),
       ),
     );
   }

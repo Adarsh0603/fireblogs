@@ -12,6 +12,3 @@ class CustomLoader extends StatelessWidget {
     );
   }
 }
-//CircularProgressIndicator(
-//          valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-//        ),

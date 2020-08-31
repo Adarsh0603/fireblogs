@@ -24,13 +24,19 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
+        elevation: 1,
         iconTheme: IconThemeData(color: Colors.black),
         title: Row(
           children: [
-            Text(
-              'Fireblogs',
-              style: TextStyle(color: Colors.black, fontSize: 24),
+            Hero(
+              tag: 'title',
+              child: Text(
+                'fireblogs',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),
