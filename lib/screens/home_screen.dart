@@ -1,3 +1,4 @@
+import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blogs_list.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/random_blog.dart';
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 1,
+        elevation: kAppBarElevation,
         iconTheme: IconThemeData(color: Colors.black),
         title: Row(
           children: [
@@ -38,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: kAppBarColor,
       ),
       body: RefreshIndicator(
         onRefresh: () => onRefresh(context),

@@ -47,7 +47,7 @@ class _ProfileState extends State<Profile> {
             Expanded(
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -57,7 +57,9 @@ class _ProfileState extends State<Profile> {
                         initialValue: profile.username,
                         decoration: kUsernameFieldInputDecoration,
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 24),
+                            fontFamily: 'Noto',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 24),
                         onSaved: (value) {
                           username = value;
                         },
@@ -77,7 +79,9 @@ class _ProfileState extends State<Profile> {
                           maxLines: 99,
                           decoration: kUserDetailsFieldInputDecoration,
                           style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 18),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
                           onSaved: (value) {
                             userDetails = value;
                           },

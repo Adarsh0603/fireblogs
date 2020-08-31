@@ -4,7 +4,6 @@ import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/data/userProfile.dart';
 import 'package:fireblogs/screens/profile.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
-import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,8 +15,8 @@ class ProfileScreen extends StatelessWidget {
     final profile = Provider.of<UserProfile>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
+        backgroundColor: kAppBarColor,
+        elevation: kAppBarElevation,
         automaticallyImplyLeading: false,
         iconTheme: IconThemeData(color: Colors.blue),
         title: Text(

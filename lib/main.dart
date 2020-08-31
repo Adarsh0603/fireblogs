@@ -35,6 +35,9 @@ class MyApp extends StatelessWidget {
       child: Consumer<Auth>(
         builder: (BuildContext context, auth, _) => MaterialApp(
           debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            cursorColor: Colors.black,
+          ),
           title: 'FireBlogs',
           home: auth.isAuth
               ? Home()

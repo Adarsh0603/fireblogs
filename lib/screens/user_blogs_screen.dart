@@ -26,13 +26,13 @@ class UserBlogsScreen extends StatelessWidget {
             },
           )
         ],
-        elevation: 0,
+        elevation: kAppBarElevation,
         iconTheme: IconThemeData(color: Colors.black),
         title: Text(
           'Your Blogs',
           style: kAppBarTextStyle,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: kAppBarColor,
       ),
       body: UserBlogsList(),
     );

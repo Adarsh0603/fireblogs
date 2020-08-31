@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+const kAppBarElevation = 1.0;
+const kAppBarColor = Colors.white;
+const kAppBarTextStyle =
+    TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold);
 const kRoundedRadius = Radius.circular(8);
 const kBlogFieldInputDecoration = InputDecoration(
     isCollapsed: true,
@@ -42,8 +46,6 @@ const kGreetingTextStyle = TextStyle(color: Colors.black, fontSize: 32);
 const kGreetingNameStyle =
     TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 32);
 const kGreetingContentStyle = TextStyle(color: Colors.grey, fontSize: 18);
-
-const kAppBarTextStyle = TextStyle(color: Colors.black);
 
 const kBlogTopicTextStyle =
     TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold);
