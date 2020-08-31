@@ -20,6 +20,9 @@ class _ProfileState extends State<Profile> {
   final _formKey = GlobalKey<FormState>();
 
   void onProfileSave() async {
+    if (!_formKey.currentState.validate()) return;
+    FocusScope.of(context).unfocus();
+
     _formKey.currentState.save();
     setState(() {
       isLoading = true;
@@ -30,7 +33,6 @@ class _ProfileState extends State<Profile> {
       isLoading = false;
       btnText = 'Updated Successfully';
     });
-    FocusScope.of(context).unfocus();
     Provider.of<Auth>(context, listen: false).updateUsername(username);
     Provider.of<Blogs>(context, listen: false).patchBlogsByUser();
   }
@@ -54,6 +56,12 @@ class _ProfileState extends State<Profile> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: TextFormField(
+                        validator: (value) {
+                          if (value.isEmpty) return 'Username is required';
+                          if (value.length < 4)
+                            return 'Username must have atleast 4 characters.';
+                          return null;
+                        },
                         initialValue: profile.username,
                         decoration: kUsernameFieldInputDecoration,
                         style: TextStyle(

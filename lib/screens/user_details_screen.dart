@@ -72,9 +72,13 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-//                      BlogActionsRow(),
                       PublisherDetails(username, userDetails),
                       SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 8, bottom: 4, left: 16, right: 16.0),
+                        child: Text('Blogs', style: kBlogsLabelTextStyle),
+                      ),
                       Expanded(
                           child: ListView.builder(
                               itemCount: userBlogsList.length,

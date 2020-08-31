@@ -1,5 +1,7 @@
 import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/blogs.dart';
+import 'package:fireblogs/date_enum.dart';
+import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blogs_list.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/random_blog.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isLoading = false;
+
   Future<void> onRefresh(BuildContext context) async {
     final blogsProvider = Provider.of<Blogs>(context, listen: false);
     blogsProvider.resetFetchingBooleans();
@@ -25,45 +29,57 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: kAppBarElevation,
         iconTheme: IconThemeData(color: Colors.black),
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Hero(
-              tag: 'title',
-              child: Text(
-                'fireblogs',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
+        title: Hero(
+          tag: 'title',
+          child: Text(
+            'fireblogs',
+            style: TextStyle(
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+          ),
         ),
+        actions: [
+          isLoading
+              ? NormalLoader()
+              : IconButton(
+                  icon: Icon(Icons.refresh),
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    await onRefresh(context);
+                    setState(() {
+                      isLoading = false;
+                    });
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                        'Blogs are up-to-date.',
+                        style: TextStyle(color: Colors.yellow),
+                      ),
+                      duration: Duration(seconds: 1),
+                    ));
+                  },
+                )
+        ],
         backgroundColor: kAppBarColor,
       ),
-      body: RefreshIndicator(
-        onRefresh: () => onRefresh(context),
-        child: Column(
-          children: [
-            Container(
-              decoration: kRandomBlogBoxDecoration,
-              height: MediaQuery.of(context).size.height * 0.2,
-              child: blogs.reFetch
-                  ? FutureBuilder(
-                      future: blogs.checkBlogsState(),
-                      builder: (BuildContext context,
-                              AsyncSnapshot<dynamic> snapshot) =>
-                          snapshot.connectionState == ConnectionState.done
-                              ? RandomBlog()
-                              : Container(),
-                    )
-                  : RandomBlog(),
-            ),
-            Expanded(child: BlogsList()),
-          ],
-        ),
+      body: Column(
+        children: [
+          Container(
+            decoration: kRandomBlogBoxDecoration,
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: blogs.reFetch
+                ? FutureBuilder(
+                    future: blogs.checkBlogsState(),
+                    builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) =>
+                        snapshot.connectionState == ConnectionState.done
+                            ? RandomBlog()
+                            : Container(),
+                  )
+                : RandomBlog(),
+          ),
+          Expanded(child: BlogsList()),
+        ],
       ),
     );
   }

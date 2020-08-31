@@ -82,27 +82,18 @@ const kUsernameFieldInputDecoration = InputDecoration(
 
 const kUserDetailsFieldInputDecoration = InputDecoration(
   hintText: 'Add some more details',
-
   hintStyle: TextStyle(color: Colors.black12),
   border: InputBorder.none,
-//  enabledBorder: OutlineInputBorder(
-//    borderSide: BorderSide(color: Colors.black12),
-//  ),
-//  focusedBorder: OutlineInputBorder(
-//    borderSide: BorderSide(width: 2, color: Colors.black12),
-//  ),
 );
 
 //User Details Screen Constants
 
-const kPublisherUsernameTextStyle = TextStyle(
-  fontSize: 24,
-  fontWeight: FontWeight.w600,
-);
-const kPublisherDetailsTextStyle = TextStyle(
-  fontSize: 16,
-  fontWeight: FontWeight.w400,
-);
+const kPublisherUsernameTextStyle =
+    TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black);
+const kPublisherDetailsTextStyle =
+    TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.grey);
+const kBlogsLabelTextStyle =
+    TextStyle(fontWeight: FontWeight.bold, fontSize: 14);
 
 const kPaginatorTextStyle =
     TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.grey);

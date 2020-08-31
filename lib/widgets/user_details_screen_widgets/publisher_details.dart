@@ -10,19 +10,22 @@ class PublisherDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16),
       child: Material(
-        elevation: 1,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(kRoundedRadius)),
+        elevation: 8,
+        shadowColor: Colors.white,
         child: Container(
           height: MediaQuery.of(context).size.height * 0.3,
-          padding: EdgeInsets.all(16),
-//      color: Colors.grey[100],
+          padding: EdgeInsets.all(32),
           width: double.infinity,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                username,
+                username.toUpperCase(),
                 style: kPublisherUsernameTextStyle,
               ),
               SizedBox(height: 10),
@@ -30,6 +33,7 @@ class PublisherDetails extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Text(
                     userDetails,
+                    textAlign: TextAlign.start,
                     style: kPublisherDetailsTextStyle,
                   ),
                 ),

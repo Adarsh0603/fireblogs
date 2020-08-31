@@ -135,6 +135,7 @@ class Blogs with ChangeNotifier {
     DateTime startDate;
     DateTime endDate;
     if (dateType == DateType.today) {
+      selectedDate = DateTime.now();
       endDate = selectedDate;
       selectedDate = selectedDate.subtract(Duration(days: 7));
       startDate = selectedDate;
@@ -161,11 +162,16 @@ class Blogs with ChangeNotifier {
     if (reFetchUserBlogs == false && reFetch == false) return;
     reFetch = false;
     Map<String, String> weekMap;
-    if (filter == false) weekMap = selectWeek(dateType);
+    if (filter != true) weekMap = selectWeek(dateType);
 
-    String urlSegment = filter
-        ? 'orderBy="authorId"&equalTo="$userId"'
-        : 'orderBy="blogDateFMT"&startAt="${weekMap['startDate']}"&endAt="${weekMap['endDate']}"';
+    String urlSegment;
+    if (filter) {
+      urlSegment = 'orderBy="authorId"&equalTo="$userId"';
+    } else {
+      urlSegment =
+          'orderBy="blogDateFMT"&startAt="${weekMap['startDate']}"&endAt="${weekMap['endDate']}"';
+    }
+
     final url =
         'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
     final response = await http.get(url);

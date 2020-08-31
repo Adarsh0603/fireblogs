@@ -2,6 +2,7 @@ import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/models/blog.dart';
 import 'package:fireblogs/screens/add_blog_screen.dart';
 import 'package:fireblogs/screens/blog_screen.dart';
+import 'package:fireblogs/utils.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/random_blog_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -50,25 +51,51 @@ class UserBlogItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 10),
-                        Text(
-                          userBlog.blogTitle,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: kRandomBlogTitleTextStyle,
+                        Expanded(
+                          child: Text(
+                            userBlog.blogTitle,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: kRandomBlogTitleTextStyle,
+                          ),
                         ),
                         SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Published On - u${DateFormat('dd MMM yyyy').format(DateTime.parse(userBlog.blogDate))}',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12,
+                        !sameUser
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      userBlog.blogTopic.toUpperCase(),
+                                      overflow: TextOverflow.ellipsis,
+                                      style: kBlogTopicTextStyle,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    DateFormat('MMM dd').format(
+                                        DateTime.parse(userBlog.blogDate)),
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Published On - ${DateFormat('dd MMM yyyy').format(DateTime.parse(userBlog.blogDate))}',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                    ),
+                                  )
+                                ],
                               ),
-                            )
-                          ],
-                        ),
                         SizedBox(height: 10),
                       ],
                     ),
