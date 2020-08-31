@@ -26,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: kAppBarElevation,
         iconTheme: IconThemeData(color: Colors.black),
         title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Hero(
               tag: 'title',
@@ -46,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Container(
+              decoration: kRandomBlogBoxDecoration,
               height: MediaQuery.of(context).size.height * 0.2,
               child: blogs.reFetch
                   ? FutureBuilder(

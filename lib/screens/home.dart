@@ -1,3 +1,4 @@
+import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/screens/home_screen.dart';
 import 'package:fireblogs/screens/profile_screen.dart';
 import 'package:fireblogs/screens/user_blogs_screen.dart';
@@ -42,15 +43,24 @@ class _HomeState extends State<Home> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
-            title: Text('YOUR BLOGS'),
+            title: Text(
+              'YOUR BLOGS',
+              style: kNavItemTextColor,
+            ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('HOME'),
+            title: Text(
+              'HOME',
+              style: kNavItemTextColor,
+            ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            title: Text('PROFILE'),
+            title: Text(
+              'PROFILE',
+              style: kNavItemTextColor,
+            ),
           ),
         ],
       ),

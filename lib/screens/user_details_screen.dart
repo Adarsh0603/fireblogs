@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/models/blog.dart';
 import 'package:fireblogs/widgets/blog_screen_widgets/blog_actions_row.dart';
@@ -56,6 +57,12 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: kAppBarElevation,
+        title: Text('About Blogger', style: kAppBarTextStyle),
+        backgroundColor: kAppBarColor,
+      ),
       body: SafeArea(
         child: FutureBuilder(
           future: getUserData(),
@@ -65,7 +72,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      BlogActionsRow(),
+//                      BlogActionsRow(),
                       PublisherDetails(username, userDetails),
                       SizedBox(height: 10),
                       Expanded(

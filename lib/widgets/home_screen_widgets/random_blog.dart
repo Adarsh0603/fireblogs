@@ -26,7 +26,6 @@ class RandomBlog extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(16),
         width: double.infinity,
-        color: Colors.white,
         child: Row(
           children: [
             RandomBlogImage(width: width, blogImage: blog.imageUrl),

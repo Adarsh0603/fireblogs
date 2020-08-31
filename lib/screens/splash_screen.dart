@@ -7,18 +7,20 @@ class SplashScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Align(
         alignment: Alignment.center,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
-          child: Hero(
-            tag: 'title',
-            child: Text(
-              'fireblogs',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 48,
-                  color: Colors.black),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Hero(
+              tag: 'title',
+              child: Text(
+                'fireblogs',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 56,
+                    color: Colors.black),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

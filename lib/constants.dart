@@ -5,6 +5,8 @@ const kAppBarElevation = 1.0;
 const kAppBarColor = Colors.white;
 const kAppBarTextStyle =
     TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold);
+
+const kNavItemTextColor = TextStyle(fontWeight: FontWeight.w500);
 const kRoundedRadius = Radius.circular(8);
 const kBlogFieldInputDecoration = InputDecoration(
     isCollapsed: true,
@@ -104,3 +106,7 @@ const kPublisherDetailsTextStyle = TextStyle(
 
 const kPaginatorTextStyle =
     TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.grey);
+
+final kRandomBlogBoxDecoration = BoxDecoration(
+  color: Colors.grey[100],
+);

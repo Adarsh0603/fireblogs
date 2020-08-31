@@ -1,6 +1,7 @@
 import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/screens/add_blog_screen.dart';
+import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
 import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:fireblogs/widgets/no_blogs_widget.dart';
 import 'package:fireblogs/widgets/user_blog_item.dart';
@@ -52,7 +53,7 @@ class UserBlogsList extends StatelessWidget {
                     .setReFetchUserBlogs();
                 return UserBlogsListWidget();
               } else
-                return CustomLoader();
+                return NormalLoader();
             },
           )
         : UserBlogsListWidget();
@@ -60,10 +61,6 @@ class UserBlogsList extends StatelessWidget {
 }
 
 class UserBlogsListWidget extends StatelessWidget {
-  const UserBlogsListWidget({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Consumer<Blogs>(

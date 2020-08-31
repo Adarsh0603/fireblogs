@@ -95,11 +95,7 @@ class _ProfileState extends State<Profile> {
             GestureDetector(
               onTap: onProfileSave,
               child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.lightBlueAccent,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(4),
-                        bottomRight: Radius.circular(4))),
+                color: Colors.lightBlueAccent,
                 width: double.infinity,
                 child: Align(
                   alignment: Alignment.center,

@@ -13,10 +13,10 @@ class UserBlogItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.3;
+    final width = MediaQuery.of(context).size.width * 0.25;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 1.0, left: 0, right: 0),
+      padding: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
       child: GestureDetector(
         onTap: () {
           if (sameUser)
@@ -29,52 +29,53 @@ class UserBlogItem extends StatelessWidget {
                     builder: (BuildContext context) => BlogScreen(userBlog)));
           }
         },
-        child: Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            border:
-                Border(bottom: BorderSide(width: 1, color: Colors.grey[100])),
-            color: Colors.white,
-          ),
-          width: double.infinity,
-          child: Row(
-            children: [
-              RandomBlogImage(width: width, blogImage: userBlog.imageUrl),
-              SizedBox(width: 10),
-              Expanded(
-                child: Container(
-                  height: width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 10),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: Text(
-                            userBlog.blogTitle,
-                            style: kRandomBlogTitleTextStyle,
-                          ),
+        child: Material(
+          elevation: 4,
+          child: Container(
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              border:
+                  Border(bottom: BorderSide(width: 1, color: Colors.grey[100])),
+              color: Colors.white,
+            ),
+            width: double.infinity,
+            child: Row(
+              children: [
+                RandomBlogImage(width: width, blogImage: userBlog.imageUrl),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Container(
+                    height: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 10),
+                        Text(
+                          userBlog.blogTitle,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: kRandomBlogTitleTextStyle,
                         ),
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Published On - ${DateFormat('dd MMM yyyy').format(DateTime.parse(userBlog.blogDate))}',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                    ],
+                        SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Published On - u${DateFormat('dd MMM yyyy').format(DateTime.parse(userBlog.blogDate))}',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
