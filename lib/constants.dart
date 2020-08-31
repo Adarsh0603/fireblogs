@@ -71,11 +71,15 @@ const kBlogScreenContentTextStyle = TextStyle(
 
 //Profile Screen Constants
 
-const kUsernameFieldInputDecoration =
-    InputDecoration(hintText: 'Name', border: InputBorder.none);
+const kUsernameFieldInputDecoration = InputDecoration(
+    hintText: 'Name',
+    border: InputBorder.none,
+    hintStyle: TextStyle(color: Colors.black12));
 
 const kUserDetailsFieldInputDecoration = InputDecoration(
-  hintText: 'Add about you',
+  hintText: 'Add some more details',
+
+  hintStyle: TextStyle(color: Colors.black12),
   border: InputBorder.none,
 //  enabledBorder: OutlineInputBorder(
 //    borderSide: BorderSide(color: Colors.black12),

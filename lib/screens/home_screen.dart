@@ -41,18 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         backgroundColor: Colors.white,
-        actions: [
-          FlatButton(
-            child: Text('LOGOUT'),
-            onPressed: () async {
-              Provider.of<Blogs>(context, listen: false).resetDataOnLogout();
-              Provider.of<UserProfile>(context, listen: false)
-                  .resetFetchingBooleans();
-              await Provider.of<Auth>(context, listen: false).logOut();
-              Navigator.of(context).pushReplacementNamed('/');
-            },
-          ),
-        ],
       ),
       body: RefreshIndicator(
         onRefresh: () => onRefresh(context),
