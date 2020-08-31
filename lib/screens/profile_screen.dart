@@ -54,6 +54,7 @@ class ProfileScreen extends StatelessWidget {
                               .logOut();
 
                           Navigator.of(context).pushReplacementNamed('/');
+                          Navigator.of(ctx).pop();
                         },
                       )
                     ],

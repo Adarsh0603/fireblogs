@@ -1,7 +1,6 @@
 import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/data/userProfile.dart';
-import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fireblogs/constants.dart';

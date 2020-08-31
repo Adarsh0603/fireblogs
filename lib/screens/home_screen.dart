@@ -1,6 +1,4 @@
-import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/data/blogs.dart';
-import 'package:fireblogs/data/userProfile.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blogs_list.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/random_blog.dart';
 import 'package:flutter/material.dart';
