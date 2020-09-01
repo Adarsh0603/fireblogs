@@ -171,7 +171,12 @@ class Blogs with ChangeNotifier {
           blog['imageUrl'],
           blog['fitImage']));
     });
-
+    fetchedBlogs.sort((a, b) {
+      var adate = DateTime.parse(a.blogDate); //before -> var adate = a.expiry;
+      var bdate = DateTime.parse(b.blogDate); //before -> var bdate = b.expiry;
+      return adate.compareTo(
+          bdate); //to get the order other way just switch `adate & bdate`
+    });
     _blogs = fetchedBlogs;
     notifyListeners();
   }
@@ -201,7 +206,12 @@ class Blogs with ChangeNotifier {
           blog['imageUrl'],
           blog['fitImage']));
     });
-
+    fetchedBlogs.sort((a, b) {
+      var adate = DateTime.parse(a.blogDate); //before -> var adate = a.expiry;
+      var bdate = DateTime.parse(b.blogDate); //before -> var bdate = b.expiry;
+      return adate.compareTo(
+          bdate); //to get the order other way just switch `adate & bdate`
+    });
     _userBlogs = fetchedBlogs;
     notifyListeners();
   }

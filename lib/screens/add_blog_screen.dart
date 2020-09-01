@@ -230,7 +230,6 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                                   onFieldSubmitted: (value) {
                                     setState(() {
                                       imageUrl = value;
-
                                     });
                                   },
                                 ),
