@@ -1,3 +1,4 @@
+import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -5,23 +6,21 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Align(
+      body: Stack(
         alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Hero(
-              tag: 'title',
-              child: Text(
-                'fireblogs',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 36,
-                    color: Colors.black),
-              ),
+        children: [
+          CustomLoader(),
+          Positioned(
+            top: 420,
+            child: Text(
+              'fireblogs',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 36,
+                  color: Colors.orange),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

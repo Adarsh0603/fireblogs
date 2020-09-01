@@ -1,4 +1,5 @@
 import 'package:fireblogs/data/blogs.dart';
+import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
 import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blog_card.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/paginator.dart';
@@ -21,7 +22,7 @@ class _BlogsListState extends State<BlogsList> {
               if (snapshot.connectionState == ConnectionState.done) {
                 return BlogListWidget();
               } else
-                return CustomLoader();
+                return NormalLoader();
             },
           )
         : BlogListWidget();

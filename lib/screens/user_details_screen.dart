@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/models/blog.dart';
+import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
 import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:fireblogs/widgets/user_blog_item.dart';
 import 'package:fireblogs/widgets/user_details_screen_widgets/publisher_details.dart';
@@ -67,7 +68,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
           future: getUserData(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             return snapshot.connectionState == ConnectionState.waiting
-                ? CustomLoader()
+                ? NormalLoader()
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

@@ -31,9 +31,10 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
   bool isInit = true;
 
   void onBlogSave(bool forUpdate, Blog userBlog) async {
+    FocusScope.of(context).unfocus();
+
     if (!_formKey.currentState.validate()) return;
     _formKey.currentState.save();
-    FocusScope.of(context).unfocus();
     setState(() {
       isLoading = true;
     });
@@ -150,7 +151,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
             if (currentBlog != null)
               isDeleting
                   ? Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
+                      padding: const EdgeInsets.only(right: 16.0),
                       child: NormalLoader(),
                     )
                   : IconButton(
@@ -282,7 +283,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                           Expanded(
                             child: TextFormField(
                               validator: (value) {
-                                if (value.length < 20)
+                                if (value.length < 200)
                                   return 'Content should be atleast 200 characters';
                                 return null;
                               },

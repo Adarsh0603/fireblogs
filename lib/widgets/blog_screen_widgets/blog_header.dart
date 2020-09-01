@@ -14,7 +14,7 @@ class BlogHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final blogDate = DateTime.parse(blog.blogDate);
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.only(left: 16, bottom: 16, right: 16, top: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
