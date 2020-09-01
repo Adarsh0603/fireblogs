@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/models/blog.dart';
-import 'package:fireblogs/widgets/blog_screen_widgets/blog_actions_row.dart';
 import 'package:fireblogs/widgets/custom_loader.dart';
 import 'package:fireblogs/widgets/user_blog_item.dart';
 import 'package:fireblogs/widgets/user_details_screen_widgets/publisher_details.dart';
@@ -60,7 +59,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         elevation: kAppBarElevation,
-        title: Text('About Blogger', style: kAppBarTextStyle),
+        title: Text('', style: kAppBarTextStyle),
         backgroundColor: kAppBarColor,
       ),
       body: SafeArea(
@@ -76,7 +75,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                       SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.only(
-                            top: 8, bottom: 8, left: 32, right: 16.0),
+                            top: 0, bottom: 8, left: 24, right: 16.0),
                         child: Text('BLOGS', style: kBlogsLabelTextStyle),
                       ),
                       Expanded(

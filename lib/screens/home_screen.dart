@@ -1,6 +1,5 @@
 import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/blogs.dart';
-import 'package:fireblogs/date_enum.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/blogs_list.dart';
 import 'package:fireblogs/widgets/home_screen_widgets/random_blog.dart';
@@ -66,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Container(
             decoration: kRandomBlogBoxDecoration,
-            height: MediaQuery.of(context).size.height * 0.2,
+//            height: MediaQuery.of(context).size.width * 0.4,
             child: blogs.reFetch
                 ? FutureBuilder(
                     future: blogs.checkBlogsState(),

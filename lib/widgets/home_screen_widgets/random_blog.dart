@@ -26,26 +26,26 @@ class RandomBlog extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(16),
         width: double.infinity,
+        height: width,
         child: Row(
           children: [
-            RandomBlogImage(width: width, blogImage: blog.imageUrl),
-            SizedBox(width: 20),
+            RandomBlogImage(
+                width: width,
+                blogImage: blog.imageUrl,
+                elevation: 10.0,
+                rounded: true),
+            SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 5),
-//                  Text(
-//                    blog.blogTitle,
-//                    style: kRandomBlogTitleTextStyle,
-//                    overflow: TextOverflow.ellipsis,
-//                  ),
                   Expanded(
                     child: Text(
                       blog.blogContent,
                       style: kRandomBlogContentTextStyle,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
+                      maxLines: (width * 0.03).toInt(),
                     ),
                   ),
                   SizedBox(height: 10),
