@@ -37,8 +37,12 @@ class BlogListWidget extends StatelessWidget {
         Expanded(
           child: Consumer<Blogs>(
               child: Center(
-                child: Text('No blogs here'),
-              ),
+                  child: Container(
+                color: Colors.white,
+                child: Image.asset(
+                  'images/fail.gif',
+                ),
+              )),
               builder: (BuildContext context, blogs, child) =>
                   blogs.blogs.length == 0
                       ? child

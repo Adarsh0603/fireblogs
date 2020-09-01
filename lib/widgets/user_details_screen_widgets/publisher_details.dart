@@ -5,7 +5,7 @@ class PublisherDetails extends StatelessWidget {
   final String username;
   final String userDetails;
 
-  PublisherDetails(this.username, this.userDetails);
+  PublisherDetails(this.username, {this.userDetails = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +26,20 @@ class PublisherDetails extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    userDetails,
-                    textAlign: TextAlign.start,
-                    style: kPublisherDetailsTextStyle,
-                  ),
-                ),
-              ),
+              child: userDetails == ''
+                  ? Center(
+                      child: Text('No details available'),
+                    )
+                  : SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          userDetails,
+                          textAlign: TextAlign.start,
+                          style: kPublisherDetailsTextStyle,
+                        ),
+                      ),
+                    ),
             ),
           ],
         ),

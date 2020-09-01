@@ -9,7 +9,8 @@ import 'package:intl/intl.dart';
 class UserBlogItem extends StatelessWidget {
   final Blog userBlog;
   final bool sameUser;
-  UserBlogItem(this.userBlog, this.sameUser);
+  final double elevation;
+  UserBlogItem(this.userBlog, this.sameUser, {this.elevation = 4});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class UserBlogItem extends StatelessWidget {
           }
         },
         child: Material(
-          elevation: 4,
+          elevation: elevation,
           child: Container(
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(

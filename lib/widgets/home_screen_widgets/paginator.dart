@@ -1,6 +1,7 @@
 import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -31,13 +32,15 @@ class _PaginatorState extends State<Paginator> {
   Widget build(BuildContext context) {
     return Consumer<Blogs>(
       builder: (ctx, blogs, _) => Padding(
-        padding: EdgeInsets.only(left: 20),
+        padding: EdgeInsets.only(left: 20, bottom: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             isLoading
                 ? NormalLoader(
-                    size: 18,
+                    size: 14,
+                    color: Colors.orange,
                   )
                 : Text(
                     '${DateFormat('dd MMM').format(blogs.getWeekData['startDate'])}' +
@@ -46,12 +49,18 @@ class _PaginatorState extends State<Paginator> {
                   ),
             Spacer(),
             IconButton(
+              constraints: BoxConstraints(
+                maxHeight: 30,
+              ),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               icon: Icon(Icons.chevron_left),
               onPressed: !blogs.selectedDate.isAfter(DateTime.utc(2020, 07, 27))
                   ? null
                   : () => onClick(DateType.older),
             ),
             IconButton(
+                constraints: BoxConstraints(maxHeight: 30),
                 icon: Icon(Icons.chevron_right),
                 onPressed: !blogs.selectedDate
                         .isBefore(DateTime.now().subtract(Duration(days: 8)))

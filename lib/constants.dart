@@ -96,7 +96,7 @@ const kBlogsLabelTextStyle =
     TextStyle(fontWeight: FontWeight.bold, fontSize: 14);
 
 const kPaginatorTextStyle =
-    TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.grey);
+    TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey);
 
 final kRandomBlogBoxDecoration = BoxDecoration(
   color: Colors.grey[100],

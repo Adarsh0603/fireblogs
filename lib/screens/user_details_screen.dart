@@ -71,7 +71,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      PublisherDetails(username, userDetails),
+                      PublisherDetails(username, userDetails: userDetails),
                       SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.only(
@@ -81,8 +81,11 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                       Expanded(
                           child: ListView.builder(
                               itemCount: userBlogsList.length,
-                              itemBuilder: (ctx, i) =>
-                                  UserBlogItem(userBlogsList[i], false)))
+                              itemBuilder: (ctx, i) => UserBlogItem(
+                                    userBlogsList[i],
+                                    false,
+                                    elevation: 1,
+                                  )))
                     ],
                   );
           },
