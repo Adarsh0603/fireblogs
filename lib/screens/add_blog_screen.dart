@@ -1,5 +1,6 @@
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/models/blog.dart';
+import 'package:fireblogs/widgets/add_blog_screen_widgets/help_dialog.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/feature_image_widget.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/feature_placeholder_widget.dart';
@@ -148,7 +149,10 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
           actions: [
             if (currentBlog != null)
               isDeleting
-                  ? NormalLoader()
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: NormalLoader(),
+                    )
                   : IconButton(
                       icon: Icon(
                         Icons.delete,
@@ -187,11 +191,26 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                     ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Column(
                         children: [
                           Row(
                             children: [
+                              Container(
+                                width: 30,
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.info_outline,
+                                    size: 20,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (ctx) => HelpDialog());
+                                  },
+                                ),
+                              ),
                               Expanded(
                                 child: TextFormField(
                                   style: TextStyle(fontSize: 14),
@@ -211,12 +230,16 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                                   onFieldSubmitted: (value) {
                                     setState(() {
                                       imageUrl = value;
+
                                     });
                                   },
                                 ),
                               ),
                               SearchImageButton(searchTerm: searchTerm)
                             ],
+                          ),
+                          Divider(
+                            height: 0,
                           ),
                           TextFormField(
                             textInputAction: TextInputAction.done,

@@ -203,7 +203,6 @@ class Blogs with ChangeNotifier {
     });
 
     _userBlogs = fetchedBlogs;
-    print(_userBlogs.length);
     notifyListeners();
   }
 

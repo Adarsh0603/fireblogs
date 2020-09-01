@@ -27,7 +27,11 @@ const kContentFieldInputDecoration = InputDecoration(
 
 const kImageUrlFieldInputDecoration = InputDecoration(
 //  isCollapsed: true,
-    hintText: 'Feature Image Link',
+    labelText: 'Blog Image Link',
+    labelStyle: TextStyle(color: Colors.grey),
+    hintStyle: TextStyle(color: Colors.black26),
+    hintText:
+        'https://images.unsplash.com/photo-1489844097929-c8d5b91c456e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
     contentPadding: EdgeInsets.only(top: 8, bottom: 8, left: 8, right: 8),
     border: InputBorder.none);
 const kAuthInputFieldDecoration = InputDecoration(

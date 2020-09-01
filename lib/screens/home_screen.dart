@@ -70,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Container(
             decoration: kRandomBlogBoxDecoration,
+
 //            height: MediaQuery.of(context).size.width * 0.4,
             child: blogs.reFetch
                 ? FutureBuilder(
@@ -78,7 +79,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             AsyncSnapshot<dynamic> snapshot) =>
                         snapshot.connectionState == ConnectionState.done
                             ? RandomBlog()
-                            : Container(),
+                            : Container(
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                decoration: kRandomBlogBoxDecoration,
+                                margin: EdgeInsets.all(16),
+                                child: Center(),
+                              ),
                   )
                 : RandomBlog(),
           ),

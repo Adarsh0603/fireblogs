@@ -18,10 +18,6 @@ class FeatureImage extends StatelessWidget {
           image: imageUrl,
           fit: fitImage ? BoxFit.contain : BoxFit.cover,
           placeholder: kTransparentImage,
-          imageErrorBuilder:
-              (BuildContext context, Object exception, StackTrace stackTrace) {
-            return Center(child: Text('Cant get the image'));
-          },
         ),
       ),
     );
