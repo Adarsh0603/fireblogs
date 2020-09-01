@@ -13,8 +13,8 @@ class PublisherDetails extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16),
       child: Material(
         color: Colors.white,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(kRoundedRadius)),
+//        shape: RoundedRectangleBorder(
+//            borderRadius: BorderRadius.all(kRoundedRadius)),
         elevation: 8,
         shadowColor: Colors.white,
         child: Container(

@@ -16,7 +16,7 @@ class SplashScreen extends StatelessWidget {
                 'fireblogs',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 56,
+                    fontSize: 36,
                     color: Colors.black),
               ),
             ),

@@ -76,8 +76,8 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                       SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.only(
-                            top: 8, bottom: 4, left: 16, right: 16.0),
-                        child: Text('Blogs', style: kBlogsLabelTextStyle),
+                            top: 8, bottom: 8, left: 32, right: 16.0),
+                        child: Text('BLOGS', style: kBlogsLabelTextStyle),
                       ),
                       Expanded(
                           child: ListView.builder(

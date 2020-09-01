@@ -16,7 +16,7 @@ class _BlogsListState extends State<BlogsList> {
     return Provider.of<Blogs>(context, listen: false).reFetch == true
         ? FutureBuilder(
             future: Provider.of<Blogs>(context, listen: false)
-                .fetchBlogsFromFirebase(false),
+                .fetchBlogsFromFirebase(),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return BlogListWidget();

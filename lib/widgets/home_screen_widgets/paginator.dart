@@ -15,15 +15,13 @@ class _PaginatorState extends State<Paginator> {
   bool isLoading = false;
 
   void onClick(DateType dateType) async {
-    Provider.of<Blogs>(context, listen: false)
-        .resetFetchingBooleans(true, true);
+    Provider.of<Blogs>(context, listen: false).resetFetchingBooleans(true);
     setState(() {
       isLoading = true;
     });
     await Provider.of<Blogs>(context, listen: false)
-        .fetchBlogsFromFirebase(false, dateType);
-    Provider.of<Blogs>(context, listen: false)
-        .resetFetchingBooleans(false, true);
+        .fetchBlogsFromFirebase(dateType);
+    Provider.of<Blogs>(context, listen: false).resetFetchingBooleans(false);
     setState(() {
       isLoading = false;
     });

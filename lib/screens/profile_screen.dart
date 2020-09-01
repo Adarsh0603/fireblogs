@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
-  Future<void> logout(BuildContext context) async {}
-
   @override
   Widget build(BuildContext context) {
     final profile = Provider.of<UserProfile>(context, listen: false);
@@ -45,6 +43,7 @@ class ProfileScreen extends StatelessWidget {
                       FlatButton(
                         child: Text('Logout'),
                         onPressed: () async {
+//                          LOGOUT
                           Provider.of<Blogs>(context, listen: false)
                               .resetDataOnLogout();
                           Provider.of<UserProfile>(context, listen: false)

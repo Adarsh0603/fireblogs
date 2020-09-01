@@ -53,6 +53,38 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
     Navigator.of(context).pop();
   }
 
+  void deleteConfirmation(String currentBlogId) async {
+    var result = await showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Delete Blog?'),
+        content: Text(
+          'The blog will be deleted permanently.',
+          style: TextStyle(fontWeight: FontWeight.w500),
+        ),
+        actions: [
+          FlatButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+          ),
+          FlatButton(
+            color: Colors.red,
+            child: Text(
+              'Delete',
+            ),
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            },
+          ),
+        ],
+      ),
+    );
+
+    if (result == true) delete(currentBlogId); // re
+  }
+
   void delete(String blogId) async {
     setState(() {
       isDeleting = true;
@@ -62,8 +94,6 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
   }
 
   Future<bool> _willPopCallback() async {
-    // await showDialog or Show add banners or whatever
-    // then
     var result = await showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -124,7 +154,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                         Icons.delete,
                         color: Colors.black,
                       ),
-                      onPressed: () => delete(currentBlog.id),
+                      onPressed: () => deleteConfirmation(currentBlog.id),
                     )
           ],
         ),

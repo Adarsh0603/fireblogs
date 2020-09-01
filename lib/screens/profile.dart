@@ -15,6 +15,7 @@ class _ProfileState extends State<Profile> {
   String username;
   String userDetails;
   String btnText = 'Update Profile';
+  bool isUpdated = false;
 
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
@@ -32,9 +33,16 @@ class _ProfileState extends State<Profile> {
     setState(() {
       isLoading = false;
       btnText = 'Updated Successfully';
+      isUpdated = false;
     });
     Provider.of<Auth>(context, listen: false).updateUsername(username);
     Provider.of<Blogs>(context, listen: false).patchBlogsByUser();
+  }
+
+  void enableUpdate() {
+    setState(() {
+      isUpdated = true;
+    });
   }
 
   @override
@@ -64,6 +72,7 @@ class _ProfileState extends State<Profile> {
                         },
                         initialValue: profile.username,
                         decoration: kUsernameFieldInputDecoration,
+                        onTap: enableUpdate,
                         style: TextStyle(
                             fontFamily: 'Noto',
                             fontWeight: FontWeight.w500,
@@ -84,6 +93,7 @@ class _ProfileState extends State<Profile> {
                             borderRadius: BorderRadius.all(kRoundedRadius)),
                         child: TextFormField(
                           initialValue: profile.userDetails,
+                          onTap: enableUpdate,
                           maxLines: 99,
                           decoration: kUserDetailsFieldInputDecoration,
                           style: TextStyle(
@@ -101,9 +111,9 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             GestureDetector(
-              onTap: onProfileSave,
+              onTap: isUpdated ? onProfileSave : null,
               child: Container(
-                color: Colors.lightBlueAccent,
+                color: isUpdated ? Colors.lightBlueAccent : Colors.grey[400],
                 width: double.infinity,
                 child: Align(
                   alignment: Alignment.center,

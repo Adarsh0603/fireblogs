@@ -27,21 +27,14 @@ class Blogs with ChangeNotifier {
     return _userBlogs.reversed.toList();
   }
 
-  void resetFetchingBooleans(
-      [bool value = true, bool calledByPaginator = false]) {
+  void resetFetchingBooleans([bool value = true]) {
     reFetch = value;
-    if (calledByPaginator) return;
-    reFetchUserBlogs = true;
   }
 
   void resetDataOnLogout() {
     reFetch = true;
     reFetchUserBlogs = true;
     selectedDate = DateTime.now();
-  }
-
-  void setReFetchUserBlogs() {
-    reFetchUserBlogs = false;
   }
 
   Map<String, dynamic> get getWeekData {
@@ -77,7 +70,6 @@ class Blogs with ChangeNotifier {
     final responseData = jsonDecode(response.body);
     final blog = Blog(responseData['name'], userId, blogTitle, blogContent,
         _username, blogTopic, blogDate, blogDateFMT, imageUrl, fitImage);
-    _blogs.add(blog);
     _userBlogs.add(blog);
     notifyListeners();
     reFetch = true;
@@ -87,11 +79,7 @@ class Blogs with ChangeNotifier {
     final url =
         "https://fireblogs-da7f6.firebaseio.com/blogs/$blogId.json?auth=$authToken";
     await http.delete(url);
-    final index = _blogs.indexWhere((element) => element.id == blogId);
-
     _userBlogs.removeWhere((element) => element.id == blogId);
-    _blogs.removeAt(index);
-
     notifyListeners();
   }
 
@@ -119,12 +107,10 @@ class Blogs with ChangeNotifier {
           'fitImage': fitImage
         }));
 
-    final index = _blogs.indexWhere((element) => element.id == blogId);
     final userBlogsIndex =
         _userBlogs.indexWhere((element) => element.id == blogId);
     final blog = Blog(blogId, userId, blogTitle, blogContent, _username,
         blogTopic, blogDate, blogDateFMT, imageUrl, fitImage);
-    _blogs[index] = blog;
     _userBlogs[userBlogsIndex] = blog;
 
     notifyListeners();
@@ -158,19 +144,13 @@ class Blogs with ChangeNotifier {
   }
 
   Future<void> fetchBlogsFromFirebase(
-      [bool filter = false, DateType dateType = DateType.today]) async {
-    if (reFetchUserBlogs == false && reFetch == false) return;
+      [DateType dateType = DateType.today]) async {
+    if (reFetch == false) return;
     reFetch = false;
-    Map<String, String> weekMap;
-    if (filter != true) weekMap = selectWeek(dateType);
+    Map<String, String> weekMap = selectWeek(dateType);
 
-    String urlSegment;
-    if (filter) {
-      urlSegment = 'orderBy="authorId"&equalTo="$userId"';
-    } else {
-      urlSegment =
-          'orderBy="blogDateFMT"&startAt="${weekMap['startDate']}"&endAt="${weekMap['endDate']}"';
-    }
+    String urlSegment =
+        'orderBy="blogDateFMT"&startAt="${weekMap['startDate']}"&endAt="${weekMap['endDate']}"';
 
     final url =
         'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
@@ -191,10 +171,39 @@ class Blogs with ChangeNotifier {
           blog['imageUrl'],
           blog['fitImage']));
     });
-    if (filter)
-      _userBlogs = fetchedBlogs;
-    else
-      _blogs = fetchedBlogs;
+
+    _blogs = fetchedBlogs;
+    notifyListeners();
+  }
+
+  Future<void> fetchUserBlogsFromFirebase() async {
+    if (reFetchUserBlogs == false) return;
+    reFetchUserBlogs = false;
+
+    String urlSegment = 'orderBy="authorId"&equalTo="$userId"';
+
+    final url =
+        'https://fireblogs-da7f6.firebaseio.com/blogs.json?auth=$authToken&$urlSegment';
+    final response = await http.get(url);
+    print('[fetchUserBlogsFromFirebase]-API CALL');
+    final blogsData = jsonDecode(response.body) as Map<String, dynamic>;
+    List<Blog> fetchedBlogs = [];
+    blogsData.forEach((id, blog) {
+      fetchedBlogs.add(Blog(
+          id,
+          blog['authorId'],
+          blog['blogTitle'],
+          blog['blogContent'],
+          blog['authorName'],
+          blog['blogTopic'],
+          blog['blogDate'],
+          blog['blogDateFMT'],
+          blog['imageUrl'],
+          blog['fitImage']));
+    });
+
+    _userBlogs = fetchedBlogs;
+    print(_userBlogs.length);
     notifyListeners();
   }
 
