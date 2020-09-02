@@ -81,6 +81,7 @@ class Blogs with ChangeNotifier {
     await http.delete(url);
     _userBlogs.removeWhere((element) => element.id == blogId);
     notifyListeners();
+    reFetch = true;
   }
 
   Future<void> updateBlog(

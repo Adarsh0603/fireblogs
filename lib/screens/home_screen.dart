@@ -44,10 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.only(right: 16.0),
                   child: NormalLoader(
                     size: 14,
+                    color: Colors.grey,
                   ),
                 )
               : IconButton(
-                  icon: Icon(Icons.refresh),
+                  icon: Icon(
+                    Icons.refresh,
+                    color: Colors.grey,
+                  ),
                   onPressed: () async {
                     setState(() {
                       isLoading = true;

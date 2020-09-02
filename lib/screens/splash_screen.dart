@@ -10,16 +10,16 @@ class SplashScreen extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           CustomLoader(),
-          Positioned(
-            top: 420,
-            child: Text(
-              'fireblogs',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 36,
-                  color: Colors.orange),
-            ),
-          ),
+//          Positioned(
+//            top: 420,
+//            child: Text(
+//              'fireblogs',
+//              style: TextStyle(
+//                  fontWeight: FontWeight.bold,
+//                  fontSize: 36,
+//                  color: Colors.orange),
+//            ),
+//          ),
         ],
       ),
     );
