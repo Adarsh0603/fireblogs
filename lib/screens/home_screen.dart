@@ -32,10 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
           tag: 'title',
           child: Text(
             'fireblogs',
-            style: TextStyle(
-                color: Colors.orange,
-                fontSize: 28,
-                fontWeight: FontWeight.bold),
+            style: kFireTitleTextStyle,
           ),
         ),
         actions: [

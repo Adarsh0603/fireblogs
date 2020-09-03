@@ -17,9 +17,9 @@ class UserBlogItem extends StatelessWidget {
     final width = MediaQuery.of(context).size.width * 0.25;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 8),
+      padding: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
       child: GestureDetector(
-        onTap: !sameUser
+        onTap: sameUser
             ? null
             : () {
                 Navigator.push(
@@ -119,7 +119,7 @@ class UserBlogItem extends StatelessWidget {
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         child: Text(
                           'Read',
-                          style: TextStyle(color: Colors.blue),
+                          style: TextStyle(color: Colors.black),
                         ),
                         onPressed: () {
                           Navigator.push(
@@ -133,7 +133,7 @@ class UserBlogItem extends StatelessWidget {
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         child: Text(
                           'Edit',
-                          style: TextStyle(color: Colors.blue),
+                          style: TextStyle(color: Colors.black),
                         ),
                         onPressed: () {
                           Navigator.of(context).pushNamed(

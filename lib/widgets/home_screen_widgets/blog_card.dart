@@ -15,7 +15,8 @@ class BlogCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final blog = Provider.of<Blogs>(context).findBlogById(blogId);
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, bottom: 32.0, top: 8.0),
+      padding:
+          const EdgeInsets.only(left: 16.0, bottom: 16.0, top: 8.0, right: 8),
       child: Material(
         elevation: 4,
         shadowColor: Colors.white,

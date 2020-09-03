@@ -43,20 +43,29 @@ class _AuthScreenState extends State<AuthScreen> {
       setState(() {
         isLoading = false;
       });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       floatingActionButton: Builder(
         builder: (ctx) => CircleAvatar(
           radius: 28,
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.orange,
           child: isLoading
-              ? CircularProgressIndicator(
-                  backgroundColor: Colors.black,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ? Container(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.black,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
                 )
               : IconButton(
                   icon: Icon(
@@ -78,7 +87,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       FlatButton(
                         splashColor: Colors.transparent,
@@ -118,8 +127,9 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      if (isLogin) SizedBox(height: 50),
                       GreetingsWidget(greetingName.trim(), isLogin),
-                      SizedBox(height: 50),
+                      SizedBox(height: isLogin ? 10 : 50),
                       if (!isLogin)
                         TextFormField(
                           validator: (value) {
@@ -220,6 +230,7 @@ class _GreetingsWidgetState extends State<GreetingsWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (widget.isLogin) Text('fireblogs', style: kFireTitleTextStyle),
         if (!widget.isLogin)
           RichText(
             text: TextSpan(
@@ -242,7 +253,7 @@ class _GreetingsWidgetState extends State<GreetingsWidget> {
           ),
         if (!widget.isLogin)
           Text(
-            'Welcome to FireBlogs.\nCreate a New Account',
+            'Welcome to fireblogs.\nCreate a New Account',
             style: kGreetingContentStyle,
           )
       ],

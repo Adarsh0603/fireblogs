@@ -4,6 +4,8 @@ import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/models/blog.dart';
 import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
+import 'package:fireblogs/widgets/network_builder.dart';
+import 'package:fireblogs/widgets/no_network_flag.dart';
 import 'package:fireblogs/widgets/user_blog_item.dart';
 import 'package:fireblogs/widgets/user_details_screen_widgets/publisher_details.dart';
 import 'package:flutter/material.dart';
@@ -62,33 +64,36 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
         title: Text('', style: kAppBarTextStyle),
         backgroundColor: kAppBarColor,
       ),
-      body: SafeArea(
-        child: FutureBuilder(
-          future: getUserData(),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            return snapshot.connectionState == ConnectionState.waiting
-                ? NormalLoader()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      PublisherDetails(username, userDetails: userDetails),
-                      SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 0, bottom: 8, left: 24, right: 16.0),
-                        child: Text('BLOGS', style: kBlogsLabelTextStyle),
-                      ),
-                      Expanded(
-                          child: ListView.builder(
-                              itemCount: userBlogsList.length,
-                              itemBuilder: (ctx, i) => UserBlogItem(
-                                    userBlogsList[i],
-                                    false,
-                                    elevation: 1,
-                                  )))
-                    ],
-                  );
-          },
+      body: NetworkBuilder(
+        offlineChild: NoNetworkFlag(),
+        child: SafeArea(
+          child: FutureBuilder(
+            future: getUserData(),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              return snapshot.connectionState == ConnectionState.waiting
+                  ? NormalLoader()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        PublisherDetails(username, userDetails: userDetails),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 0, bottom: 8, left: 24, right: 16.0),
+                          child: Text('BLOGS', style: kBlogsLabelTextStyle),
+                        ),
+                        Expanded(
+                            child: ListView.builder(
+                                itemCount: userBlogsList.length,
+                                itemBuilder: (ctx, i) => UserBlogItem(
+                                      userBlogsList[i],
+                                      false,
+                                      elevation: 1,
+                                    )))
+                      ],
+                    );
+            },
+          ),
         ),
       ),
     );

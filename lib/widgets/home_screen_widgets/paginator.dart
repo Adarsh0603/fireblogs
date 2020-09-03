@@ -62,6 +62,8 @@ class _PaginatorState extends State<Paginator> {
             IconButton(
                 constraints: BoxConstraints(maxHeight: 30),
                 icon: Icon(Icons.chevron_right),
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
                 onPressed: !blogs.selectedDate
                         .isBefore(DateTime.now().subtract(Duration(days: 8)))
                     ? null

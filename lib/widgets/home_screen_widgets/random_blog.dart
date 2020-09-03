@@ -34,7 +34,12 @@ class RandomBlog extends StatelessWidget {
         width: double.infinity,
         height: width,
         child: blog == null
-            ? Center(child: Text('No blogs found in this week'))
+            ? Center(
+                child: Text(
+                'No blogs found in this week',
+                style:
+                    TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
+              ))
             : Row(
                 children: [
                   RandomBlogImage(

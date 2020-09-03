@@ -56,13 +56,10 @@ class _HomeState extends State<Home> {
           ),
           child: _children[_currentIndex]),
       bottomNavigationBar: BottomNavigationBar(
-//        showSelectedLabels: false,
-//        showUnselectedLabels: false,
         selectedFontSize: 12,
         unselectedItemColor: Colors.black,
         selectedItemColor: Colors.orange,
         backgroundColor: Colors.white,
-//        elevation: 2,
         onTap: onTabTapped, // new
 
         currentIndex: _currentIndex,

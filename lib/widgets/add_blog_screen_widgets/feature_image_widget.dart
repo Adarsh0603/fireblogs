@@ -1,3 +1,4 @@
+import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -14,11 +15,10 @@ class FeatureImage extends StatelessWidget {
       child: Container(
         width: double.infinity,
         color: Colors.grey[200],
-        child: FadeInImage.memoryNetwork(
-          image: imageUrl,
-          fit: fitImage ? BoxFit.contain : BoxFit.cover,
-          placeholder: kTransparentImage,
-        ),
+        child: Image.network(imageUrl, loadingBuilder: (ctx, widget, progress) {
+          if (progress == null) return widget;
+          return Center(child: NormalLoader(bgColor: Colors.grey[200]));
+        }, fit: !fitImage ? BoxFit.cover : BoxFit.contain),
       ),
     );
   }

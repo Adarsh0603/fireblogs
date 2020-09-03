@@ -11,7 +11,6 @@ class Auth with ChangeNotifier {
   String _userId;
   String _refreshToken;
   DateTime _expiryDate;
-  Timer _authTimer;
   String _username;
 
   bool get isAuth {
@@ -159,17 +158,11 @@ class Auth with ChangeNotifier {
     _expiryDate = null;
     _refreshToken = null;
     _userId = null;
-    if (_authTimer != null) {
-      _authTimer.cancel();
-      _authTimer = null;
-    }
+
     notifyListeners();
   }
 
   void _autoRefreshToken() {
-    if (_authTimer != null) {
-      _authTimer.cancel();
-    }
     final timeToExpiry = _expiryDate.difference(DateTime.now()).inSeconds;
     Timer(Duration(seconds: timeToExpiry - 10), _getNewToken);
   }

@@ -18,7 +18,15 @@ class HelpDialog extends StatelessWidget {
                       fontWeight: FontWeight.w500, color: Colors.grey[600])),
               TextSpan(
                   text:
-                      '\nThen copy the url from the browser\'s search bar.\n\nYou can also use any gif\'s link to add a GIF as the blog image.'),
+                      '\nThen copy the url from the browser\'s search bar.\n\nYou can also use any gif\'s link to add a GIF as the blog image.\nClick '),
+              WidgetSpan(
+                child: Icon(
+                  Icons.done,
+                  size: 18,
+                  color: Colors.blue,
+                ),
+              ),
+              TextSpan(text: ' to see the preview.'),
             ]),
       ),
       actions: [

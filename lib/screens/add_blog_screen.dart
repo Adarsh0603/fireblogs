@@ -246,6 +246,8 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                             validator: (value) {
                               if (value.isEmpty)
                                 return 'Blog Title is required';
+                              if (value.length > 80)
+                                return 'Blog Title must not exceed 80 characters';
                               return null;
                             },
                             textCapitalization: TextCapitalization.sentences,
@@ -262,6 +264,9 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                             validator: (value) {
                               if (value.isEmpty)
                                 return 'Blog Topic is required';
+                              if (value.length > 30)
+                                return 'Blog Topic must not exceed 30 characters';
+                              return 'Blog Topic is required';
                               return null;
                             },
                             textCapitalization: TextCapitalization.sentences,
@@ -283,8 +288,8 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                           Expanded(
                             child: TextFormField(
                               validator: (value) {
-                                if (value.length < 200)
-                                  return 'Content should be atleast 200 characters';
+                                if (value.length < 300)
+                                  return 'Content should be atleast 300 characters';
                                 return null;
                               },
                               textCapitalization: TextCapitalization.sentences,

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+const kFireTitleTextStyle =
+    TextStyle(color: Colors.orange, fontSize: 28, fontWeight: FontWeight.bold);
 const kAppBarElevation = 1.0;
 const kAppBarColor = Colors.white;
 const kAppBarTextStyle =
@@ -34,21 +36,20 @@ const kImageUrlFieldInputDecoration = InputDecoration(
         'https://images.unsplash.com/photo-1489844097929-c8d5b91c456e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
     contentPadding: EdgeInsets.only(top: 8, bottom: 8, left: 8, right: 8),
     border: InputBorder.none);
-const kAuthInputFieldDecoration = InputDecoration(
-  labelText: '',
-);
+const kAuthInputFieldDecoration =
+    InputDecoration(labelText: '', labelStyle: TextStyle(color: Colors.black));
 
 const kAuthButtonTextStyle = TextStyle(
   fontSize: 18,
   color: Colors.grey,
 );
 const kAuthButtonSelectedTextStyle = TextStyle(
-  fontSize: 22,
+  fontSize: 18,
   fontWeight: FontWeight.bold,
   color: Colors.black,
 );
 
-const kGreetingTextStyle = TextStyle(color: Colors.black, fontSize: 32);
+const kGreetingTextStyle = TextStyle(color: Colors.orange, fontSize: 32);
 const kGreetingNameStyle =
     TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 32);
 const kGreetingContentStyle = TextStyle(color: Colors.grey, fontSize: 18);

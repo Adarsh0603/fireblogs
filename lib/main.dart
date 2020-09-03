@@ -1,3 +1,4 @@
+import 'package:fireblogs/constants.dart';
 import 'package:fireblogs/data/auth.dart';
 import 'package:fireblogs/data/blogs.dart';
 import 'package:fireblogs/data/userProfile.dart';
@@ -6,7 +7,10 @@ import 'package:fireblogs/screens/auth_screen.dart';
 import 'package:fireblogs/screens/home.dart';
 import 'package:fireblogs/screens/splash_screen.dart';
 import 'package:fireblogs/screens/user_blogs_screen.dart';
+import 'package:fireblogs/widgets/network_builder.dart';
+import 'package:fireblogs/widgets/no_network_flag.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -16,6 +20,8 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -41,14 +47,25 @@ class MyApp extends StatelessWidget {
           title: 'FireBlogs',
           home: auth.isAuth
               ? Home()
-              : FutureBuilder(
-                  future: auth.tryAutoLogin(),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    return snapshot.connectionState == ConnectionState.waiting
-                        ? SplashScreen()
-                        : AuthScreen();
-                  },
+              : NetworkBuilder(
+                  offlineChild: Scaffold(
+                    backgroundColor: Colors.white,
+                    body: Column(
+                      children: [
+                        Expanded(child: Image.asset('images/1.gif')),
+                        NoNetworkFlag(),
+                      ],
+                    ),
+                  ),
+                  child: FutureBuilder(
+                    future: auth.tryAutoLogin(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<dynamic> snapshot) {
+                      return snapshot.connectionState == ConnectionState.waiting
+                          ? SplashScreen()
+                          : AuthScreen();
+                    },
+                  ),
                 ),
           routes: {
             AddBlogScreen.routeName: (ctx) => AddBlogScreen(),
