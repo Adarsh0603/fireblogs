@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             cursorColor: Colors.black,
           ),
-          title: 'FireBlogs',
+          title: 'fireblogs',
           home: auth.isAuth
               ? Home()
               : NetworkBuilder(

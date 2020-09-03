@@ -37,7 +37,10 @@ class _AuthScreenState extends State<AuthScreen> {
     } on HttpException catch (e) {
       Scaffold.of(context).hideCurrentSnackBar();
       Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
+        content: Text(
+          e.toString(),
+          style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
+        ),
         duration: Duration(seconds: 2),
       ));
       setState(() {
@@ -63,7 +66,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   width: 24,
                   height: 24,
                   child: CircularProgressIndicator(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Colors.orange,
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 )
@@ -101,6 +104,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         onPressed: () {
                           setState(() {
                             isLogin = true;
+                            _passwordController.text = "";
                           });
                         },
                       ),
@@ -116,6 +120,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         onPressed: () {
                           setState(() {
                             isLogin = false;
+                            _passwordController.text = "";
                           });
                         },
                       ),
@@ -253,7 +258,7 @@ class _GreetingsWidgetState extends State<GreetingsWidget> {
           ),
         if (!widget.isLogin)
           Text(
-            'Welcome to fireblogs.\nCreate a New Account',
+            'Welcome to fireblogs.',
             style: kGreetingContentStyle,
           )
       ],

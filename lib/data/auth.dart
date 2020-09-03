@@ -198,19 +198,19 @@ class Auth with ChangeNotifier {
     final message = errorMap['error']['message'];
     switch (message) {
       case 'INVALID_EMAIL':
-        exceptionMessage = 'The email is invalid';
+        exceptionMessage = 'The email is invalid.';
         break;
       case 'EMAIL_NOT_FOUND':
         exceptionMessage = "This email does not exist.";
         break;
       case 'EMAIL_EXISTS':
-        exceptionMessage = 'The email already exists';
+        exceptionMessage = 'This email already exists.';
         break;
       case 'INVALID_PASSWORD':
-        exceptionMessage = 'The password is invalid.Try again';
+        exceptionMessage = 'The password is invalid. Try again.';
         break;
       case 'WEAK_PASSWORD':
-        exceptionMessage = 'The password must be 6 characters long or more.';
+        exceptionMessage = 'The password must be atleast 6 characters long ';
         break;
       default:
         exceptionMessage =

@@ -37,7 +37,7 @@ const kImageUrlFieldInputDecoration = InputDecoration(
     contentPadding: EdgeInsets.only(top: 8, bottom: 8, left: 8, right: 8),
     border: InputBorder.none);
 const kAuthInputFieldDecoration =
-    InputDecoration(labelText: '', labelStyle: TextStyle(color: Colors.black));
+    InputDecoration(labelText: '', labelStyle: TextStyle(color: Colors.grey));
 
 const kAuthButtonTextStyle = TextStyle(
   fontSize: 18,
@@ -52,7 +52,8 @@ const kAuthButtonSelectedTextStyle = TextStyle(
 const kGreetingTextStyle = TextStyle(color: Colors.orange, fontSize: 32);
 const kGreetingNameStyle =
     TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 32);
-const kGreetingContentStyle = TextStyle(color: Colors.grey, fontSize: 18);
+const kGreetingContentStyle =
+    TextStyle(color: Colors.black38, fontWeight: FontWeight.w500, fontSize: 18);
 
 const kBlogTopicTextStyle =
     TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold);
