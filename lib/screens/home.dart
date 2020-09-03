@@ -1,8 +1,15 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:fireblogs/constants.dart';
+import 'package:fireblogs/data/blogs.dart';
+import 'package:fireblogs/data/userProfile.dart';
 import 'package:fireblogs/screens/home_screen.dart';
 import 'package:fireblogs/screens/profile_screen.dart';
+import 'package:fireblogs/screens/splash_screen.dart';
 import 'package:fireblogs/screens/user_blogs_screen.dart';
+import 'package:fireblogs/widgets/network_builder.dart';
+import 'package:fireblogs/widgets/no_network_flag.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -18,6 +25,18 @@ class _HomeState extends State<Home> {
     HomeScreen(),
     ProfileScreen(),
   ];
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    Connectivity().onConnectivityChanged.listen((result) {
+      if (result != ConnectivityResult.none) if (mounted)
+        setState(() {
+          Provider.of<Blogs>(context, listen: false).restartApp();
+          Provider.of<UserProfile>(context, listen: false).restartApp();
+        });
+    });
+  }
 
   void onTabTapped(int index) {
     setState(() {
@@ -28,7 +47,14 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _children[_currentIndex],
+      body: NetworkBuilder(
+          offlineChild: Column(
+            children: [
+              Expanded(child: SplashScreen()),
+              NoNetworkFlag(),
+            ],
+          ),
+          child: _children[_currentIndex]),
       bottomNavigationBar: BottomNavigationBar(
 //        showSelectedLabels: false,
 //        showUnselectedLabels: false,

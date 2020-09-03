@@ -1,3 +1,6 @@
+import 'package:fireblogs/widgets/network_builder.dart';
+import 'package:fireblogs/widgets/no_network_flag.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SubmitButton extends StatelessWidget {
@@ -8,25 +11,28 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        color: Colors.grey[200],
-        height: 50,
-        child: Center(
-            child: isLoading
-                ? Container(
-                    height: 24,
-                    width: 24,
-                    child: CircularProgressIndicator(
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(Colors.grey[400]),
-                    ),
-                  )
-                : Text(
-                    btnText,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )),
+    return NetworkBuilder(
+      offlineChild: NoNetworkFlag(),
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Container(
+          color: Colors.grey[200],
+          height: 50,
+          child: Center(
+              child: isLoading
+                  ? Container(
+                      height: 24,
+                      width: 24,
+                      child: CircularProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Colors.grey[400]),
+                      ),
+                    )
+                  : Text(
+                      btnText,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+        ),
       ),
     );
   }

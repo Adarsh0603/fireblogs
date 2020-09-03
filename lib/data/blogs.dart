@@ -27,6 +27,11 @@ class Blogs with ChangeNotifier {
     return _userBlogs.reversed.toList();
   }
 
+  void restartApp() {
+    reFetchUserBlogs = true;
+    reFetch = true;
+  }
+
   void resetFetchingBooleans([bool value = true]) {
     reFetch = value;
   }

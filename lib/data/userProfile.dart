@@ -12,6 +12,9 @@ class UserProfile with ChangeNotifier {
   String _userDetails;
 
   bool reFetchUserProfile = true;
+  void restartApp() {
+    reFetchUserProfile = true;
+  }
 
   void update(String token, String user, String userName) {
     _authToken = token;
