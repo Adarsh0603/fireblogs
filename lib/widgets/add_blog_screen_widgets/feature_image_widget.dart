@@ -1,6 +1,5 @@
 import 'package:fireblogs/widgets/add_blog_screen_widgets/normal_loader.dart';
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class FeatureImage extends StatelessWidget {
   final String imageUrl;

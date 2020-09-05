@@ -55,7 +55,7 @@ class _PaginatorState extends State<Paginator> {
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
               icon: Icon(Icons.chevron_left),
-              onPressed: !blogs.selectedDate.isAfter(DateTime.utc(2020, 07, 27))
+              onPressed: !blogs.selectedDate.isAfter(DateTime.utc(2020, 08, 26))
                   ? null
                   : () => onClick(DateType.older),
             ),

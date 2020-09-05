@@ -8,7 +8,7 @@ class RandomBlogImage extends StatelessWidget {
   final double elevation;
   final bool rounded;
   RandomBlogImage(
-      {this.width, this.blogImage, this.elevation = 0, this.rounded = false});
+      {this.width, this.blogImage, this.elevation = 8, this.rounded = true});
 
   @override
   Widget build(BuildContext context) {

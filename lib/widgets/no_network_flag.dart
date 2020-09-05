@@ -4,7 +4,7 @@ class NoNetworkFlag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: MediaQuery.of(context).size.height * 0.08,
       width: double.infinity,
       color: Colors.red,
       padding: EdgeInsets.all(16),

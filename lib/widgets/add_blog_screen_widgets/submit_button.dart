@@ -17,7 +17,7 @@ class SubmitButton extends StatelessWidget {
         onTap: onPressed,
         child: Container(
           color: Colors.grey[200],
-          height: 50,
+          height: MediaQuery.of(context).size.height * 0.08,
           child: Center(
               child: isLoading
                   ? Container(

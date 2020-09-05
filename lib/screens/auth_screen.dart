@@ -31,9 +31,10 @@ class _AuthScreenState extends State<AuthScreen> {
       if (isLogin)
         await Provider.of<Auth>(context, listen: false)
             .signIn(email.trim(), password.trim());
-      else
+      else {
         await Provider.of<Auth>(context, listen: false)
             .signUp(email.trim(), password.trim(), username.trim());
+      }
     } on HttpException catch (e) {
       Scaffold.of(context).hideCurrentSnackBar();
       Scaffold.of(context).showSnackBar(SnackBar(
@@ -256,11 +257,12 @@ class _GreetingsWidgetState extends State<GreetingsWidget> {
               ],
             ),
           ),
-        if (!widget.isLogin)
-          Text(
-            'Welcome to fireblogs.',
-            style: kGreetingContentStyle,
-          )
+        Text(
+          widget.isLogin
+              ? 'Login to Your Fireblogs Account'
+              : 'Welcome to Fireblogs',
+          style: kGreetingContentStyle,
+        )
       ],
     );
   }

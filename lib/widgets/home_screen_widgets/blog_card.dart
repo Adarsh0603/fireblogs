@@ -18,7 +18,7 @@ class BlogCard extends StatelessWidget {
       padding:
           const EdgeInsets.only(left: 16.0, bottom: 16.0, top: 8.0, right: 8),
       child: Material(
-        elevation: 4,
+        elevation: 8,
         shadowColor: Colors.white,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(kRoundedRadius)),

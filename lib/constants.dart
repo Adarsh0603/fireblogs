@@ -49,11 +49,12 @@ const kAuthButtonSelectedTextStyle = TextStyle(
   color: Colors.black,
 );
 
-const kGreetingTextStyle = TextStyle(color: Colors.orange, fontSize: 32);
+const kGreetingTextStyle =
+    TextStyle(color: Colors.orange, fontSize: 24, fontWeight: FontWeight.w500);
 const kGreetingNameStyle =
     TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 32);
 const kGreetingContentStyle =
-    TextStyle(color: Colors.black38, fontWeight: FontWeight.w500, fontSize: 18);
+    TextStyle(color: Colors.black38, fontWeight: FontWeight.w500, fontSize: 16);
 
 const kBlogTopicTextStyle =
     TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold);
